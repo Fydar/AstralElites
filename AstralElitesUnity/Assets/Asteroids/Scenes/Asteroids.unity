@@ -10271,7 +10271,7 @@ MonoBehaviour:
   volumeLayer:
     serializedVersion: 2
     m_Bits: 256
-  stopNaNPropagation: 1
+  stopNaNPropagation: 0
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
   temporalAntialiasing:
@@ -20290,7 +20290,7 @@ GameObject:
   - component: {fileID: 1207388128}
   - component: {fileID: 1207388129}
   - component: {fileID: 1207388130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}

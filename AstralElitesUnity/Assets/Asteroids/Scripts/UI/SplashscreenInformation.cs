@@ -25,12 +25,11 @@ public class SplashscreenInformation : MonoBehaviour
 
 		if (Debug.isDebugBuild)
 		{
-			Info.text = string.Format ("Version {0}\nby {1}", Application.version, Application.companyName);
+			Info.text = string.Format ("Version {0}\nby {1}\nDevelopment Build", Application.version, Application.companyName);
 		}
 		else
 		{
-			Info.text = string.Format ("Version {0}\nby {1}\nDevelopment Build", Application.version, Application.companyName);
+			Info.text = string.Format ("Version {0}\nby {1}", Application.version, Application.companyName);
 		}
-
 	}
 }
