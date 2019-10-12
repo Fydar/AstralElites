@@ -30,9 +30,9 @@ public class DiscordController : MonoBehaviour
 
 		presence.details = string.Format ("Highscore: {0}", highscore.ToString ("###,###"));
 		presence.largeImageKey = rank.DiscordAsset;
-		presence.largeImageText = "Rank: " + rank.name;
+		presence.largeImageText = "Rank: " + rank.DisplayName;
 
-		Log.Log ("Setting Highscore: " + highscore.ToString ("###,###") + ", rank of " + rank.name);
+		Log.Log ("Setting Highscore: " + highscore.ToString ("###,###") + ", rank of " + rank.DisplayName);
 
 		DiscordRpc.UpdatePresence (presence);
 	}

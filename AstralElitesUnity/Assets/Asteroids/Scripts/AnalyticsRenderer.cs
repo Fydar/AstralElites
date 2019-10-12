@@ -54,7 +54,7 @@ public class AnalyticsRenderer : MonoBehaviour
 		ScoreText.text = gameManager.Score.Value.ToString ("###.###");
 
 		var rank = Rank.GetRank (gameManager.Score.Value);
-		RankText.text = rank.name;
+		RankText.text = rank.DisplayName;
 
 		if (RankDisplay != null)
 		{

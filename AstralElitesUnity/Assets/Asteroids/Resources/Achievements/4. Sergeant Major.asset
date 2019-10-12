@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b170f004ef49b428a770dcdc453caf, type: 3}
   m_Name: 4. Sergeant Major
   m_EditorClassIdentifier: 
+  DisplayName: Sergeant Major
   DiscordAsset: sergeant_major
   RequiredScore: 10000
   Render:

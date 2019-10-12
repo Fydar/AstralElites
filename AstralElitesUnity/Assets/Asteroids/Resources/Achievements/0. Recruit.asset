@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b170f004ef49b428a770dcdc453caf, type: 3}
   m_Name: 0. Recruit
   m_EditorClassIdentifier: 
+  DisplayName: Recruit
   DiscordAsset: recruit
   RequiredScore: 0
   Render:

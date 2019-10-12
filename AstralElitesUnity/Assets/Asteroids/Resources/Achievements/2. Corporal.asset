@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b170f004ef49b428a770dcdc453caf, type: 3}
   m_Name: 2. Corporal
   m_EditorClassIdentifier: 
+  DisplayName: Corporal
   DiscordAsset: corporal
   RequiredScore: 2500
   Render:

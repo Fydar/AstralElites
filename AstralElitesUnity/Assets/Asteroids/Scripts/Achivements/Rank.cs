@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "Rank")]
 public class Rank : ScriptableObject
 {
+	public string DisplayName = "Asset";
 	public string DiscordAsset = "Asset";
 	public int RequiredScore = 1000;
 
@@ -14,7 +15,7 @@ public class Rank : ScriptableObject
 	private static Rank[] Ranks;
 
 	public static Rank GetRank (int score)
-	{
+	{	
 		if (Ranks == null)
 		{
 			var ranks = new List<Rank> (Resources.LoadAll<Rank> ("Achievements"));
