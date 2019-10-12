@@ -88,14 +88,17 @@ public class GameManager : MonoBehaviour
 
 				HUD.SetActive (true);
 				if (Community != null)
+				{
 					Community.SetActive (false);
+				}
+
 				End.SetActive (false);
 			}
 		};
 		hasStarted = true;
 	}
 
-	void OnApplicationFocus (bool hasFocus)
+	private void OnApplicationFocus (bool hasFocus)
 	{
 		if (hasStarted)
 		{
@@ -130,9 +133,13 @@ public class GameManager : MonoBehaviour
 	public void UI_TogglePause ()
 	{
 		if (paused)
+		{
 			UI_Unpause ();
+		}
 		else
+		{
 			UI_Pause ();
+		}
 	}
 
 	public void UI_Pause ()
@@ -144,11 +151,17 @@ public class GameManager : MonoBehaviour
 	public void UI_Unpause ()
 	{
 		if (!paused)
+		{
 			return;
+		}
+
 		Time.timeScale = 1.0f;
 		paused = false;
 		if (Community != null)
+		{
 			Community.SetActive (false);
+		}
+
 		Interpolator.TargetValue = 0.0f;
 
 		AudioManager.Play (ClosePauseMenu);
@@ -162,15 +175,24 @@ public class GameManager : MonoBehaviour
 	private void Pause ()
 	{
 		if (playState != PlayState.Playing)
+		{
 			return;
+		}
+
 		if (paused)
+		{
 			return;
+		}
+
 		Debug.Log ("Pausing");
 		Time.timeScale = 0.0f;
 		paused = true;
 
 		if (Community != null)
+		{
 			Community.SetActive (true);
+		}
+
 		Interpolator.TargetValue = 1.0f;
 	}
 
@@ -203,7 +225,9 @@ public class GameManager : MonoBehaviour
 		HUD.SetActive (false);
 		End.SetActive (true);
 		if (Community != null)
+		{
 			Community.SetActive (true);
+		}
 
 		DiscordController.Instance.EndGame (Score.Value);
 		analytic.EndCapture ();
@@ -217,6 +241,8 @@ public class GameManager : MonoBehaviour
 		instance.Score.Value += score;
 
 		if (instance.Highscore.Value < instance.Score.Value)
+		{
 			instance.Highscore.Value = instance.Score.Value;
+		}
 	}
 }

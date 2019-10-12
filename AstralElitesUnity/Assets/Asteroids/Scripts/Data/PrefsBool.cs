@@ -29,7 +29,9 @@ public class PrefsBool : GlobalBool
 			SetBool (PlayerPrefsKey, currentValue);
 
 			if (OnChanged != null)
+			{
 				OnChanged ();
+			}
 		}
 	}
 
@@ -52,7 +54,7 @@ public class PrefsBool : GlobalBool
 		{
 			DrawDefaultInspector ();
 
-			PrefsBool prefsBool = (PrefsBool)target;
+			var prefsBool = (PrefsBool)target;
 
 			EditorGUILayout.LabelField ("Current Value", PrefsBool.GetBool (prefsBool.PlayerPrefsKey, false).ToString ());
 

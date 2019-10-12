@@ -19,7 +19,9 @@ public class GlobalValue<T> : ScriptableObject
 			currentValue = value;
 
 			if (OnChanged != null)
+			{
 				OnChanged ();
+			}
 		}
 	}
 }

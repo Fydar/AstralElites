@@ -35,9 +35,11 @@ public class AudioSourcePool
 	public AudioSource Grab ()
 	{
 		if (Pool.Count == currentGrabIndex)
+		{
 			ExpandPool ();
+		}
 
-		AudioSource item = Pool[currentGrabIndex];
+		var item = Pool[currentGrabIndex];
 		item.enabled = true;
 		currentGrabIndex++;
 
@@ -46,8 +48,10 @@ public class AudioSourcePool
 
 	public void Flush ()
 	{
-		foreach (AudioSource item in Pool)
+		foreach (var item in Pool)
+		{
 			item.enabled = false;
+		}
 
 		currentGrabIndex = 0;
 	}
@@ -57,7 +61,9 @@ public class AudioSourcePool
 		int itemIndex = Pool.IndexOf (item);
 
 		if (itemIndex == -1)
+		{
 			Debug.LogError ("Item being returned to the pool doesn't belong in it.");
+		}
 
 		Pool.RemoveAt (itemIndex);
 		Pool.Add (item);

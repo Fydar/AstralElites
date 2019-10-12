@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
 
 		if (hit.transform != null && hit.distance < moveDistance && hit.transform.gameObject != Owner)
 		{
-			Asteroid asteroid = hit.transform.gameObject.GetComponent<Asteroid> ();
+			var asteroid = hit.transform.gameObject.GetComponent<Asteroid> ();
 
 			if (asteroid != null)
 			{

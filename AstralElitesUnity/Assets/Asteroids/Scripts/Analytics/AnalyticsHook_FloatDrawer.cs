@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 [CustomPropertyDrawer (typeof (AnalyticsHook_Float))]
 public class AnalyticsHook_FloatDrawer : PropertyDrawer
@@ -17,23 +17,27 @@ public class AnalyticsHook_FloatDrawer : PropertyDrawer
 
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
 	{
-		Rect labelRect = new Rect (position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-		Rect graphRect = new Rect (position.x, labelRect.yMax, position.width, position.yMax - labelRect.yMax);
+		var labelRect = new Rect (position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+		var graphRect = new Rect (position.x, labelRect.yMax, position.width, position.yMax - labelRect.yMax);
 
 		EditorGUI.LabelField (labelRect, label);
 
 		EditorGUI.DrawRect (graphRect, new Color (0.1f, 0.1f, 0.1f, 1.0f));
 
-		AnalyticsHook_Float target = (AnalyticsHook_Float)GetTargetObjectOfProperty (property);
+		var target = (AnalyticsHook_Float)GetTargetObjectOfProperty (property);
 
 		if (target == null || target.data == null)
+		{
 			return;
+		}
 
 		float maxValue = float.MinValue;
 		for (int i = 0; i < target.data.Count; i++)
+		{
 			maxValue = Mathf.Max (maxValue, target.data[i]);
+		}
 
-		Vector3[] graphInfo = new Vector3[target.data.Count];
+		var graphInfo = new Vector3[target.data.Count];
 		for (int i = 0; i < target.data.Count; i++)
 		{
 			float time = (float)i / (target.data.Count - 1);
@@ -53,16 +57,16 @@ public class AnalyticsHook_FloatDrawer : PropertyDrawer
 
 	public static object GetTargetObjectOfProperty (SerializedProperty prop)
 	{
-		var path = prop.propertyPath.Replace (".Array.data[", "[");
+		string path = prop.propertyPath.Replace (".Array.data[", "[");
 		object obj = prop.serializedObject.targetObject;
-		var elements = path.Split ('.');
+		string[] elements = path.Split ('.');
 
-		foreach (var element in elements)
+		foreach (string element in elements)
 		{
 			if (element.Contains ("["))
 			{
-				var elementName = element.Substring (0, element.IndexOf ("["));
-				var index = System.Convert.ToInt32 (element.Substring (element.IndexOf ("[")).Replace ("[", "").Replace ("]", ""));
+				string elementName = element.Substring (0, element.IndexOf ("["));
+				int index = System.Convert.ToInt32 (element.Substring (element.IndexOf ("[")).Replace ("[", "").Replace ("]", ""));
 				obj = GetValue_Imp (obj, elementName, index);
 			}
 			else
@@ -76,18 +80,25 @@ public class AnalyticsHook_FloatDrawer : PropertyDrawer
 	private static object GetValue_Imp (object source, string name)
 	{
 		if (source == null)
+		{
 			return null;
+		}
+
 		var type = source.GetType ();
 
 		while (type != null)
 		{
 			var f = type.GetField (name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 			if (f != null)
+			{
 				return f.GetValue (source);
+			}
 
 			var p = type.GetProperty (name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
 			if (p != null)
+			{
 				return p.GetValue (source, null);
+			}
 
 			type = type.BaseType;
 		}
@@ -99,14 +110,18 @@ public class AnalyticsHook_FloatDrawer : PropertyDrawer
 		var enumerable = GetValue_Imp (source, name) as System.Collections.IEnumerable;
 
 		if (enumerable == null)
+		{
 			return null;
+		}
 
 		var enm = enumerable.GetEnumerator ();
 
 		for (int i = 0; i <= index; i++)
 		{
 			if (!enm.MoveNext ())
+			{
 				return null;
+			}
 		}
 		return enm.Current;
 	}

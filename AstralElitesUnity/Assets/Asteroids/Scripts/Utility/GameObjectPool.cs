@@ -46,9 +46,11 @@ public class GameObjectPool<T>
 		}
 
 		if (pool.Count == currentGrabIndex)
+		{
 			ExpandPool (parent);
+		}
 
-		T item = pool[currentGrabIndex];
+		var item = pool[currentGrabIndex];
 		item.gameObject.SetActive (true);
 
 #if UNITY_EDITOR
@@ -73,7 +75,9 @@ public class GameObjectPool<T>
 		if (pool.Count == 0)
 		{
 			if (Reuse)
+			{
 				pool.Add (Template);
+			}
 			else
 			{
 				Template.gameObject.SetActive (false);
@@ -83,7 +87,7 @@ public class GameObjectPool<T>
 			}
 		}
 
-		foreach (T item in pool)
+		foreach (var item in pool)
 		{
 			item.gameObject.SetActive (false);
 #if UNITY_EDITOR
@@ -99,10 +103,14 @@ public class GameObjectPool<T>
 		int itemIndex = pool.IndexOf (item);
 
 		if (itemIndex == -1)
+		{
 			Debug.LogError ("Item being returned to the pool doesn't belong in it.");
+		}
 
 		if (item.gameObject.activeInHierarchy == false)
+		{
 			Debug.LogError ("Item already cached in the pool");
+		}
 
 		pool.RemoveAt (itemIndex);
 		pool.Add (item);
@@ -115,9 +123,9 @@ public class GameObjectPool<T>
 
 	private void ExpandPool (Transform parent)
 	{
-		GameObject clone = GameObject.Instantiate (Template.gameObject, parent) as GameObject;
+		var clone = GameObject.Instantiate (Template.gameObject, parent) as GameObject;
 
-		T button = clone.GetComponent<T> ();
+		var button = clone.GetComponent<T> ();
 		pool.Add (button);
 	}
 }

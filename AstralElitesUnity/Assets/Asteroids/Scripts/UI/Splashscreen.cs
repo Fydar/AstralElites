@@ -24,8 +24,7 @@ public class Splashscreen : MonoBehaviour
 	public State state;
 
 	private IInterpolator ProgressInterpolator;
-
-	int awaitAnimationID;
+	private int awaitAnimationID;
 
 	private void Awake ()
 	{
@@ -48,7 +47,9 @@ public class Splashscreen : MonoBehaviour
 	{
 		string sceneToLoad = SceneName;
 		if (!DiscordTOS.Value)
+		{
 			sceneToLoad = TosScene;
+		}
 
 		state = State.Loading;
 		var async = SceneManager.LoadSceneAsync (sceneToLoad, LoadSceneMode.Additive);
@@ -64,10 +65,13 @@ public class Splashscreen : MonoBehaviour
 
 		while (true)
 		{
-			AnimatorStateInfo animStateInfo = ScreenAnimation.GetCurrentAnimatorStateInfo (0);
+			var animStateInfo = ScreenAnimation.GetCurrentAnimatorStateInfo (0);
 
 			if (animStateInfo.shortNameHash == awaitAnimationID)
+			{
 				break;
+			}
+
 			yield return null;
 		}
 

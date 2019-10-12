@@ -9,7 +9,7 @@ public abstract class Chart_Basic : Graphic
 	public void SetData (Chart_Point[] points)
 	{
 		Points = points;
-		this.SetVerticesDirty ();
+		SetVerticesDirty ();
 	}
 
 	public void SetData (float[] values)
@@ -35,7 +35,7 @@ public abstract class Chart_Basic : Graphic
 				Points[i] = new Chart_Point ((float)i / (Points.Length - 1), value / maxValue);
 			}
 		}
-		this.SetVerticesDirty ();
+		SetVerticesDirty ();
 	}
 
 	public void SetNormalizedData (float[] values)
@@ -45,14 +45,14 @@ public abstract class Chart_Basic : Graphic
 		{
 			Points[i] = new Chart_Point ((float)i / (Points.Length - 1), values[i]);
 		}
-		this.SetVerticesDirty ();
+		SetVerticesDirty ();
 	}
 
 	protected override void OnPopulateMesh (VertexHelper vh)
 	{
 		vh.Clear ();
 
-		Rect rect = rectTransform.rect;
+		var rect = rectTransform.rect;
 
 		int vertIndex = 0;
 

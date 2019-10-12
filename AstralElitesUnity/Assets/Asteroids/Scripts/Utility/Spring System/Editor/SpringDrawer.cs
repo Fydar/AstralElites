@@ -5,7 +5,7 @@ using UnityEngine;
 [CustomPropertyDrawer (typeof (Spring))]
 public class SpringDrawer : PropertyDrawer
 {
-	int samples = 32;
+	private int samples = 32;
 
 	public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
 	{
@@ -14,17 +14,17 @@ public class SpringDrawer : PropertyDrawer
 
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
 	{
-		Rect springPowerRect = new Rect (position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+		var springPowerRect = new Rect (position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
-		Rect springDamperRect = new Rect (position.x, springPowerRect.yMax + EditorGUIUtility.standardVerticalSpacing,
+		var springDamperRect = new Rect (position.x, springPowerRect.yMax + EditorGUIUtility.standardVerticalSpacing,
 			position.width, EditorGUIUtility.singleLineHeight);
 
-		Rect remainingRect = new Rect (position.x, springDamperRect.yMax + EditorGUIUtility.standardVerticalSpacing,
+		var remainingRect = new Rect (position.x, springDamperRect.yMax + EditorGUIUtility.standardVerticalSpacing,
 			position.width, position.yMax - springDamperRect.yMax);
 
 
-		SerializedProperty springPowerProperty = property.FindPropertyRelative ("Power");
-		SerializedProperty springDamperProperty = property.FindPropertyRelative ("Damper");
+		var springPowerProperty = property.FindPropertyRelative ("Power");
+		var springDamperProperty = property.FindPropertyRelative ("Damper");
 
 		EditorGUI.PropertyField (springPowerRect, springPowerProperty);
 		EditorGUI.PropertyField (springDamperRect, springDamperProperty);
@@ -34,9 +34,9 @@ public class SpringDrawer : PropertyDrawer
 			//EditorStyles.helpBox.Draw(remainingRect, GUIContent.none, 0);
 			EditorGUI.DrawRect (remainingRect, new Color (0.1f, 0.1f, 0.1f, 1.0f));
 
-			List<float> cache = new List<float> ();
+			var cache = new List<float> ();
 
-			Spring spring = new Spring ();
+			var spring = new Spring ();
 			spring.Power = springPowerProperty.floatValue;
 			spring.Damper = springDamperProperty.floatValue;
 
@@ -48,7 +48,7 @@ public class SpringDrawer : PropertyDrawer
 			}
 
 			Handles.BeginGUI ();
-			Vector3[] graphInfo = new Vector3[cache.Count];
+			var graphInfo = new Vector3[cache.Count];
 
 			for (int i = 0; i < cache.Count; i++)
 			{
@@ -60,7 +60,9 @@ public class SpringDrawer : PropertyDrawer
 					Mathf.Lerp (remainingRect.yMax, remainingRect.yMin, value), 0);
 
 				if (i != 0)
+				{
 					Handles.DrawLine (graphInfo[i - 1], graphInfo[i]);
+				}
 			}
 
 			Handles.color = Color.green;
@@ -71,7 +73,7 @@ public class SpringDrawer : PropertyDrawer
 		}
 	}
 
-	void DrawLine (Vector3 start, Vector3 end)
+	private void DrawLine (Vector3 start, Vector3 end)
 	{
 
 	}

@@ -16,14 +16,16 @@ public class ScreenManager : MonoBehaviour
 	private void Awake ()
 	{
 		if (cam == null)
+		{
 			cam = Camera.main;
+		}
 
 		Recalculate ();
 	}
 
 	private void Update ()
 	{
-		Vector2 resolution = new Vector2 (Screen.height, Screen.width);
+		var resolution = new Vector2 (Screen.height, Screen.width);
 
 		if (lastResolution != resolution)
 		{
@@ -35,8 +37,8 @@ public class ScreenManager : MonoBehaviour
 
 	private void Recalculate ()
 	{
-		Ray minRay = cam.ViewportPointToRay (Vector3.zero);
-		Ray maxRay = cam.ViewportPointToRay (Vector3.one);
+		var minRay = cam.ViewportPointToRay (Vector3.zero);
+		var maxRay = cam.ViewportPointToRay (Vector3.one);
 
 		MinPosition = new Vector3 (minRay.origin.x, minRay.origin.y);
 		MaxPosition = new Vector3 (maxRay.origin.x, maxRay.origin.y);
@@ -44,7 +46,7 @@ public class ScreenManager : MonoBehaviour
 		Scale = new Vector2 (MaxPosition.x - MinPosition.x,
 			MaxPosition.y - MinPosition.y);
 
-		foreach (Transform scaleObject in ScaleToScene)
+		foreach (var scaleObject in ScaleToScene)
 		{
 			scaleObject.localScale = new Vector3 (Scale.x, Scale.y, scaleObject.localScale.z);
 		}
@@ -52,8 +54,8 @@ public class ScreenManager : MonoBehaviour
 
 	public static void Clamp (Transform target, float border = 0.0f)
 	{
-		Vector3 minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
-		Vector3 maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
+		var minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
+		var maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
 
 		if (target.position.x < minPosition.x)
 		{
@@ -76,8 +78,8 @@ public class ScreenManager : MonoBehaviour
 
 	public static bool IsOutside (Vector3 position, float border = 0.0f)
 	{
-		Vector3 minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
-		Vector3 maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
+		var minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
+		var maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
 
 		if (position.x < minPosition.x)
 		{
@@ -102,8 +104,8 @@ public class ScreenManager : MonoBehaviour
 
 	public static Vector3 RandomBorderPoint (float border = 0.0f)
 	{
-		Vector3 minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
-		Vector3 maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
+		var minPosition = new Vector3 (MinPosition.x + border, MinPosition.y + border);
+		var maxPosition = new Vector3 (MaxPosition.x - border, MaxPosition.y - border);
 
 		float rand = Random.value;
 		switch (Random.Range (0, 4))

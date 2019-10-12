@@ -69,7 +69,7 @@ public class DiscordArtManifestEditor : Editor
 
 		DrawDefaultInspector ();
 
-		DiscordArtManifest manifest = (DiscordArtManifest)target;
+		var manifest = (DiscordArtManifest)target;
 
 		if (manifest.Assets != null)
 		{
@@ -77,13 +77,15 @@ public class DiscordArtManifestEditor : Editor
 			{
 				EditorGUILayout.BeginVertical (EditorStyles.helpBox);
 
-				Rect elementRect = GUILayoutUtility.GetRect (0, 42);
+				var elementRect = GUILayoutUtility.GetRect (0, 42);
 
-				Rect iconRect = new Rect (elementRect.x, elementRect.y, elementRect.height, elementRect.height);
-				Rect labelRect = new Rect (iconRect.xMax + 8, elementRect.y, elementRect.xMax - iconRect.xMax - 8, elementRect.height);
+				var iconRect = new Rect (elementRect.x, elementRect.y, elementRect.height, elementRect.height);
+				var labelRect = new Rect (iconRect.xMax + 8, elementRect.y, elementRect.xMax - iconRect.xMax - 8, elementRect.height);
 
 				if (element.Image != null)
+				{
 					GUI.DrawTexture (iconRect, element.Image);
+				}
 
 				EditorGUI.LabelField (labelRect, element.Name, labelStyle);
 
@@ -100,13 +102,15 @@ public class DiscordArtManifestEditor : Editor
 	private IEnumerator Download ()
 	{
 		ClearManifest ();
-		DiscordArtManifest manifest = (DiscordArtManifest)target;
+		var manifest = (DiscordArtManifest)target;
 		manifest.Assets = new List<DiscordArtAsset> ();
 
-		UnityWebRequest assetListRequest = UnityWebRequest.Get (AssetListEndpoint);
+		var assetListRequest = UnityWebRequest.Get (AssetListEndpoint);
 		var listRequest = assetListRequest.SendWebRequest ();
 		while (!listRequest.isDone)
+		{
 			yield return null;
+		}
 
 		var assetData = (DiscordArtAssetData[])new DataContractJsonSerializer (typeof (DiscordArtAssetData[]))
 			.ReadObject (new MemoryStream (assetListRequest.downloadHandler.data));
@@ -115,14 +119,16 @@ public class DiscordArtManifestEditor : Editor
 		{
 			string formattedArtAssetEndpoint = string.Format (ArtAssetEndpoint, data.id);
 
-			UnityWebRequest artAssetDownload = UnityWebRequestTexture.GetTexture (formattedArtAssetEndpoint);
+			var artAssetDownload = UnityWebRequestTexture.GetTexture (formattedArtAssetEndpoint);
 
 			var request = artAssetDownload.SendWebRequest ();
 
 			while (!request.isDone)
+			{
 				yield return null;
+			}
 
-			Texture2D artAssetTexture = ((DownloadHandlerTexture)artAssetDownload.downloadHandler).texture;
+			var artAssetTexture = ((DownloadHandlerTexture)artAssetDownload.downloadHandler).texture;
 
 			artAssetTexture = ChangeFormat (artAssetTexture, TextureFormat.RGB24);
 			artAssetTexture.name = ObjectNames.NicifyVariableName (data.name);
@@ -136,12 +142,12 @@ public class DiscordArtManifestEditor : Editor
 
 	private void ClearManifest ()
 	{
-		UnityEngine.Object[] objects = AssetDatabase.LoadAllAssetsAtPath (
+		var objects = AssetDatabase.LoadAllAssetsAtPath (
 			AssetDatabase.GetAssetPath (target));
 
 		for (int i = 0; i < objects.Length; i++)
 		{
-			UnityEngine.Object obj = objects[i];
+			var obj = objects[i];
 
 			if (obj.GetType () == typeof (Texture2D))
 			{
@@ -154,7 +160,7 @@ public class DiscordArtManifestEditor : Editor
 
 	public static Texture2D ChangeFormat (Texture2D oldTexture, TextureFormat newFormat)
 	{
-		Texture2D newTex = new Texture2D (oldTexture.width, oldTexture.height, newFormat, false);
+		var newTex = new Texture2D (oldTexture.width, oldTexture.height, newFormat, false);
 		newTex.SetPixels (oldTexture.GetPixels ());
 		newTex.Apply ();
 

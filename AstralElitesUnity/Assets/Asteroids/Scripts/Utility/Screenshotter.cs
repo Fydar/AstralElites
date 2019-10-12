@@ -40,7 +40,9 @@ namespace Husky
 		{
 			string folder = OutputPath;
 			if (!Directory.Exists (folder))
+			{
 				Directory.CreateDirectory (folder);
+			}
 
 			string now = DateTime.Now.ToString ("MM-dd-yyy HH-mm-ss");
 			string basicFile = Path.Combine (folder, "Screenshot " + now);
@@ -65,7 +67,9 @@ namespace Husky
 		private static void Init ()
 		{
 			if (CaptureKey == KeyCode.None)
+			{
 				return;
+			}
 
 			var obj = new GameObject ("Screenshotter")
 			{

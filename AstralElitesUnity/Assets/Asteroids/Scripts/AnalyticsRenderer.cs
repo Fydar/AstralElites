@@ -37,7 +37,9 @@ public class AnalyticsRenderer : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		if (gameManager == null)
+		{
 			return;
+		}
 
 		ScoreChartA.SetData (manager.scoreHook.data.ToArray ());
 		ScoreChartB.SetData (manager.scoreHook.data.ToArray ());
@@ -55,7 +57,9 @@ public class AnalyticsRenderer : MonoBehaviour
 		RankText.text = rank.name;
 
 		if (RankDisplay != null)
+		{
 			RankDisplay.RenderRank (rank);
+		}
 
 		TotalAsteroidsText.text = gameManager.AsteroidsDestroyed.Value.ToString ();
 		PerformanceText.text = (gameManager.AsteroidsDestroyed.Value / gameManager.GameDuration)

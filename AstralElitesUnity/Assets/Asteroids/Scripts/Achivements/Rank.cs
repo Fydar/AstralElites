@@ -17,17 +17,17 @@ public class Rank : ScriptableObject
 	{
 		if (Ranks == null)
 		{
-			List<Rank> ranks = new List<Rank> (Resources.LoadAll<Rank> ("Achievements"));
+			var ranks = new List<Rank> (Resources.LoadAll<Rank> ("Achievements"));
 			ranks.Sort (SortRanks);
 
 			Ranks = ranks.ToArray ();
 		}
 
-		Rank lastRank = Ranks[0];
+		var lastRank = Ranks[0];
 
 		for (int i = 1; i < Ranks.Length; i++)
 		{
-			Rank currentRank = Ranks[i];
+			var currentRank = Ranks[i];
 
 			if (currentRank.RequiredScore > score)
 			{

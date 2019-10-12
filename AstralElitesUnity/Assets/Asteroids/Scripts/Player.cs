@@ -84,14 +84,18 @@ public class Player : MonoBehaviour
 		Revive ();
 	}
 
-	Vector3 lastPosition;
+	private Vector3 lastPosition;
 
 	private void Update ()
 	{
 		if (Health.Value < 45 && Health.Value > 0)
+		{
 			AlarmFade.TargetValue = 1.0f;
+		}
 		else
+		{
 			AlarmFade.TargetValue = 0.0f;
+		}
 
 		ScrapingFade.TargetValue = Contacting.Count == 0 ? 0.0f : 1.0f;
 
@@ -105,7 +109,7 @@ public class Player : MonoBehaviour
 
 		var ray = cam.ScreenPointToRay (Input.mousePosition);
 
-		Vector3 scenePoint = ray.origin + (ray.direction * 10);
+		var scenePoint = ray.origin + (ray.direction * 10);
 
 		float AngleRad = Mathf.Atan2 (scenePoint.y - transform.position.y,
 			scenePoint.x - transform.position.x);
@@ -127,7 +131,9 @@ public class Player : MonoBehaviour
 		}
 
 		if (canFire && isAlive)
+		{
 			DistanceTravelled.Value += (lastPosition - transform.position).magnitude;
+		}
 
 		lastPosition = transform.position;
 	}
@@ -135,10 +141,14 @@ public class Player : MonoBehaviour
 	private void FixedUpdate ()
 	{
 		if (!isAlive)
+		{
 			return;
+		}
 
 		if (canFire)
+		{
 			ScreenManager.Clamp (transform, border);
+		}
 
 		if (Input.GetMouseButton (0))
 		{
@@ -146,7 +156,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			Vector3 movementDirection = new Vector3 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), 0);
+			var movementDirection = new Vector3 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), 0);
 			rb.AddForce (movementDirection * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
 		}
 
@@ -165,11 +175,13 @@ public class Player : MonoBehaviour
 			AudioManager.Play (HitSound);
 		}
 
-		Asteroid collidingAsteroid = collision.gameObject.GetComponent<Asteroid> ();
+		var collidingAsteroid = collision.gameObject.GetComponent<Asteroid> ();
 		if (collidingAsteroid != null)
 		{
 			if (OnCollide != null)
+			{
 				OnCollide (collision);
+			}
 
 			Contacting.Add (collidingAsteroid);
 
@@ -189,14 +201,18 @@ public class Player : MonoBehaviour
 	private void Fire ()
 	{
 		if (!isAlive)
+		{
 			return;
+		}
 
 		if (!canFire)
+		{
 			return;
+		}
 
 		AudioManager.Play (ShootSound);
 
-		Projectile clone = WeaponProjectile.Grab ();
+		var clone = WeaponProjectile.Grab ();
 		clone.transform.SetPositionAndRotation (transform.position, transform.rotation);
 		clone.LifetimeRemaining = clone.Lifetime;
 

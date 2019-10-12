@@ -24,7 +24,9 @@ public class IntAnimator : MonoBehaviour
 	private void Update ()
 	{
 		if (currentValue > Value.Value)
+		{
 			currentValue = Value.Value;
+		}
 
 		if (currentValue != Value.Value)
 		{

@@ -25,21 +25,25 @@ public class CursorStyleEditor : Editor
 	{
 		DrawDefaultInspector ();
 
-		Rect rect = GUILayoutUtility.GetRect (0, 64);
+		var rect = GUILayoutUtility.GetRect (0, 64);
 		GUI.Box (rect, GUIContent.none, EditorStyles.helpBox);
 
 
-		CursorStyle style = (CursorStyle)target;
+		var style = (CursorStyle)target;
 
 		if (rect.Contains (Event.current.mousePosition))
 		{
 			if (CursorManager.CurrentStyle != style)
+			{
 				CursorManager.SetCursor (style);
+			}
 		}
 		else
 		{
 			if (CursorManager.CurrentStyle != CursorManager.GetStyle ("Default"))
+			{
 				CursorManager.SetCursor (CursorManager.GetStyle ("Default"));
+			}
 		}
 
 		EditorGUIUtility.AddCursorRect (rect, MouseCursor.CustomCursor);

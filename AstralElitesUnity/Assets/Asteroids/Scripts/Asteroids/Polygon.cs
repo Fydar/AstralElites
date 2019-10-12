@@ -60,7 +60,7 @@ public struct Polygon
 		return new Polygon (points);
 	}
 
-	static Vector2 FindIntersection (Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
+	private static Vector2 FindIntersection (Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
 	{
 		float a1 = e1.y - s1.y;
 		float b1 = s1.x - e1.x;

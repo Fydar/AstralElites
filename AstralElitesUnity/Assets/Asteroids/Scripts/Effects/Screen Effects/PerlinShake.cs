@@ -7,7 +7,7 @@ public class PerlinShake : MonoBehaviour
 	public float magnitude = 0.1f;
 
 	public AnimationCurve falloff;
-	
+
 	private float elapsed;
 	private float intencity;
 

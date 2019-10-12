@@ -26,7 +26,7 @@ public class DiscordController : MonoBehaviour
 
 	public void SetHighscore (int highscore)
 	{
-		Rank rank = Rank.GetRank (highscore);
+		var rank = Rank.GetRank (highscore);
 
 		presence.details = string.Format ("Highscore: {0}", highscore.ToString ("###,###"));
 		presence.largeImageKey = rank.DiscordAsset;
@@ -59,9 +59,9 @@ public class DiscordController : MonoBehaviour
 		DiscordRpc.UpdatePresence (presence);
 	}
 
-	IEnumerator DownloadAvatar (DiscordRpc.DiscordUser connectedUser)
+	private IEnumerator DownloadAvatar (DiscordRpc.DiscordUser connectedUser)
 	{
-		UnityWebRequest www = UnityWebRequestTexture.GetTexture (string.Format (GetProfileAddress, connectedUser.userId, connectedUser.avatar));
+		var www = UnityWebRequestTexture.GetTexture (string.Format (GetProfileAddress, connectedUser.userId, connectedUser.avatar));
 		yield return www.SendWebRequest ();
 
 		if (www.isNetworkError || www.isHttpError)
@@ -73,7 +73,7 @@ public class DiscordController : MonoBehaviour
 		}
 		else
 		{
-			Texture2D avatarIcon = ((DownloadHandlerTexture)www.downloadHandler).texture;
+			var avatarIcon = ((DownloadHandlerTexture)www.downloadHandler).texture;
 
 			PopupManager.instance.GetPopup<DiscordLoginPopup> ().DisplayPopup (
 				string.Format ("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), avatarIcon);
@@ -89,7 +89,9 @@ public class DiscordController : MonoBehaviour
 		StartCoroutine (DownloadAvatar (connectedUser));
 
 		if (OnConnect != null)
+		{
 			OnConnect (connectedUser);
+		}
 	}
 
 	public void DisconnectedCallback (int errorCode, string message)
@@ -97,7 +99,9 @@ public class DiscordController : MonoBehaviour
 		Log.Log (string.Format ("Disconnected {0}: {1}", errorCode, message));
 
 		if (OnDisconnect != null)
+		{
 			OnDisconnect ();
+		}
 	}
 
 	public void ErrorCallback (int errorCode, string message)

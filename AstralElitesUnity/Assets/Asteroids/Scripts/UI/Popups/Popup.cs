@@ -11,7 +11,7 @@ public class Popup : MonoBehaviour
 
 	protected IEnumerator PlayRoutine ()
 	{
-		TimedLoop loop = new TimedLoop (FadeInTime, true);
+		var loop = new TimedLoop (FadeInTime, true);
 
 		foreach (float time in loop)
 		{

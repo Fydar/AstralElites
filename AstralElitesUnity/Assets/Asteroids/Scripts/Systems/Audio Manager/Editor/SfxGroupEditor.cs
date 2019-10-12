@@ -14,7 +14,7 @@ public class SfxGroupEditor : Editor
 
 		if (typeof (SfxGroup).IsAssignableFrom (asset.GetType ()))
 		{
-			SfxGroup group = (SfxGroup)asset;
+			var group = (SfxGroup)asset;
 			PreviewGroup (group);
 			return true;
 		}
@@ -23,7 +23,7 @@ public class SfxGroupEditor : Editor
 
 	public override void OnInspectorGUI ()
 	{
-		SfxGroup group = (SfxGroup)target;
+		var group = (SfxGroup)target;
 
 		DrawDefaultInspector ();
 
@@ -36,7 +36,7 @@ public class SfxGroupEditor : Editor
 
 	public static AudioClip PreviewGroup (SfxGroup group)
 	{
-		AudioClip clip = group.GetClip ();
+		var clip = group.GetClip ();
 		PlayClip (clip, group);
 		return clip;
 	}
@@ -45,7 +45,7 @@ public class SfxGroupEditor : Editor
 	{
 		var go = EditorUtility.CreateGameObjectWithHideFlags ("PLAY_AUDIO_TEMP", HideFlags.HideAndDontSave);
 
-		AudioSource source = go.AddComponent<AudioSource> ();
+		var source = go.AddComponent<AudioSource> ();
 		source.clip = clip;
 		source.volume = UnityEngine.Random.Range (group.VolumeRange.x, group.VolumeRange.y);
 		source.pitch = UnityEngine.Random.Range (group.PitchRange.x, group.PitchRange.y);

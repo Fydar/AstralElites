@@ -5,14 +5,14 @@ public class EditorCoroutine
 {
 	public static EditorCoroutine Start (IEnumerator _routine)
 	{
-		EditorCoroutine coroutine = new EditorCoroutine (_routine);
+		var coroutine = new EditorCoroutine (_routine);
 		coroutine.StartInternal ();
 		return coroutine;
 	}
 
 	private readonly IEnumerator routine;
 
-	EditorCoroutine (IEnumerator _routine)
+	private EditorCoroutine (IEnumerator _routine)
 	{
 		routine = _routine;
 	}

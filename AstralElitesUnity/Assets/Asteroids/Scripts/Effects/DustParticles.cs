@@ -50,9 +50,9 @@ public class DustParticles : MonoBehaviour
 
 	}
 
-	void OnParticleCollision (GameObject other)
+	private void OnParticleCollision (GameObject other)
 	{
-		Player player = other.GetComponent<Player> ();
+		var player = other.GetComponent<Player> ();
 
 		if (player != null)
 		{

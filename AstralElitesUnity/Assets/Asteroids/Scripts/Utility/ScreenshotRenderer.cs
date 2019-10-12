@@ -17,18 +17,17 @@ public class ScreenshotRenderer : MonoBehaviour
 	{
 		if (Input.GetKeyDown (Capture))
 		{
-
-			RenderTexture rt = new RenderTexture (resWidth, resHeight, 24);
+			var rt = new RenderTexture (resWidth, resHeight, 24);
 
 			rt.antiAliasing = 8;
 
 			camera.targetTexture = rt;
-			Texture2D screenShot = new Texture2D (resWidth, resHeight, TextureFormat.RGBA32, false);
+			var screenShot = new Texture2D (resWidth, resHeight, TextureFormat.RGBA32, false);
 			camera.Render ();
 			RenderTexture.active = rt;
 			screenShot.ReadPixels (new Rect (0, 0, resWidth, resHeight), 0, 0);
 			camera.targetTexture = null;
-			RenderTexture.active = null; // JC: added to avoid errors
+			RenderTexture.active = null;
 			Destroy (rt);
 
 			byte[] bytes = screenShot.EncodeToPNG ();

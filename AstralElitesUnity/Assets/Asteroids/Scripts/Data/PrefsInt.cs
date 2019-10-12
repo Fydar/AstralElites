@@ -28,7 +28,9 @@ public class PrefsInt : GlobalInt
 			PlayerPrefs.SetInt (PlayerPrefsKey, currentValue);
 
 			if (OnChanged != null)
+			{
 				OnChanged ();
+			}
 		}
 	}
 
@@ -40,7 +42,7 @@ public class PrefsInt : GlobalInt
 		{
 			DrawDefaultInspector ();
 
-			PrefsInt prefsBool = (PrefsInt)target;
+			var prefsBool = (PrefsInt)target;
 
 			EditorGUILayout.LabelField ("Current Value", PlayerPrefs.GetInt (prefsBool.PlayerPrefsKey).ToString ());
 

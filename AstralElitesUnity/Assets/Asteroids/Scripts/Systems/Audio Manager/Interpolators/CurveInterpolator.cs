@@ -50,13 +50,19 @@ public struct CurveInterpolator : IInterpolator
 	public void Update (float deltaTime)
 	{
 		if (Sleeping)
+		{
 			return;
+		}
 
 		float movementAmount = Speed * deltaTime;
 
 		if (currentValue < targetValue)
+		{
 			currentValue = Mathf.Min (currentValue + movementAmount, targetValue);
+		}
 		else
+		{
 			currentValue = Mathf.Max (currentValue - movementAmount, targetValue);
+		}
 	}
 }

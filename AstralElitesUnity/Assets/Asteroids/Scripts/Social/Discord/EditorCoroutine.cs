@@ -6,13 +6,14 @@ public class EditorCoroutine
 {
 	public static EditorCoroutine Start (IEnumerator _routine)
 	{
-		EditorCoroutine coroutine = new EditorCoroutine (_routine);
+		var coroutine = new EditorCoroutine (_routine);
 		coroutine.Start ();
 		return coroutine;
 	}
 
-	readonly IEnumerator routine;
-	EditorCoroutine (IEnumerator _routine)
+	private readonly IEnumerator routine;
+
+	private EditorCoroutine (IEnumerator _routine)
 	{
 		routine = _routine;
 	}
@@ -26,7 +27,7 @@ public class EditorCoroutine
 		EditorApplication.update -= update;
 	}
 
-	void update ()
+	private void update ()
 	{
 		if (!routine.MoveNext ())
 		{

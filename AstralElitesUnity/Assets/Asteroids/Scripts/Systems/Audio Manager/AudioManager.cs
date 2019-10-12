@@ -7,9 +7,9 @@ public class AudioManager : MonoBehaviour
 	private static AudioManager instance;
 
 	[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
-	static void OnRuntimeMethodLoad ()
+	private static void OnRuntimeMethodLoad ()
 	{
-		GameObject audioManager = new GameObject ("Audio Manager");
+		var audioManager = new GameObject ("Audio Manager");
 		DontDestroyOnLoad (audioManager);
 
 		instance = audioManager.AddComponent<AudioManager> ();
@@ -55,25 +55,25 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-	void OnApplicationFocus (bool hasFocus)
+	private void OnApplicationFocus (bool hasFocus)
 	{
 		interpolator.TargetValue = hasFocus ? 1.0f : 0.0f;
 	}
 
-	void OnApplicationPause (bool pauseStatus)
+	private void OnApplicationPause (bool pauseStatus)
 	{
 	}
 
 	public void PlayClip (SfxGroup group)
 	{
-		AudioSource source = Pool.Grab ();
+		var source = Pool.Grab ();
 
 		source.clip = group.GetClip ();
 		source.volume = UnityEngine.Random.Range (group.VolumeRange.x, group.VolumeRange.y);
 		source.pitch = UnityEngine.Random.Range (group.PitchRange.x, group.PitchRange.y);
 		source.loop = false;
 
-		AudioSourceAnimator animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
+		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
 		Animators.Add (animator);
 
 		source.Play ();
@@ -82,14 +82,14 @@ public class AudioManager : MonoBehaviour
 
 	public void PlayClip (LoopGroup group, EffectFader fader)
 	{
-		AudioSource source = Pool.Grab ();
+		var source = Pool.Grab ();
 
 		source.clip = group.LoopedAudio;
 		source.pitch = group.PitchRange.x;
 		source.volume = group.VolumeRange.x;
 		source.loop = true;
 
-		AudioSourceAnimator animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
+		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
 		Animators.Add (animator);
 
 		source.Play ();
@@ -103,14 +103,14 @@ public class AudioManager : MonoBehaviour
 
 	public void PlayMusic (MusicGroup group)
 	{
-		AudioSource source = Pool.Grab ();
+		var source = Pool.Grab ();
 
 		source.clip = group.Music[0];
 		source.volume = group.Volume;
 		source.priority = 1024;
 		source.loop = true;
 
-		AudioSourceAnimator animator = new AudioSourceAnimator (source, TabFade, MasterVolume, MusicVolume);
+		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, MusicVolume);
 		Animators.Add (animator);
 
 		source.Play ();
@@ -126,7 +126,9 @@ public class AudioManager : MonoBehaviour
 		}
 
 		if (request.asset != null)
+		{
 			PlayMusic ((MusicGroup)request.asset);
+		}
 	}
 
 	private IEnumerator ReturnToPool (AudioSourceAnimator animator)
@@ -139,7 +141,7 @@ public class AudioManager : MonoBehaviour
 
 	private IEnumerator ManageLoop (AudioSourceAnimator animator, LoopGroup group, EffectFader fader)
 	{
-		VolumeControl FadeControl = new VolumeControl (0.0f);
+		var FadeControl = new VolumeControl (0.0f);
 		animator.AddControl (FadeControl);
 		while (true)
 		{

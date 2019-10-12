@@ -12,13 +12,13 @@ public class Chart_Line : Chart_Basic
 	{
 		vh.Clear ();
 
-		Rect rect = rectTransform.rect;
+		var rect = rectTransform.rect;
 
 		int vertIndex = 0;
 
 		for (int i = 0; i < Points.Length; i++)
 		{
-			float time = (float)i / ((float)Points.Length - 1);
+			float time = i / ((float)Points.Length - 1);
 
 			float height = Points[i].Value;
 			float yPos = Mathf.Lerp (rect.yMin, rect.yMax, height);

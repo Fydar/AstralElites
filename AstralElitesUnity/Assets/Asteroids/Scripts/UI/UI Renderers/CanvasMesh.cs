@@ -10,16 +10,18 @@ public class CanvasMesh : Graphic
 		vh.Clear ();
 
 		if (mesh == null)
+		{
 			return;
+		}
 
-		Vector3 boundsSize = mesh.bounds.extents;
+		var boundsSize = mesh.bounds.extents;
 
-		Vector3 multiplier = new Vector3 ((Mathf.Abs (rectTransform.rect.width) / boundsSize.x) * -0.5f,
+		var multiplier = new Vector3 ((Mathf.Abs (rectTransform.rect.width) / boundsSize.x) * -0.5f,
 			(Mathf.Abs (rectTransform.rect.height) / boundsSize.y) * 0.5f, 0);
 
 		for (int i = 0; i < mesh.vertices.Length; i++)
 		{
-			Vector3 vertPos = mesh.vertices[i];
+			var vertPos = mesh.vertices[i];
 			vertPos.Scale (multiplier);
 			vh.AddVert (vertPos, color, Vector2.zero);
 		}

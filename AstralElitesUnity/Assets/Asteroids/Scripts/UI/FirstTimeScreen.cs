@@ -14,7 +14,7 @@ public class FirstTimeScreen : MonoBehaviour
 	public Toggle ToggleValue;
 	public Button ContinueButton;
 
-	[Header("Transition")]
+	[Header ("Transition")]
 	public string SceneName;
 
 	[Space]
@@ -44,7 +44,7 @@ public class FirstTimeScreen : MonoBehaviour
 		async = SceneManager.LoadSceneAsync (SceneName, LoadSceneMode.Additive);
 		async.allowSceneActivation = false;
 
-		TimedLoop loop = new TimedLoop (FadeInTime);
+		var loop = new TimedLoop (FadeInTime);
 
 		foreach (float time in loop)
 		{
@@ -55,7 +55,7 @@ public class FirstTimeScreen : MonoBehaviour
 
 	private IEnumerator CloseRoutine ()
 	{
-		TimedLoop loop = new TimedLoop (FadeInTime);
+		var loop = new TimedLoop (FadeInTime);
 
 		foreach (float time in loop)
 		{

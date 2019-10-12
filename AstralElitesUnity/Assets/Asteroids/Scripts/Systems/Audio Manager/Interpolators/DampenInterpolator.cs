@@ -50,7 +50,9 @@ public struct DampenInterpolator : IInterpolator
 	public void Update (float deltaTime)
 	{
 		if (Sleeping)
+		{
 			return;
+		}
 
 		currentValue = Mathf.Lerp (currentValue, targetValue, deltaTime * Speed);
 	}

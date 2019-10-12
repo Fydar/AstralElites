@@ -19,7 +19,9 @@ public class AsteroidGenerator : MonoBehaviour
 	private void Regenerate ()
 	{
 		if (!isActiveAndEnabled)
+		{
 			return;
+		}
 
 		var template = AsteroidTypes[UnityEngine.Random.Range (0, AsteroidTypes.Length)];
 

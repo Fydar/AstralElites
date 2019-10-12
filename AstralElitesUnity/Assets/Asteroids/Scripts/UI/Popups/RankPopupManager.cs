@@ -15,7 +15,7 @@ public class RankPopupManager : MonoBehaviour
 
 	private void OnHighscoreChanged ()
 	{
-		Rank rank = Rank.GetRank (Highscore.Value);
+		var rank = Rank.GetRank (Highscore.Value);
 
 		if (lastRank != rank)
 		{

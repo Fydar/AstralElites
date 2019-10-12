@@ -28,7 +28,9 @@ public class PopupManager : MonoBehaviour
 			var popup = Popups[i];
 
 			if (popup.Template.GetType () == typeof (T))
+			{
 				return (T)popup.Grab (transform);
+			}
 		}
 		return null;
 	}
@@ -40,7 +42,9 @@ public class PopupManager : MonoBehaviour
 			var popup = Popups[i];
 
 			if (popup.Template.GetType () == type)
+			{
 				return popup;
+			}
 		}
 		return null;
 	}

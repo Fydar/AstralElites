@@ -9,7 +9,7 @@ public class IntBar : MonoBehaviour
 
 	[SerializeField]
 	private Image primaryBar;
-	
+
 	[Header ("Secondary Bar")]
 
 	[SerializeField]
@@ -17,8 +17,7 @@ public class IntBar : MonoBehaviour
 
 	[SerializeField]
 	private float secondaryBarDelay = 1.0f;
-
-	float lastValue = 0.0f;
+	private float lastValue = 0.0f;
 
 	private void Start ()
 	{
@@ -32,9 +31,13 @@ public class IntBar : MonoBehaviour
 		if (secondaryBar != null)
 		{
 			if (secondaryBar.fillAmount > primaryBar.fillAmount)
+			{
 				SetImageFill (secondaryBar, Mathf.Lerp (GetFillAmount (secondaryBar), primaryBar.fillAmount, Time.deltaTime * secondaryBarDelay));
+			}
 			else
+			{
 				SetImageFill (secondaryBar, primaryBar.fillAmount);
+			}
 		}
 	}
 
@@ -42,11 +45,13 @@ public class IntBar : MonoBehaviour
 	{
 		float delta = lastValue - Target.Health.Value;
 		if (delta > 7)
+		{
 			Camera.main.GetComponent<PerlinShake> ().PlayShake (Mathf.InverseLerp (-30, 50, delta));
+		}
 
 		if (delta > 0)
 		{
-			ScreenEffect.instance.Pulse (((float)delta) / 60.0f);
+			ScreenEffect.instance.Pulse (delta / 60.0f);
 		}
 
 		float value = Target.Health.Value;
@@ -74,8 +79,12 @@ public class IntBar : MonoBehaviour
 	private float GetFillAmount (Image image)
 	{
 		if (image.type == Image.Type.Filled)
+		{
 			return image.fillAmount;
+		}
 		else
+		{
 			return image.rectTransform.anchorMax.x;
+		}
 	}
 }

@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
 {
-	[SerializeField] Text TimeText;
+	[SerializeField] private Text TimeText;
 
 	[Space]
-	[SerializeField] RectTransform HourHand;
-	[SerializeField] RectTransform MinuteHand;
+	[SerializeField] private RectTransform HourHand;
+	[SerializeField] private RectTransform MinuteHand;
 
 	private void Start ()
 	{
@@ -30,7 +30,7 @@ public class ClockManager : MonoBehaviour
 		{
 			HourHand.eulerAngles = new Vector3 (0, 0, (float)(now.TimeOfDay.TotalHours % 12.0) * -360.0f);
 		}
-		
+
 		if (MinuteHand != null)
 		{
 			MinuteHand.eulerAngles = new Vector3 (0, 0, (float)(now.TimeOfDay.Minutes / 60.0) * -360.0f);

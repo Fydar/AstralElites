@@ -60,7 +60,7 @@ namespace Utility
 			}
 		}
 
-		TimedLoop GetEnumerator ()
+		private TimedLoop GetEnumerator ()
 		{
 			return this;
 		}
@@ -105,12 +105,18 @@ namespace Utility
 		public bool MoveNext ()
 		{
 			if (unscaled)
+			{
 				time += UnityEngine.Time.unscaledDeltaTime;
+			}
 			else
+			{
 				time += UnityEngine.Time.deltaTime;
+			}
 
 			if (time < duration)
+			{
 				return true;
+			}
 
 			if (endNext == false)
 			{

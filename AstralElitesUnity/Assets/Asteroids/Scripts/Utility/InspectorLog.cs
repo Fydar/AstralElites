@@ -26,7 +26,9 @@ public class InspectorLog
 		{
 			Debug.Log ("Executing");
 			if (OnClick != null)
+			{
 				OnClick ();
+			}
 		}
 	}
 
@@ -57,7 +59,7 @@ public class InspectorLogDrawer : PropertyDrawer
 
 	public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
 	{
-		SerializedProperty logItems = property.FindPropertyRelative ("FullLog");
+		var logItems = property.FindPropertyRelative ("FullLog");
 
 		int logItemsCount = logItems.arraySize;
 
@@ -72,13 +74,15 @@ public class InspectorLogDrawer : PropertyDrawer
 
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
 	{
-		SerializedProperty logItems = property.FindPropertyRelative ("FullLog");
+		var logItems = property.FindPropertyRelative ("FullLog");
 
 		int logItemsCount = logItems.arraySize;
 		int logSize = 12;
 
 		if (position != lastPosition || logSize != lastLogSize)
+		{
 			RecalculateRects (position, logSize);
+		}
 
 		if (logItemsCount > logSize)
 		{
@@ -142,17 +146,21 @@ public class InspectorLogDrawer : PropertyDrawer
 					int index = i + offset;
 
 					if (index < 0)
+					{
 						continue;
+					}
 
 					if (index >= logItemsCount)
+					{
 						break;
+					}
 
-					SerializedProperty item = logItems.GetArrayElementAtIndex (index);
-					SerializedProperty itemContent = item.FindPropertyRelative ("content");
+					var item = logItems.GetArrayElementAtIndex (index);
+					var itemContent = item.FindPropertyRelative ("content");
 
 					if (selectedEntry == index)
 					{
-						Color originalColour = GUI.color;
+						var originalColour = GUI.color;
 						GUI.color = new Color (0.25f, 0.75f, 1.0f, 1.0f);
 
 						GUI.Box (rect_logContents[i], "");
@@ -170,7 +178,7 @@ public class InspectorLogDrawer : PropertyDrawer
 		}
 	}
 
-	void RecalculateRects (Rect frame, int logSize)
+	private void RecalculateRects (Rect frame, int logSize)
 	{
 		rect_header = new Rect (frame);
 		rect_header.height = EditorGUIUtility.singleLineHeight;
@@ -186,7 +194,7 @@ public class InspectorLogDrawer : PropertyDrawer
 
 		rect_logContents = new Rect[logSize];
 
-		Rect currentLogContent = new Rect (rect_content);
+		var currentLogContent = new Rect (rect_content);
 
 		currentLogContent.xMin += 3;
 		currentLogContent.height = EditorGUIUtility.singleLineHeight;
@@ -201,12 +209,12 @@ public class InspectorLogDrawer : PropertyDrawer
 		lastLogSize = logSize;
 	}
 
-	void ExecuteAction (SerializedProperty property, int logItemIndex)
+	private void ExecuteAction (SerializedProperty property, int logItemIndex)
 	{
-		SerializedProperty logItems = property.FindPropertyRelative ("FullLog");
-		SerializedProperty item = logItems.GetArrayElementAtIndex (logItemIndex);
+		var logItems = property.FindPropertyRelative ("FullLog");
+		var item = logItems.GetArrayElementAtIndex (logItemIndex);
 
-		InspectorLog.LogItem logItem = (InspectorLog.LogItem)GetTargetObjectOfProperty (item);
+		var logItem = (InspectorLog.LogItem)GetTargetObjectOfProperty (item);
 
 		logItem.Execute ();
 	}
@@ -219,15 +227,15 @@ public class InspectorLogDrawer : PropertyDrawer
 	/// <returns></returns>
 	public static object GetTargetObjectOfProperty (SerializedProperty prop)
 	{
-		var path = prop.propertyPath.Replace (".Array.data[", "[");
+		string path = prop.propertyPath.Replace (".Array.data[", "[");
 		object obj = prop.serializedObject.targetObject;
-		var elements = path.Split ('.');
-		foreach (var element in elements)
+		string[] elements = path.Split ('.');
+		foreach (string element in elements)
 		{
 			if (element.Contains ("["))
 			{
-				var elementName = element.Substring (0, element.IndexOf ("["));
-				var index = System.Convert.ToInt32 (element.Substring (element.IndexOf ("[")).Replace ("[", "").Replace ("]", ""));
+				string elementName = element.Substring (0, element.IndexOf ("["));
+				int index = System.Convert.ToInt32 (element.Substring (element.IndexOf ("[")).Replace ("[", "").Replace ("]", ""));
 				obj = GetValue_Imp (obj, elementName, index);
 			}
 			else
@@ -243,18 +251,25 @@ public class InspectorLogDrawer : PropertyDrawer
 	private static object GetValue_Imp (object source, string name)
 	{
 		if (source == null)
+		{
 			return null;
+		}
+
 		var type = source.GetType ();
 
 		while (type != null)
 		{
 			var f = type.GetField (name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 			if (f != null)
+			{
 				return f.GetValue (source);
+			}
 
 			var p = type.GetProperty (name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
 			if (p != null)
+			{
 				return p.GetValue (source, null);
+			}
 
 			type = type.BaseType;
 		}
@@ -264,7 +279,11 @@ public class InspectorLogDrawer : PropertyDrawer
 	private static object GetValue_Imp (object source, string name, int index)
 	{
 		var enumerable = GetValue_Imp (source, name) as System.Collections.IEnumerable;
-		if (enumerable == null) return null;
+		if (enumerable == null)
+		{
+			return null;
+		}
+
 		var enm = enumerable.GetEnumerator ();
 		//while (index-- >= 0)
 		//    enm.MoveNext();
@@ -272,7 +291,10 @@ public class InspectorLogDrawer : PropertyDrawer
 
 		for (int i = 0; i <= index; i++)
 		{
-			if (!enm.MoveNext ()) return null;
+			if (!enm.MoveNext ())
+			{
+				return null;
+			}
 		}
 		return enm.Current;
 	}

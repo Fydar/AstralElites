@@ -15,7 +15,7 @@ public class LoopGroupEditor : Editor
 
 		if (typeof (LoopGroup).IsAssignableFrom (asset.GetType ()))
 		{
-			LoopGroup group = (LoopGroup)asset;
+			var group = (LoopGroup)asset;
 			PreviewGroup (group);
 			return true;
 		}
@@ -24,7 +24,7 @@ public class LoopGroupEditor : Editor
 
 	public override void OnInspectorGUI ()
 	{
-		LoopGroup group = (LoopGroup)target;
+		var group = (LoopGroup)target;
 
 		DrawDefaultInspector ();
 
@@ -37,7 +37,7 @@ public class LoopGroupEditor : Editor
 
 	public static AudioClip PreviewGroup (LoopGroup group)
 	{
-		AudioClip clip = group.LoopedAudio;
+		var clip = group.LoopedAudio;
 		PlayClip (clip, group);
 		return clip;
 	}
@@ -46,7 +46,7 @@ public class LoopGroupEditor : Editor
 	{
 		var go = EditorUtility.CreateGameObjectWithHideFlags ("PLAY_AUDIO_TEMP", HideFlags.HideAndDontSave);
 
-		AudioSource source = go.AddComponent<AudioSource> ();
+		var source = go.AddComponent<AudioSource> ();
 		source.clip = clip;
 		source.volume = UnityEngine.Random.Range (group.VolumeRange.x, group.VolumeRange.y);
 		source.pitch = UnityEngine.Random.Range (group.PitchRange.x, group.PitchRange.y);

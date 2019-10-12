@@ -74,8 +74,12 @@ public static class DiscordRpc
 
 		private IntPtr StrToPtr (string input)
 		{
-			if (string.IsNullOrEmpty (input)) return IntPtr.Zero;
-			var convbytecnt = Encoding.UTF8.GetByteCount (input);
+			if (string.IsNullOrEmpty (input))
+			{
+				return IntPtr.Zero;
+			}
+
+			int convbytecnt = Encoding.UTF8.GetByteCount (input);
 			var buffer = Marshal.AllocHGlobal (convbytecnt + 1);
 			for (int i = 0; i < convbytecnt + 1; i++)
 			{
@@ -88,8 +92,8 @@ public static class DiscordRpc
 
 		private static string StrToUtf8NullTerm (string toconv)
 		{
-			var str = toconv.Trim ();
-			var bytes = Encoding.Default.GetBytes (str);
+			string str = toconv.Trim ();
+			byte[] bytes = Encoding.Default.GetBytes (str);
 			if (bytes.Length > 0 && bytes[bytes.Length - 1] != 0)
 			{
 				str += "\0\0";
@@ -99,7 +103,7 @@ public static class DiscordRpc
 
 		internal void FreeMem ()
 		{
-			for (var i = _buffers.Count - 1; i >= 0; i--)
+			for (int i = _buffers.Count - 1; i >= 0; i--)
 			{
 				Marshal.FreeHGlobal (_buffers[i]);
 				_buffers.RemoveAt (i);

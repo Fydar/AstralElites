@@ -20,7 +20,9 @@ public class EventFieldChainHandler<T, B> : IEventFieldHandler
 	public void OnBeforeChanged ()
 	{
 		if (ChainedField == null)
+		{
 			return;
+		}
 
 		ChainedField.Handlers[this].Clear ();
 	}
@@ -43,7 +45,9 @@ public class EventFieldChainHandler<T, B> : IEventFieldHandler
 		SourceField.Handlers[TargetField].Clear ();
 
 		if (ChainedField == null)
+		{
 			return;
+		}
 
 		ChainedField.Handlers[this].Clear ();
 	}

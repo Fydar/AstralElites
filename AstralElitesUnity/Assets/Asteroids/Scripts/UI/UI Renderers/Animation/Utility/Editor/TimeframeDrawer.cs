@@ -11,8 +11,8 @@ public class TimeframeDrawer : PropertyDrawer
 
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
 	{
-		SerializedProperty MinProperty = property.FindPropertyRelative ("Min");
-		SerializedProperty MaxProperty = property.FindPropertyRelative ("Max");
+		var MinProperty = property.FindPropertyRelative ("Min");
+		var MaxProperty = property.FindPropertyRelative ("Max");
 
 		float min = MinProperty.floatValue;
 		float max = MaxProperty.floatValue;

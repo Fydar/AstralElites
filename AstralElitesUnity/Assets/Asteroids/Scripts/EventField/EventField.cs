@@ -58,7 +58,9 @@ public class EventField<T> : IDisposable
 			set
 			{
 				if (handlers == null)
+				{
 					handlers = new List<KeyValuePair<object, IEventFieldHandler>> ();
+				}
 
 				handlers.Add (new KeyValuePair<object, IEventFieldHandler> (context, value.Result));
 			}
@@ -69,7 +71,9 @@ public class EventField<T> : IDisposable
 			for (int i = handlers.Count - 1; i >= 0; i--)
 			{
 				if (handlers[i].Key == context)
+				{
 					handlers.RemoveAt (i);
+				}
 			}
 		}
 
@@ -81,7 +85,9 @@ public class EventField<T> : IDisposable
 		public void InvokeBeforeChanged ()
 		{
 			if (handlers == null)
+			{
 				return;
+			}
 
 			for (int i = 0; i < handlers.Count; i++)
 			{
@@ -92,7 +98,9 @@ public class EventField<T> : IDisposable
 		public void InvokeAfterChanged ()
 		{
 			if (handlers == null)
+			{
 				return;
+			}
 
 			for (int i = 0; i < handlers.Count; i++)
 			{
@@ -103,7 +111,9 @@ public class EventField<T> : IDisposable
 		public void Dispose ()
 		{
 			if (handlers == null)
+			{
 				return;
+			}
 
 			for (int i = 0; i < handlers.Count; i++)
 			{

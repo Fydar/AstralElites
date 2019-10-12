@@ -79,13 +79,17 @@ public class Asteroid : MonoBehaviour
 		AsteroidGenerator.instance.AsteroidPool.Return (this);
 
 		if (OnDestroy != null)
+		{
 			OnDestroy ();
+		}
 	}
 
 	private void CleanupCheck ()
 	{
 		if (!gameObject.activeInHierarchy)
+		{
 			return;
+		}
 
 		if (ScreenManager.IsOutside (transform.position, (-scale) - 0.5f))
 		{

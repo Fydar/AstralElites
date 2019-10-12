@@ -32,12 +32,12 @@ public class SpringBetween : MonoBehaviour
 	public Transform A;
 	public Transform B;
 
-	void Start ()
+	private void Start ()
 	{
 
 	}
 
-	void Update ()
+	private void Update ()
 	{
 		if (Input.GetKeyDown (KeyCode.X))
 		{
