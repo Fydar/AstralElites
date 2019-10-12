@@ -28,20 +28,23 @@ public class GameObjectPool<T>
 	{
 		if (pool.Count == 0)
 		{
-			if (Reuse)
+			if (Template.gameObject.scene.buildIndex != -1)
 			{
-				Template.gameObject.SetActive (false);
+				if (Reuse)
+				{
+					Template.gameObject.SetActive (false);
 #if UNITY_EDITOR
-				Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
+					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
-				pool.Add (Template);
-			}
-			else
-			{
-				Template.gameObject.SetActive (false);
+					pool.Add (Template);
+				}
+				else
+				{
+					Template.gameObject.SetActive (false);
 #if UNITY_EDITOR
-				Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
+					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
+				}
 			}
 		}
 
@@ -74,16 +77,19 @@ public class GameObjectPool<T>
 	{
 		if (pool.Count == 0)
 		{
-			if (Reuse)
+			if (Template.gameObject.scene.buildIndex != -1)
 			{
-				pool.Add (Template);
-			}
-			else
-			{
-				Template.gameObject.SetActive (false);
+				if (Reuse)
+				{
+					pool.Add (Template);
+				}
+				else
+				{
+					Template.gameObject.SetActive (false);
 #if UNITY_EDITOR
-				Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
+					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
+				}
 			}
 		}
 
