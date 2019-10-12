@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: 360eead978c4db047ad849a91faa4172
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Full_Logo
-    21300002: Small_Logo
-    21300004: Discord_Name
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Full_Logo
+  - first:
+      213: 21300002
+    second: Small_Logo
+  - first:
+      213: 21300004
+    second: Discord_Name
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -61,7 +67,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -72,7 +78,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -83,7 +90,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -94,7 +102,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -105,7 +114,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -116,6 +126,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -135,6 +146,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 33fc055a89c0c9343a0850bf9e1dc1b4
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -155,6 +167,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1c1f4ea9820e86b41ba10b9967e575a0
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -175,6 +188,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3e41301c36cf5184f868321ce1cfddf0
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -183,10 +197,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: fd70196ff0d4301428117e8f74424369
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Scene
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

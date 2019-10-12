@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad04e4a07767fe04bac03376a48318b1, type: 3}
   m_Name: Accepted_DiscordTOS
   m_EditorClassIdentifier: 
-  currentValue: 0
+  currentValue: 1
   PlayerPrefsKey: Accepted_DiscordTOS
   DefaultValue: 0
