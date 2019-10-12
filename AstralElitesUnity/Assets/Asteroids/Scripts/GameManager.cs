@@ -184,7 +184,6 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("Pausing");
 		Time.timeScale = 0.0f;
 		paused = true;
 

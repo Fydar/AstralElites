@@ -14,6 +14,7 @@ public class DiscordController : MonoBehaviour
 
 	[Header ("Game")]
 	public GlobalInt Highscore;
+	public int LastHighscore;
 
 	[Header ("Services")]
 	public string applicationId;
@@ -27,6 +28,7 @@ public class DiscordController : MonoBehaviour
 	public void SetHighscore (int highscore)
 	{
 		var rank = Rank.GetRank (highscore);
+		LastHighscore = highscore;
 
 		presence.details = string.Format ("Highscore: {0}", highscore.ToString ("###,###"));
 		presence.largeImageKey = rank.DiscordAsset;
@@ -37,14 +39,9 @@ public class DiscordController : MonoBehaviour
 		DiscordRpc.UpdatePresence (presence);
 	}
 
-	public void SetState (string state)
-	{
-		presence.state = state;
-	}
-
 	public void EndGame (int score)
 	{
-		if (score > Highscore.Value)
+		if (score > LastHighscore)
 		{
 			SetHighscore (score);
 		}
