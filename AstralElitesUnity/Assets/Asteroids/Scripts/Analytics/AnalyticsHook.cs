@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-#if UNITY_EDITOR
 public class AnalyticsHook<T>
 {
 	public List<T> data;
@@ -28,4 +27,3 @@ public class AnalyticsHook<T>
 		data.Add (param);
 	}
 }
-#endif
