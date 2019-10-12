@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b170f004ef49b428a770dcdc453caf, type: 3}
+  m_Name: 1. Private
+  m_EditorClassIdentifier: 
+  DiscordAsset: private
+  RequiredScore: 1000
+  Render:
+    Colour: {r: 0.81394625, g: 0.8338515, b: 0.8584906, a: 1}
+    Top: 0
+    Middle: 0
+    Bottom: 1
+    Star: 0
+  Icon: {fileID: 21300000, guid: 311584c32bfa97244a6785bd334f6b49, type: 3}

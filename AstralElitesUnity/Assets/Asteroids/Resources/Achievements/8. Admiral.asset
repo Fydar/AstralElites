@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b170f004ef49b428a770dcdc453caf, type: 3}
+  m_Name: 8. Admiral
+  m_EditorClassIdentifier: 
+  DiscordAsset: admiral
+  RequiredScore: 60000
+  Render:
+    Colour: {r: 1, g: 0.82165825, b: 0.504717, a: 1}
+    Top: 1
+    Middle: 1
+    Bottom: 1
+    Star: 1
+  Icon: {fileID: 21300000, guid: 423f1062dba6945469f7a849eec58fc7, type: 3}

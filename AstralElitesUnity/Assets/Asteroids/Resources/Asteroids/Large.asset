@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed133cd2f567de4daa8b60f2461ed3d, type: 3}
+  m_Name: Large
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 114924657808122092, guid: b8b9a16527cfe514faae705923b9fd3c, type: 2}
+  Health: 2
+  MinScale: 3
+  MaxScale: 3.5
+  MinSpeed: 3
+  MaxSpeed: 5
+  MinSegments: 6
+  MaxSegments: 9
+  Variation: 0.5
+  Reward: 100
+  Spawn: {fileID: 11400000, guid: 22220774abc0ed44787b5cb2760c465f, type: 2}
+  DestroySound: {fileID: 11400000, guid: b979080141b003c47bcaa2d455a09709, type: 2}
+  ImpactSound: {fileID: 11400000, guid: b979080141b003c47bcaa2d455a09709, type: 2}
+  MinSpawn: 2
+  MaxSpawn: 2
