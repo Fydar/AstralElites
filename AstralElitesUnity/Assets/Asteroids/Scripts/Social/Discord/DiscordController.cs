@@ -1,14 +1,15 @@
-﻿#if UNITY_STANDALONE || UNITY_EDITOR
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class DiscordController : MonoBehaviour
 {
+	public static DiscordController Instance;
+
+#if UNITY_STANDALONE || UNITY_EDITOR
 	private const string GetProfileAddress = "https://cdn.discordapp.com/avatars/{0}/{1}.jpg";
 
-	public static DiscordController Instance;
 
 	public InspectorLog Log;
 
@@ -24,9 +25,11 @@ public class DiscordController : MonoBehaviour
 	public event Action<DiscordRpc.DiscordUser> OnConnect;
 	public event Action OnDisconnect;
 	private DiscordRpc.EventHandlers handlers;
+#endif
 
 	public void SetHighscore (int highscore)
 	{
+#if UNITY_STANDALONE || UNITY_EDITOR
 		var rank = Rank.GetRank (highscore);
 		LastHighscore = highscore;
 
@@ -37,25 +40,36 @@ public class DiscordController : MonoBehaviour
 		Log.Log ("Setting Highscore: " + highscore.ToString ("###,###") + ", rank of " + rank.DisplayName);
 
 		DiscordRpc.UpdatePresence (presence);
+#endif
 	}
 
 	public void EndGame (int score)
 	{
+#if UNITY_STANDALONE || UNITY_EDITOR
 		if (score > LastHighscore)
 		{
 			SetHighscore (score);
 		}
+#endif
 	}
 
 	public void StartNewGame ()
 	{
+#if UNITY_STANDALONE || UNITY_EDITOR
 		Log.Log ("Starting New Game");
 
 		presence.startTimestamp = (int)(DateTime.UtcNow.Subtract (new DateTime (1970, 1, 1))).TotalSeconds;
 
 		DiscordRpc.UpdatePresence (presence);
+#endif
 	}
 
+	private void Awake ()
+	{
+		Instance = this;
+	}
+
+#if UNITY_STANDALONE || UNITY_EDITOR
 	private IEnumerator DownloadAvatar (DiscordRpc.DiscordUser connectedUser)
 	{
 		var www = UnityWebRequestTexture.GetTexture (string.Format (GetProfileAddress, connectedUser.userId, connectedUser.avatar));
@@ -77,7 +91,7 @@ public class DiscordController : MonoBehaviour
 		}
 	}
 
-	public void ReadyCallback (ref DiscordRpc.DiscordUser connectedUser)
+	private void ReadyCallback (ref DiscordRpc.DiscordUser connectedUser)
 	{
 		Log.Log (string.Format ("Connected to {0}", connectedUser.username));
 
@@ -91,7 +105,7 @@ public class DiscordController : MonoBehaviour
 		}
 	}
 
-	public void DisconnectedCallback (int errorCode, string message)
+	private void DisconnectedCallback (int errorCode, string message)
 	{
 		Log.Log (string.Format ("Disconnected {0}: {1}", errorCode, message));
 
@@ -101,42 +115,37 @@ public class DiscordController : MonoBehaviour
 		}
 	}
 
-	public void ErrorCallback (int errorCode, string message)
+	private void ErrorCallback (int errorCode, string message)
 	{
 		Log.Log (string.Format ("Discord: error {0}: {1}", errorCode, message));
 	}
 
-	public void JoinCallback (string secret)
+	private void JoinCallback (string secret)
 	{
 		Log.Log (string.Format ("Discord: join ({0})", secret));
 	}
 
-	public void SpectateCallback (string secret)
+	private void SpectateCallback (string secret)
 	{
 		Log.Log (string.Format ("Discord: spectate ({0})", secret));
 	}
 
-	public void RequestCallback (ref DiscordRpc.DiscordUser request)
+	private void RequestCallback (ref DiscordRpc.DiscordUser request)
 	{
 		Log.Log (string.Format ("Discord: join request {0}#{1}: {2}", request.username, request.discriminator, request.userId));
 		//joinRequest = request;
 	}
 
-	public void RequestRespondYes ()
+	private void RequestRespondYes ()
 	{
 		Log.Log ("Discord: responding yes to Ask to Join request");
 		//DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.Yes);
 	}
 
-	public void RequestRespondNo ()
+	private void RequestRespondNo ()
 	{
 		Log.Log ("Discord: responding no to Ask to Join request");
 		//DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.No);
-	}
-
-	private void Awake ()
-	{
-		Instance = this;
 	}
 
 	private void Update ()
@@ -168,5 +177,5 @@ public class DiscordController : MonoBehaviour
 	{
 
 	}
-}
 #endif
+}
