@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			var movementDirection = new Vector3 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), 0);
+			var movementDirection = new Vector3 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"), 0);
 			rb.AddForce (movementDirection * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
 		}
 
