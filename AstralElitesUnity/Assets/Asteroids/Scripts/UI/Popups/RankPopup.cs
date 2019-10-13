@@ -10,7 +10,7 @@ public class RankPopup : Popup
 
 	public void DisplayPopup (Rank rank)
 	{
-		Name.text = rank.name;
+		Name.text = rank.DisplayName;
 		RankIcon.sprite = rank.Icon;
 		RankDisplay.RenderRank (rank);
 

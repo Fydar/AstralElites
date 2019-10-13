@@ -17,6 +17,7 @@ public class GameObjectPool<T>
 		{
 			ExpandPool (parent);
 		}
+		Flush ();
 	}
 
 	public T Grab ()
@@ -127,11 +128,13 @@ public class GameObjectPool<T>
 		currentGrabIndex--;
 	}
 
-	private void ExpandPool (Transform parent)
+	private T ExpandPool (Transform parent)
 	{
-		var clone = GameObject.Instantiate (Template.gameObject, parent) as GameObject;
+		var clone = Object.Instantiate (Template.gameObject, parent) as GameObject;
 
-		var button = clone.GetComponent<T> ();
-		pool.Add (button);
+		var cloneComponent = clone.GetComponent<T> ();
+		pool.Add (cloneComponent);
+
+		return cloneComponent;
 	}
 }

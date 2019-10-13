@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
 
 	private void Awake ()
 	{
+		WeaponProjectile.Initialise (null);
+
 		rb = GetComponent<Rigidbody2D> ();
 		cam = Camera.main;
 

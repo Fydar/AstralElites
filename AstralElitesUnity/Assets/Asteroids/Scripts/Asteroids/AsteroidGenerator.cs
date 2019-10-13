@@ -14,6 +14,8 @@ public class AsteroidGenerator : MonoBehaviour
 	private void Awake ()
 	{
 		instance = this;
+
+		AsteroidPool.Initialise (null);
 	}
 
 	private void Regenerate ()
