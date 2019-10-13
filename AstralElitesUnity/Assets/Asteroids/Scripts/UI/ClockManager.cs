@@ -10,9 +10,12 @@ public class ClockManager : MonoBehaviour
 	[SerializeField] private RectTransform HourHand;
 	[SerializeField] private RectTransform MinuteHand;
 
-	private void Start ()
+	private void Update ()
 	{
-		InvokeRepeating ("UpdateClock", 0.0f, 10.0f);
+		if (Time.renderedFrameCount % 60 == 0)
+		{
+			UpdateClock ();
+		}
 	}
 
 	private void UpdateClock ()

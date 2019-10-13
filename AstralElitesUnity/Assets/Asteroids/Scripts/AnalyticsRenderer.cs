@@ -51,7 +51,7 @@ public class AnalyticsRenderer : MonoBehaviour
 		int minutes = (int)(gameManager.GameDuration / 60);
 
 		DurationText.text = minutes.ToString () + "m " + seconds.ToString () + "s";
-		ScoreText.text = gameManager.Score.Value.ToString ("###.###");
+		ScoreText.text = gameManager.Score.Value.ToString ("###,##0");
 
 		var rank = Rank.GetRank (gameManager.Score.Value);
 		RankText.text = rank.DisplayName;
