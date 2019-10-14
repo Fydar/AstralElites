@@ -7,14 +7,12 @@ public class Player : MonoBehaviour
 {
 	public Action<Collision2D> OnCollide;
 
-	public SfxGroup ShootSound;
 	public SfxGroup HitSound;
 	public SfxGroup DestroySound;
 	public SfxGroup WarpSound;
 	public SfxGroup GravelHitSound;
 
 	[Space]
-
 	public LoopGroup EngineSound;
 	public LoopGroup AlarmSound;
 	public LoopGroup ScrapingSound;
@@ -28,6 +26,13 @@ public class Player : MonoBehaviour
 	[Header ("Combat")]
 	public float FireCooldown = 0.1f;
 	public ProjectilePool WeaponProjectile;
+	public SfxGroup ShootSound;
+
+	[Space]
+	public float RocketCooldown = 2.0f;
+	public float RocketCooldownCurrent = 2.0f;
+	public ProjectilePool RocketProjectile;
+	public SfxGroup RocketSound;
 
 	[Header ("Movement")]
 	public float MovementSpeed = 10.0f;
@@ -109,6 +114,25 @@ public class Player : MonoBehaviour
 			return;
 		}
 
+		if (RocketCooldownCurrent >= 0.0f)
+		{
+			RocketCooldownCurrent -= Time.deltaTime;
+		}
+		if (RocketCooldownCurrent < 0.0f)
+		{
+			if (Input.GetMouseButton(1))
+			{
+				AudioManager.Play (RocketSound);
+
+				var clone = RocketProjectile.Grab ();
+				clone.transform.SetPositionAndRotation (transform.position, transform.rotation);
+				clone.LifetimeRemaining = clone.Lifetime;
+				clone.Owner = gameObject;
+
+				RocketCooldownCurrent = RocketCooldown;
+			}
+		}
+
 		var ray = cam.ScreenPointToRay (Input.mousePosition);
 
 		var scenePoint = ray.origin + (ray.direction * 10);
@@ -116,7 +140,7 @@ public class Player : MonoBehaviour
 		float AngleRad = Mathf.Atan2 (scenePoint.y - transform.position.y,
 			scenePoint.x - transform.position.x);
 
-		float AngleDeg = (180 / Mathf.PI) * AngleRad;
+		float AngleDeg = 180 / Mathf.PI * AngleRad;
 
 		rb.rotation = Mathf.Lerp (rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
 		transform.rotation = Quaternion.Euler (0.0f, 0.0f, rb.rotation);

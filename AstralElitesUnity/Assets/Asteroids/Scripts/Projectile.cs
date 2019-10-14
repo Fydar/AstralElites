@@ -2,10 +2,18 @@
 
 public class Projectile : MonoBehaviour
 {
-	public GameObject Owner;
+	public string EffectId;
 	public float Speed = 1.0f;
+	public int Damage = 1;
 	public float Lifetime = 1.0f;
+	public bool ExplodeOnDeath;
 
+	[Header ("Area of Effect")]
+	public bool HasAreaOfEffect;
+	public float AreaOfEffect;
+
+	[Header ("Realtime")]
+	public GameObject Owner;
 	public float LifetimeRemaining;
 
 	private Transform thisTransform;
@@ -42,11 +50,28 @@ public class Projectile : MonoBehaviour
 
 			if (asteroid != null)
 			{
-				LazerParticles.Fire (hit.point, thisTransform.rotation);
-				asteroid.Hit (1);
+				PulseEffect.Instances[EffectId].PlayAt (hit.point, thisTransform.rotation);
+				asteroid.Hit (Damage);
 
 				DestroyProjectile ();
-				return;
+			}
+
+			if (HasAreaOfEffect)
+			{
+				var colliders = Physics2D.OverlapCircleAll (hit.point, AreaOfEffect);
+
+				foreach (var collider in colliders)
+				{
+					if (collider.gameObject != asteroid.gameObject)
+					{
+						var otherAsteroid = collider.gameObject.GetComponent<Asteroid> ();
+
+						if (otherAsteroid != null)
+						{
+							otherAsteroid.Hit (Damage);
+						}
+					}
+				}
 			}
 		}
 
@@ -55,6 +80,32 @@ public class Projectile : MonoBehaviour
 
 	public void DestroyProjectile ()
 	{
-		Owner.GetComponent<Player> ().WeaponProjectile.Return (this);
+		if (ExplodeOnDeath)
+		{
+			PulseEffect.Instances[EffectId].PlayAt (thisTransform.position, thisTransform.rotation);
+		}
+		if (EffectId == "Explosion2")
+		{
+			Owner.GetComponent<Player> ().RocketProjectile.Return (this);
+		}
+		else
+		{
+			Owner.GetComponent<Player> ().WeaponProjectile.Return (this);
+		}
+
+		if (HasAreaOfEffect)
+		{
+			var colliders = Physics2D.OverlapCircleAll (transform.position, AreaOfEffect);
+
+			foreach (var collider in colliders)
+			{
+				var otherAsteroid = collider.gameObject.GetComponent<Asteroid> ();
+
+				if (otherAsteroid != null)
+				{
+					otherAsteroid.Hit (Damage);
+				}
+			}
+		}
 	}
 }

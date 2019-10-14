@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-public struct Polygon
+public readonly struct Polygon
 {
-	public Vector2[] Points;
+	public readonly Vector2[] Points;
 
 	public Polygon (Vector2[] points)
 	{

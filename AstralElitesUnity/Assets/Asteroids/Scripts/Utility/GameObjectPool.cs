@@ -111,12 +111,12 @@ public class GameObjectPool<T>
 
 		if (itemIndex == -1)
 		{
-			Debug.LogError ("Item being returned to the pool doesn't belong in it.");
+			Debug.LogError ($"Item \"{item}\" being returned to the pool doesn't belong in it.");
 		}
 
 		if (item.gameObject.activeInHierarchy == false)
 		{
-			Debug.LogError ("Item already cached in the pool");
+			Debug.LogError ($"Item \"{item}\" already cached in the pool");
 		}
 
 		pool.RemoveAt (itemIndex);

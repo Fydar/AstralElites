@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4857644672779358}
   - component: {fileID: 114404358654912924}
   m_Layer: 0
-  m_Name: Projetile
+  m_Name: Torpedo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474473a5f30aa3b4fbd218875b0f32e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
-  Speed: 25
+  EffectId: Explosion2
+  Speed: 5
+  Damage: 3
   Lifetime: 1
+  ExplodeOnDeath: 1
+  HasAreaOfEffect: 1
+  AreaOfEffect: 6
+  Owner: {fileID: 0}
   LifetimeRemaining: 1
