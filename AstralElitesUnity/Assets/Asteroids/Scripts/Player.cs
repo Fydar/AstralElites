@@ -113,23 +113,26 @@ public class Player : MonoBehaviour
 			EngineFade.TargetValue = 0.0f;
 			return;
 		}
-
-		if (RocketCooldownCurrent >= 0.0f)
+		
+		if (RocketProjectile.Template != null)
 		{
-			RocketCooldownCurrent -= Time.deltaTime;
-		}
-		if (RocketCooldownCurrent < 0.0f)
-		{
-			if (Input.GetMouseButton(1))
+			if (RocketCooldownCurrent >= 0.0f)
 			{
-				AudioManager.Play (RocketSound);
+				RocketCooldownCurrent -= Time.deltaTime;
+			}
+			if (RocketCooldownCurrent < 0.0f)
+			{
+				if (Input.GetMouseButton(1))
+				{
+					AudioManager.Play(RocketSound);
 
-				var clone = RocketProjectile.Grab ();
-				clone.transform.SetPositionAndRotation (transform.position, transform.rotation);
-				clone.LifetimeRemaining = clone.Lifetime;
-				clone.Owner = gameObject;
+					var clone = RocketProjectile.Grab();
+					clone.transform.SetPositionAndRotation(transform.position, transform.rotation);
+					clone.LifetimeRemaining = clone.Lifetime;
+					clone.Owner = gameObject;
 
-				RocketCooldownCurrent = RocketCooldown;
+					RocketCooldownCurrent = RocketCooldown;
+				}
 			}
 		}
 

@@ -51344,8 +51344,7 @@ MonoBehaviour:
   RocketCooldown: 2
   RocketCooldownCurrent: 2
   RocketProjectile:
-    Template: {fileID: 114404358654912924, guid: 900a68fcdf3592c41b03a2a4ad491bf1,
-      type: 3}
+    Template: {fileID: 0}
     Reuse: 1
     PrewarmAmount: 3
   RocketSound: {fileID: 11400000, guid: 9e3a2aafa81b86d4fa8ae721ec884962, type: 2}
