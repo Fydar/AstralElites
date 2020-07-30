@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PulseEffect : MonoBehaviour
+public class PulseEffect : MonoBehaviour, ISerializationCallbackReceiver
 {
 	public static Dictionary<string, PulseEffect> Instances;
 
@@ -23,7 +23,7 @@ public class PulseEffect : MonoBehaviour
 	private float elapsed;
 	private float intencity;
 
-	private void Awake()
+	public void OnAfterDeserialize()
 	{
 		if (Instances == null)
 		{
@@ -33,6 +33,11 @@ public class PulseEffect : MonoBehaviour
 
 		intencity = 0.0f;
 		elapsed = 1000000;
+	}
+
+	public void OnBeforeSerialize()
+	{
+
 	}
 
 	private void Update ()

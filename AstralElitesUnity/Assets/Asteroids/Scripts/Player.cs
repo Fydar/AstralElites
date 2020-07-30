@@ -196,17 +196,17 @@ public class Player : MonoBehaviour
 	{
 		Health.Value -= Mathf.RoundToInt (DamageFromVelocity.Evaluate (collision.relativeVelocity.magnitude));
 
-		if (Health.Value > 0)
-		{
-			AudioManager.Play (HitSound);
-		}
-
 		var collidingAsteroid = collision.gameObject.GetComponent<Asteroid> ();
 		if (collidingAsteroid != null)
 		{
 			if (OnCollide != null)
 			{
 				OnCollide (collision);
+			}
+
+			if (Health.Value > 0)
+			{
+				AudioManager.Play(HitSound);
 			}
 
 			Contacting.Add (collidingAsteroid);

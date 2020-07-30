@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent (typeof (ParticleSystem))]
-public class DustParticles : MonoBehaviour
+public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 {
 	private static DustParticles instance;
 
@@ -15,16 +15,23 @@ public class DustParticles : MonoBehaviour
 
 	private ParticleSystem particles;
 
-	private void Awake ()
+	public void OnAfterDeserialize ()
 	{
 		instance = this;
-		particles = GetComponent<ParticleSystem> ();
+	}
 
-		cache = new ParticleSystem.Particle[particles.main.maxParticles];
+	public void OnBeforeSerialize()
+	{
 	}
 
 	public void FireOnTarget (MeshFilter target)
 	{
+		if (particles == null)
+		{
+			particles = GetComponent<ParticleSystem>();
+			cache = new ParticleSystem.Particle[particles.main.maxParticles];
+		}
+
 		Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D> ().velocity;
 		int emitCount = Mathf.RoundToInt (emissionCount * target.mesh.bounds.extents.magnitude);
 
