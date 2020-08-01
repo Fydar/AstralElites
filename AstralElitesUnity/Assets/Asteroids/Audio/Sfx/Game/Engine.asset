@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VolumeGroup: Sfx
   LoopedAudio: {fileID: 8300000, guid: 17fd3eb93da884442a4230daa31b52ef, type: 3}
-  VolumeRange: {x: 0.35, y: 0.35}
+  VolumeRange: {x: 0, y: 0}
   PitchRange: {x: 1.6, y: 1.6}
   PerlinSpeed: 5
