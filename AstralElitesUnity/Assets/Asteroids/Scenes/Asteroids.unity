@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 87630172}
   - component: {fileID: 87630174}
   m_Layer: 5
-  m_Name: End Game
+  m_Name: EndGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7816,7 +7816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 288538536}
   m_Layer: 5
-  m_Name: X Axis
+  m_Name: XAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8567,7 +8567,7 @@ GameObject:
   - component: {fileID: 380660678}
   - component: {fileID: 380660677}
   m_Layer: 5
-  m_Name: Header Text
+  m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16429,7 +16429,7 @@ GameObject:
   - component: {fileID: 668119460}
   - component: {fileID: 668119461}
   m_Layer: 5
-  m_Name: Achievement UI
+  m_Name: AchievementUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16637,7 +16637,7 @@ GameObject:
   - component: {fileID: 685315481}
   - component: {fileID: 685315482}
   m_Layer: 5
-  m_Name: Discord UI
+  m_Name: DiscordUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17191,7 +17191,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5822ca9a1dadc7c42b5ea9cebc363203, type: 2}
   - {fileID: 2100000, guid: 5822ca9a1dadc7c42b5ea9cebc363203, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -22935,7 +22934,7 @@ GameObject:
   - component: {fileID: 904899128}
   - component: {fileID: 904899127}
   m_Layer: 5
-  m_Name: Graph Rect
+  m_Name: GraphRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24360,7 +24359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058528679}
   m_Layer: 5
-  m_Name: Y Axis
+  m_Name: YAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25129,7 +25128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143173724}
   m_Layer: 5
-  m_Name: Chart Area
+  m_Name: ChartArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31815,7 +31814,7 @@ GameObject:
   - component: {fileID: 1422586104}
   - component: {fileID: 1422586103}
   m_Layer: 0
-  m_Name: Engine Effects
+  m_Name: EngineEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49656,7 +49655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803076382}
   m_Layer: 5
-  m_Name: Table 2
+  m_Name: Table2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
