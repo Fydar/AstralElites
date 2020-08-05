@@ -35,21 +35,20 @@ public class Asteroid : MonoBehaviour
 	{
 		this.template = template;
 
+		health = this.template.Health;
 		scale = UnityEngine.Random.Range(this.template.MinScale, this.template.MaxScale);
 		segments = UnityEngine.Random.Range(this.template.MinSegments, this.template.MaxSegments - 1);
-		health = this.template.Health;
-
-		transform.position = ScreenManager.RandomBorderPoint(-scale);
 
 		var outsidePolygon = Polygon.Random(segments, this.template.Variation, scale);
+		var insidePolygon = outsidePolygon.Inset(Width);
 
-		var outside = outsidePolygon.Points;
-		var inside = outsidePolygon.Inset(Width).Points;
+		collider.points = insidePolygon.Points;
+		body.mesh = collider.CreateMesh(false, false);
 
-		body.mesh = Trianglulate(inside);
-		outline.mesh = Trianglulate(outside);
-		collider.points = outside;
+		collider.points = outsidePolygon.Points;
+		outline.mesh = collider.CreateMesh(false, false);
 
+		transform.position = ScreenManager.RandomBorderPoint(-outline.mesh.bounds.size);
 		Fling(UnityEngine.Random.Range(this.template.MinSpeed, this.template.MaxSpeed));
 	}
 
@@ -109,7 +108,7 @@ public class Asteroid : MonoBehaviour
 		rb.AddForce(direction * velocity, ForceMode2D.Impulse);
 	}
 
-	private static Mesh Trianglulate(Vector2[] points)
+	public static Mesh Trianglulate(Vector2[] points)
 	{
 		var verts = new Vector3[points.Length + 1];
 		var normals = new Vector3[verts.Length];

@@ -101,11 +101,15 @@ public class ScreenManager : MonoBehaviour
 
 		return false;
 	}
-
 	public static Vector3 RandomBorderPoint(float border = 0.0f)
 	{
-		var minPosition = new Vector3(MinPosition.x + border, MinPosition.y + border);
-		var maxPosition = new Vector3(MaxPosition.x - border, MaxPosition.y - border);
+		return RandomBorderPoint(new Vector2(border, border));
+	}
+
+	public static Vector3 RandomBorderPoint(Vector2 border)
+	{
+		var minPosition = new Vector3(MinPosition.x + border.x, MinPosition.y + border.x);
+		var maxPosition = new Vector3(MaxPosition.x - border.y, MaxPosition.y - border.y);
 
 		float rand = Random.value;
 		switch (Random.Range(0, 4))
