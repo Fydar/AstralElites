@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent (typeof (ParticleSystem))]
+[RequireComponent(typeof(ParticleSystem))]
 public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 {
 	private static DustParticles instance;
@@ -15,7 +15,7 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 
 	private ParticleSystem particles;
 
-	public void OnAfterDeserialize ()
+	public void OnAfterDeserialize()
 	{
 		instance = this;
 	}
@@ -24,7 +24,7 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 	{
 	}
 
-	public void FireOnTarget (MeshFilter target)
+	public void FireOnTarget(MeshFilter target)
 	{
 		if (particles == null)
 		{
@@ -32,8 +32,8 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 			cache = new ParticleSystem.Particle[particles.main.maxParticles];
 		}
 
-		Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D> ().velocity;
-		int emitCount = Mathf.RoundToInt (emissionCount * target.mesh.bounds.extents.magnitude);
+		Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D>().velocity;
+		int emitCount = Mathf.RoundToInt(emissionCount * target.mesh.bounds.extents.magnitude);
 
 		var sh = particles.shape;
 		sh.enabled = true;
@@ -43,8 +43,8 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 		particles.transform.position = target.transform.position + Offset;
 		particles.transform.rotation = target.transform.rotation;
 
-		particles.Emit (emitCount);
-		int countBefore = particles.GetParticles (cache);
+		particles.Emit(emitCount);
+		int countBefore = particles.GetParticles(cache);
 
 		for (int i = 0; i < emitCount; i++)
 		{
@@ -53,22 +53,22 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 			cache[index].velocity += Velocity;
 		}
 
-		particles.SetParticles (cache, countBefore);
+		particles.SetParticles(cache, countBefore);
 
 	}
 
-	private void OnParticleCollision (GameObject other)
+	private void OnParticleCollision(GameObject other)
 	{
-		var player = other.GetComponent<Player> ();
+		var player = other.GetComponent<Player>();
 
 		if (player != null)
 		{
-			AudioManager.Play (player.GravelHitSound);
+			AudioManager.Play(player.GravelHitSound);
 		}
 	}
 
-	public static void Fire (MeshFilter target)
+	public static void Fire(MeshFilter target)
 	{
-		instance.FireOnTarget (target);
+		instance.FireOnTarget(target);
 	}
 }

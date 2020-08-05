@@ -7,12 +7,12 @@ public class PulseEffect : MonoBehaviour, ISerializationCallbackReceiver
 
 	public string Identifier;
 
-	[Header ("Elements")]
+	[Header("Elements")]
 	public SfxGroup[] Audio;
 	public ParticleSystem[] Particles;
 	public bool FlipAfterPlay;
 
-	[Header ("Camera Shake")]
+	[Header("Camera Shake")]
 	public float duration = 0.5f;
 	public float speed = 1.0f;
 	public float magnitude = 0.1f;
@@ -27,7 +27,7 @@ public class PulseEffect : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		if (Instances == null)
 		{
-			Instances = new Dictionary<string, PulseEffect> ();
+			Instances = new Dictionary<string, PulseEffect>();
 		}
 		Instances[Identifier] = this;
 
@@ -40,45 +40,45 @@ public class PulseEffect : MonoBehaviour, ISerializationCallbackReceiver
 
 	}
 
-	private void Update ()
+	private void Update()
 	{
 		elapsed += Time.deltaTime;
 
 		float percentComplete = elapsed / duration;
-		percentComplete = falloff.Evaluate (percentComplete);
+		percentComplete = falloff.Evaluate(percentComplete);
 
-		float damper = Mathf.Max(0.075f, 1.0f - Mathf.Clamp (2.0f * percentComplete - 1.0f, 0.075f, 0.975f));
+		float damper = Mathf.Max(0.075f, 1.0f - Mathf.Clamp(2.0f * percentComplete - 1.0f, 0.075f, 0.975f));
 
 		float alpha = speed * percentComplete * intencity;
 
-		float x = Mathf.PerlinNoise (alpha, 0) * 2.0f - 1.0f;
-		float y = Mathf.PerlinNoise (0, alpha) * 2.0f - 1.0f;
+		float x = Mathf.PerlinNoise(alpha, 0) * 2.0f - 1.0f;
+		float y = Mathf.PerlinNoise(0, alpha) * 2.0f - 1.0f;
 
 		x *= magnitude * damper * intencity;
 		y *= magnitude * damper * intencity;
 
-		ShakeOffset = new Vector2 (x, y);
+		ShakeOffset = new Vector2(x, y);
 	}
 
-	public void PlayAt (Vector3 positon, Quaternion rotation)
+	public void PlayAt(Vector3 positon, Quaternion rotation)
 	{
 		transform.rotation = rotation;
 
-		PlayAt (positon);
+		PlayAt(positon);
 	}
 
-	public void PlayAt (Vector3 positon)
+	public void PlayAt(Vector3 positon)
 	{
 		transform.position = positon;
 
 		foreach (var source in Audio)
 		{
-			AudioManager.Play (source);
+			AudioManager.Play(source);
 		}
 
 		foreach (var particle in Particles)
 		{
-			particle.Play (true);
+			particle.Play(true);
 		}
 
 		intencity = 1.0f;
@@ -86,7 +86,7 @@ public class PulseEffect : MonoBehaviour, ISerializationCallbackReceiver
 
 		if (FlipAfterPlay)
 		{
-			transform.localScale = new Vector3 (-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+			transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		}
 	}
 }

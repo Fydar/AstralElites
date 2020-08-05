@@ -5,12 +5,12 @@ public class IntBar : MonoBehaviour
 {
 	public Player Target;
 
-	[Header ("Primary Bar")]
+	[Header("Primary Bar")]
 
 	[SerializeField]
 	private Image primaryBar;
 
-	[Header ("Secondary Bar")]
+	[Header("Secondary Bar")]
 
 	[SerializeField]
 	private Image secondaryBar;
@@ -19,50 +19,50 @@ public class IntBar : MonoBehaviour
 	private float secondaryBarDelay = 1.0f;
 	private float lastValue = 0.0f;
 
-	private void Start ()
+	private void Start()
 	{
 		Target.Health.OnAfterChanged += UpdateBars;
 
-		UpdateBars ();
+		UpdateBars();
 	}
 
-	private void Update ()
+	private void Update()
 	{
 		if (secondaryBar != null)
 		{
 			if (secondaryBar.fillAmount > primaryBar.fillAmount)
 			{
-				SetImageFill (secondaryBar, Mathf.Lerp (GetFillAmount (secondaryBar), primaryBar.fillAmount, Time.deltaTime * secondaryBarDelay));
+				SetImageFill(secondaryBar, Mathf.Lerp(GetFillAmount(secondaryBar), primaryBar.fillAmount, Time.deltaTime * secondaryBarDelay));
 			}
 			else
 			{
-				SetImageFill (secondaryBar, primaryBar.fillAmount);
+				SetImageFill(secondaryBar, primaryBar.fillAmount);
 			}
 		}
 	}
 
-	private void UpdateBars ()
+	private void UpdateBars()
 	{
 		float delta = lastValue - Target.Health.Value;
 		if (delta > 7)
 		{
-			Camera.main.GetComponent<PerlinShake> ().PlayShake (Mathf.InverseLerp (-30, 50, delta));
+			Camera.main.GetComponent<PerlinShake>().PlayShake(Mathf.InverseLerp(-30, 50, delta));
 		}
 
 		if (delta > 0)
 		{
-			ScreenEffect.instance.Pulse (delta / 60.0f);
+			ScreenEffect.instance.Pulse(delta / 60.0f);
 		}
 
 		float value = Target.Health.Value;
 		float max = 100.0f;
 
-		SetImageFill (primaryBar, value / max);
+		SetImageFill(primaryBar, value / max);
 
 		lastValue = value;
 	}
 
-	private void SetImageFill (Image image, float fill)
+	private void SetImageFill(Image image, float fill)
 	{
 		if (image.type == Image.Type.Filled)
 		{
@@ -70,13 +70,13 @@ public class IntBar : MonoBehaviour
 		}
 		else
 		{
-			image.rectTransform.anchorMax = new Vector2 (fill, 1.0f);
+			image.rectTransform.anchorMax = new Vector2(fill, 1.0f);
 			image.rectTransform.offsetMin = Vector2.zero;
 			image.rectTransform.offsetMax = Vector2.zero;
 		}
 	}
 
-	private float GetFillAmount (Image image)
+	private float GetFillAmount(Image image)
 	{
 		if (image.type == Image.Type.Filled)
 		{

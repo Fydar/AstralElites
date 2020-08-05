@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent (typeof (Button))]
+[RequireComponent(typeof(Button))]
 public class LinkButton : MonoBehaviour
 {
 	public string LinkLocation = "https://link.com/";
 
 	private Button button;
 
-	private void Start ()
+	private void Start()
 	{
-		button = GetComponent<Button> ();
+		button = GetComponent<Button>();
 
-		button.onClick.AddListener (ClickListener);
+		button.onClick.AddListener(ClickListener);
 	}
 
-	private void ClickListener ()
+	private void ClickListener()
 	{
-		Application.OpenURL (LinkLocation);
+		Application.OpenURL(LinkLocation);
 	}
 }

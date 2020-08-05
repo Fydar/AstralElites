@@ -14,7 +14,7 @@ public class FirstTimeScreen : MonoBehaviour
 	public Toggle ToggleValue;
 	public Button ContinueButton;
 
-	[Header ("Transition")]
+	[Header("Transition")]
 	public string SceneName;
 
 	[Space]
@@ -23,28 +23,28 @@ public class FirstTimeScreen : MonoBehaviour
 
 	private AsyncOperation async;
 
-	public void UI_Close ()
+	public void UI_Close()
 	{
 		if (ToggleValue.isOn)
 		{
 			DiscordTOS.Value = true;
-			StartCoroutine (CloseRoutine ());
+			StartCoroutine(CloseRoutine());
 		}
 	}
 
-	private void Start ()
+	private void Start()
 	{
-		StartCoroutine (FadeIn ());
+		StartCoroutine(FadeIn());
 
 		Time.timeScale = 1.0f;
 	}
 
-	private IEnumerator FadeIn ()
+	private IEnumerator FadeIn()
 	{
-		async = SceneManager.LoadSceneAsync (SceneName, LoadSceneMode.Additive);
+		async = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
 		async.allowSceneActivation = false;
 
-		var loop = new TimedLoop (FadeInTime);
+		var loop = new TimedLoop(FadeInTime);
 
 		foreach (float time in loop)
 		{
@@ -53,9 +53,9 @@ public class FirstTimeScreen : MonoBehaviour
 		}
 	}
 
-	private IEnumerator CloseRoutine ()
+	private IEnumerator CloseRoutine()
 	{
-		var loop = new TimedLoop (FadeInTime);
+		var loop = new TimedLoop(FadeInTime);
 
 		foreach (float time in loop)
 		{
@@ -64,7 +64,7 @@ public class FirstTimeScreen : MonoBehaviour
 		}
 
 		listener.enabled = false;
-		Destroy (listener);
+		Destroy(listener);
 
 		async.allowSceneActivation = true;
 
@@ -73,6 +73,6 @@ public class FirstTimeScreen : MonoBehaviour
 			yield return null;
 		}
 
-		var asyncUnload = SceneManager.UnloadSceneAsync (gameObject.scene);
+		var asyncUnload = SceneManager.UnloadSceneAsync(gameObject.scene);
 	}
 }

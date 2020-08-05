@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 public class UIInputManager : MonoBehaviour
 {
 
-	private void Update ()
+	private void Update()
 	{
-		EventSystem.current.SetSelectedGameObject (null);
+		EventSystem.current.SetSelectedGameObject(null);
 	}
 }

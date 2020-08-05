@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu (menuName = "Loop Group")]
+[CreateAssetMenu(menuName = "Loop Group")]
 public class LoopGroup : AudioAsset
 {
 	public AudioClip LoopedAudio;
@@ -9,7 +9,7 @@ public class LoopGroup : AudioAsset
 	public Vector2 PitchRange;
 	public float PerlinSpeed = 5.0f;
 
-	public void Play ()
+	public void Play()
 	{
 
 	}

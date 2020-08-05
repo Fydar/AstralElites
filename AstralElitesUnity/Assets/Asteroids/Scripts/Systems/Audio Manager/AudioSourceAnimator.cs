@@ -12,28 +12,28 @@ public class AudioSourceAnimator
 	private float initialVolume;
 	private float currentVolume;
 
-	public AudioSourceAnimator (AudioSource source, params VolumeControl[] audioGroup)
+	public AudioSourceAnimator(AudioSource source, params VolumeControl[] audioGroup)
 	{
 		Source = source;
 		initialVolume = source.volume;
-		controls = new List<VolumeControl> ();
+		controls = new List<VolumeControl>();
 
 		foreach (var group in audioGroup)
 		{
-			AddControl (group);
+			AddControl(group);
 		}
 
-		RefreshValues ();
+		RefreshValues();
 		Source.volume = currentVolume;
 	}
 
-	public bool Update (float deltaTime)
+	public bool Update(float deltaTime)
 	{
 		Source.volume = currentVolume;
 		return false;
 	}
 
-	public void RefreshValues ()
+	public void RefreshValues()
 	{
 		currentVolume = initialVolume;
 
@@ -43,9 +43,9 @@ public class AudioSourceAnimator
 		}
 	}
 
-	public void AddControl (VolumeControl control)
+	public void AddControl(VolumeControl control)
 	{
-		controls.Add (control);
-		control.animators.Add (this);
+		controls.Add(control);
+		control.animators.Add(this);
 	}
 }

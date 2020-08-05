@@ -6,119 +6,119 @@ public class AudioManager : MonoBehaviour
 {
 	private static AudioManager instance;
 
-	[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
-	private static void OnRuntimeMethodLoad ()
+	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+	private static void OnRuntimeMethodLoad()
 	{
-		var audioManager = new GameObject ("Audio Manager");
-		DontDestroyOnLoad (audioManager);
+		var audioManager = new GameObject("Audio Manager");
+		DontDestroyOnLoad(audioManager);
 
-		instance = audioManager.AddComponent<AudioManager> ();
+		instance = audioManager.AddComponent<AudioManager>();
 	}
 
 	public MusicGroup Music;
 
-	public VolumeControl TabFade = new VolumeControl (1.0f);
-	public VolumeControl MasterVolume = new VolumeControl (1.0f);
-	public VolumeControl SfxVolume = new VolumeControl (1.0f);
-	public VolumeControl MusicVolume = new VolumeControl (1.0f);
+	public VolumeControl TabFade = new VolumeControl(1.0f);
+	public VolumeControl MasterVolume = new VolumeControl(1.0f);
+	public VolumeControl SfxVolume = new VolumeControl(1.0f);
+	public VolumeControl MusicVolume = new VolumeControl(1.0f);
 
-	public AudioSourcePool Pool = new AudioSourcePool (25);
-	public List<AudioSourceAnimator> Animators = new List<AudioSourceAnimator> ();
+	public AudioSourcePool Pool = new AudioSourcePool(25);
+	public List<AudioSourceAnimator> Animators = new List<AudioSourceAnimator>();
 
 	private IInterpolator interpolator;
 
-	private void Awake ()
+	private void Awake()
 	{
-		Pool.Initialise (gameObject);
+		Pool.Initialise(gameObject);
 
-		interpolator = new LinearInterpolator (8.0f) { Value = 1.0f };
+		interpolator = new LinearInterpolator(8.0f) { Value = 1.0f };
 	}
 
-	private void Start ()
+	private void Start()
 	{
 		interpolator.TargetValue = 1.0f;
 		interpolator.Value = 1.0f;
 	}
 
-	private void Update ()
+	private void Update()
 	{
 		SfxVolume.Volume = SfxVolume.Volume;
 		MusicVolume.Volume = MusicVolume.Volume;
-		interpolator.Update (Time.unscaledDeltaTime);
+		interpolator.Update(Time.unscaledDeltaTime);
 		TabFade.Volume = interpolator.Value;
 
 		for (int i = Animators.Count - 1; i >= 0; i--)
 		{
 			var animator = Animators[i];
 
-			animator.Update (Time.deltaTime);
+			animator.Update(Time.deltaTime);
 		}
 	}
 
-	private void OnApplicationFocus (bool hasFocus)
+	private void OnApplicationFocus(bool hasFocus)
 	{
 		interpolator.TargetValue = hasFocus ? 1.0f : 0.0f;
 	}
 
-	private void OnApplicationPause (bool pauseStatus)
+	private void OnApplicationPause(bool pauseStatus)
 	{
 	}
 
-	public void PlayClip (SfxGroup group)
+	public void PlayClip(SfxGroup group)
 	{
-		var source = Pool.Grab ();
+		var source = Pool.Grab();
 
-		source.clip = group.GetClip ();
-		source.volume = UnityEngine.Random.Range (group.VolumeRange.x, group.VolumeRange.y);
-		source.pitch = UnityEngine.Random.Range (group.PitchRange.x, group.PitchRange.y);
+		source.clip = group.GetClip();
+		source.volume = UnityEngine.Random.Range(group.VolumeRange.x, group.VolumeRange.y);
+		source.pitch = UnityEngine.Random.Range(group.PitchRange.x, group.PitchRange.y);
 		source.loop = false;
 
-		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
-		Animators.Add (animator);
+		var animator = new AudioSourceAnimator(source, TabFade, MasterVolume, SfxVolume);
+		Animators.Add(animator);
 
-		source.Play ();
-		StartCoroutine (ReturnToPool (animator));
+		source.Play();
+		StartCoroutine(ReturnToPool(animator));
 	}
 
-	public void PlayClip (LoopGroup group, EffectFader fader)
+	public void PlayClip(LoopGroup group, EffectFader fader)
 	{
-		var source = Pool.Grab ();
+		var source = Pool.Grab();
 
 		source.clip = group.LoopedAudio;
 		source.pitch = group.PitchRange.x;
 		source.volume = group.VolumeRange.x;
 		source.loop = true;
 
-		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, SfxVolume);
-		Animators.Add (animator);
+		var animator = new AudioSourceAnimator(source, TabFade, MasterVolume, SfxVolume);
+		Animators.Add(animator);
 
-		source.Play ();
-		StartCoroutine (ManageLoop (animator, group, fader));
+		source.Play();
+		StartCoroutine(ManageLoop(animator, group, fader));
 	}
 
-	public static void PlayMusic (string name)
+	public static void PlayMusic(string name)
 	{
-		instance.StartCoroutine (instance.LoadAndPlayMusic (name));
+		instance.StartCoroutine(instance.LoadAndPlayMusic(name));
 	}
 
-	public void PlayMusic (MusicGroup group)
+	public void PlayMusic(MusicGroup group)
 	{
-		var source = Pool.Grab ();
+		var source = Pool.Grab();
 
 		source.clip = group.Music[0];
 		source.volume = group.Volume;
 		source.priority = 1024;
 		source.loop = true;
 
-		var animator = new AudioSourceAnimator (source, TabFade, MasterVolume, MusicVolume);
-		Animators.Add (animator);
+		var animator = new AudioSourceAnimator(source, TabFade, MasterVolume, MusicVolume);
+		Animators.Add(animator);
 
-		source.Play ();
+		source.Play();
 	}
 
-	private IEnumerator LoadAndPlayMusic (string resourcePath)
+	private IEnumerator LoadAndPlayMusic(string resourcePath)
 	{
-		var request = Resources.LoadAsync<MusicGroup> (resourcePath);
+		var request = Resources.LoadAsync<MusicGroup>(resourcePath);
 
 		while (!request.isDone)
 		{
@@ -127,37 +127,37 @@ public class AudioManager : MonoBehaviour
 
 		if (request.asset != null)
 		{
-			PlayMusic ((MusicGroup)request.asset);
+			PlayMusic((MusicGroup)request.asset);
 		}
 	}
 
-	private IEnumerator ReturnToPool (AudioSourceAnimator animator)
+	private IEnumerator ReturnToPool(AudioSourceAnimator animator)
 	{
-		yield return new WaitForSeconds (animator.Source.clip.length / animator.Source.pitch);
-		animator.Source.Stop ();
-		Pool.Return (animator.Source);
-		Animators.Remove (animator);
+		yield return new WaitForSeconds(animator.Source.clip.length / animator.Source.pitch);
+		animator.Source.Stop();
+		Pool.Return(animator.Source);
+		Animators.Remove(animator);
 	}
 
-	private IEnumerator ManageLoop (AudioSourceAnimator animator, LoopGroup group, EffectFader fader)
+	private IEnumerator ManageLoop(AudioSourceAnimator animator, LoopGroup group, EffectFader fader)
 	{
-		var FadeControl = new VolumeControl (0.0f);
-		animator.AddControl (FadeControl);
+		var FadeControl = new VolumeControl(0.0f);
+		animator.AddControl(FadeControl);
 		while (true)
 		{
-			fader.Update (Time.deltaTime);
+			fader.Update(Time.deltaTime);
 			FadeControl.Volume = fader.Value;
 			yield return null;
 		}
 	}
 
-	public static void Play (SfxGroup group)
+	public static void Play(SfxGroup group)
 	{
-		instance.PlayClip (group);
+		instance.PlayClip(group);
 	}
 
-	public static void Play (LoopGroup group, EffectFader fader)
+	public static void Play(LoopGroup group, EffectFader fader)
 	{
-		instance.PlayClip (group, fader);
+		instance.PlayClip(group, fader);
 	}
 }

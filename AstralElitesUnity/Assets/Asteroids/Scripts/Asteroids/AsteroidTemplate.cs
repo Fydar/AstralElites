@@ -23,7 +23,7 @@ public class AsteroidTemplate : ScriptableObject
 
 	public float Variation = 0.2f;
 
-	[Header ("Death")]
+	[Header("Death")]
 	public int Reward = 50;
 	[Space]
 	public AsteroidTemplate Spawn;
@@ -32,24 +32,24 @@ public class AsteroidTemplate : ScriptableObject
 	public int MinSpawn;
 	public int MaxSpawn;
 
-	public void Generate (Asteroid clone)
+	public void Generate(Asteroid clone)
 	{
-		clone.Generate (this);
+		clone.Generate(this);
 	}
 
-	public void Scatter (Vector3 point, float range, Vector3 velocity, int count = 1)
+	public void Scatter(Vector3 point, float range, Vector3 velocity, int count = 1)
 	{
 		for (int i = count - 1; i >= 0; --i)
 		{
-			var clone = AsteroidGenerator.instance.AsteroidPool.Grab (null);
+			var clone = AsteroidGenerator.instance.AsteroidPool.Grab(null);
 
-			clone.Generate (this);
+			clone.Generate(this);
 
 			var rand = Random.insideUnitCircle;
 
-			clone.transform.position = point + (new Vector3 (rand.x, rand.y, 0) * range * 0.5f);
+			clone.transform.position = point + (new Vector3(rand.x, rand.y, 0) * range * 0.5f);
 
-			clone.GetComponent<Rigidbody2D> ().velocity = velocity;
+			clone.GetComponent<Rigidbody2D>().velocity = velocity;
 		}
 	}
 }

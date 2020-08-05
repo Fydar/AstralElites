@@ -9,7 +9,7 @@ public struct LinearInterpolator : IInterpolator
 	private float targetValue;
 	private float currentValue;
 
-	public LinearInterpolator (float speed)
+	public LinearInterpolator(float speed)
 	{
 		Speed = speed;
 
@@ -45,7 +45,7 @@ public struct LinearInterpolator : IInterpolator
 		}
 	}
 
-	public void Update (float deltaTime)
+	public void Update(float deltaTime)
 	{
 		if (Sleeping)
 		{
@@ -56,11 +56,11 @@ public struct LinearInterpolator : IInterpolator
 
 		if (currentValue < targetValue)
 		{
-			currentValue = Mathf.Min (currentValue + movementAmount, targetValue);
+			currentValue = Mathf.Min(currentValue + movementAmount, targetValue);
 		}
 		else
 		{
-			currentValue = Mathf.Max (currentValue - movementAmount, targetValue);
+			currentValue = Mathf.Max(currentValue - movementAmount, targetValue);
 		}
 	}
 }

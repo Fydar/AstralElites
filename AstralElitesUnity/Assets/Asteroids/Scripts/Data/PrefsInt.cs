@@ -4,7 +4,7 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu (menuName = "Values/Prefs Int")]
+[CreateAssetMenu(menuName = "Values/Prefs Int")]
 public class PrefsInt : GlobalInt
 {
 	public string PlayerPrefsKey = "Key";
@@ -17,7 +17,7 @@ public class PrefsInt : GlobalInt
 		{
 			if (!HasLoaded)
 			{
-				currentValue = PlayerPrefs.GetInt (PlayerPrefsKey, 0);
+				currentValue = PlayerPrefs.GetInt(PlayerPrefsKey, 0);
 				HasLoaded = true;
 			}
 			return currentValue;
@@ -25,30 +25,30 @@ public class PrefsInt : GlobalInt
 		set
 		{
 			currentValue = value;
-			PlayerPrefs.SetInt (PlayerPrefsKey, currentValue);
+			PlayerPrefs.SetInt(PlayerPrefsKey, currentValue);
 
 			if (OnChanged != null)
 			{
-				OnChanged ();
+				OnChanged();
 			}
 		}
 	}
 
 #if UNITY_EDITOR
-	[CustomEditor (typeof (PrefsInt))]
+	[CustomEditor(typeof(PrefsInt))]
 	public class PrefsIntEditor : Editor
 	{
-		public override void OnInspectorGUI ()
+		public override void OnInspectorGUI()
 		{
-			DrawDefaultInspector ();
+			DrawDefaultInspector();
 
 			var prefsBool = (PrefsInt)target;
 
-			EditorGUILayout.LabelField ("Current Value", PlayerPrefs.GetInt (prefsBool.PlayerPrefsKey).ToString ());
+			EditorGUILayout.LabelField("Current Value", PlayerPrefs.GetInt(prefsBool.PlayerPrefsKey).ToString());
 
-			if (GUILayout.Button ("Clear"))
+			if (GUILayout.Button("Clear"))
 			{
-				PlayerPrefs.DeleteKey (prefsBool.PlayerPrefsKey);
+				PlayerPrefs.DeleteKey(prefsBool.PlayerPrefsKey);
 				prefsBool.HasLoaded = false;
 				prefsBool.currentValue = 0;
 			}

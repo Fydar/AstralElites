@@ -10,15 +10,15 @@ public class ClockManager : MonoBehaviour
 	[SerializeField] private RectTransform HourHand;
 	[SerializeField] private RectTransform MinuteHand;
 
-	private void Update ()
+	private void Update()
 	{
 		if (Time.renderedFrameCount % 60 == 0)
 		{
-			UpdateClock ();
+			UpdateClock();
 		}
 	}
 
-	private void UpdateClock ()
+	private void UpdateClock()
 	{
 		var now = DateTime.Now;
 
@@ -26,17 +26,17 @@ public class ClockManager : MonoBehaviour
 		{
 			int hours = now.Hour;
 			int minutes = now.Minute;
-			TimeText.text = hours.ToString ("00") + ":" + minutes.ToString ("00");
+			TimeText.text = hours.ToString("00") + ":" + minutes.ToString("00");
 		}
 
 		if (HourHand != null)
 		{
-			HourHand.eulerAngles = new Vector3 (0, 0, (float)(now.TimeOfDay.TotalHours % 12.0) * -360.0f);
+			HourHand.eulerAngles = new Vector3(0, 0, (float)(now.TimeOfDay.TotalHours % 12.0) * -360.0f);
 		}
 
 		if (MinuteHand != null)
 		{
-			MinuteHand.eulerAngles = new Vector3 (0, 0, (float)(now.TimeOfDay.Minutes / 60.0) * -360.0f);
+			MinuteHand.eulerAngles = new Vector3(0, 0, (float)(now.TimeOfDay.Minutes / 60.0) * -360.0f);
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class GlobalValue<T> : ScriptableObject
 
 			if (OnChanged != null)
 			{
-				OnChanged ();
+				OnChanged();
 			}
 		}
 	}

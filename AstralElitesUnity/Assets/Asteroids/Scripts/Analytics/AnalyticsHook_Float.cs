@@ -7,25 +7,25 @@ public class AnalyticsHook_Float
 	private GlobalFloat target;
 	public List<float> data;
 
-	public AnalyticsHook_Float (GlobalFloat _target)
+	public AnalyticsHook_Float(GlobalFloat _target)
 	{
 		target = _target;
-		data = new List<float> ();
+		data = new List<float>();
 	}
 
-	public void Capture ()
+	public void Capture()
 	{
-		data.Add (target.Value);
+		data.Add(target.Value);
 	}
 
-	public void Clear ()
+	public void Clear()
 	{
-		data.Clear ();
+		data.Clear();
 	}
 
-	public void Recapture ()
+	public void Recapture()
 	{
-		data.RemoveAt (data.Count - 1);
-		Capture ();
+		data.RemoveAt(data.Count - 1);
+		Capture();
 	}
 }

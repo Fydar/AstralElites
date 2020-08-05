@@ -15,56 +15,56 @@ public class AnalyticsManager : MonoBehaviour
 
 	private GameManager gameManager;
 
-	private void Awake ()
+	private void Awake()
 	{
-		gameManager = GetComponent<GameManager> ();
+		gameManager = GetComponent<GameManager>();
 
 		instance = this;
 	}
 
-	private void Start ()
+	private void Start()
 	{
-		healthHook = new AnalyticsHook_Int (gameManager.player.Health);
-		scoreHook = new AnalyticsHook_Int (gameManager.Score);
-		asteroidsDestroyedHook = new AnalyticsHook_Int (gameManager.AsteroidsDestroyed);
-		distanceTravelledHook = new AnalyticsHook_Float (gameManager.DistanceTravelled);
+		healthHook = new AnalyticsHook_Int(gameManager.player.Health);
+		scoreHook = new AnalyticsHook_Int(gameManager.Score);
+		asteroidsDestroyedHook = new AnalyticsHook_Int(gameManager.AsteroidsDestroyed);
+		distanceTravelledHook = new AnalyticsHook_Float(gameManager.DistanceTravelled);
 
-		Collisions = new AnalyticsHook<Collision2D> ();
+		Collisions = new AnalyticsHook<Collision2D>();
 		target.OnCollide += Collisions.Callback;
 	}
 
-	public void Clear ()
+	public void Clear()
 	{
-		scoreHook.Clear ();
-		healthHook.Clear ();
-		asteroidsDestroyedHook.Clear ();
-		distanceTravelledHook.Clear ();
+		scoreHook.Clear();
+		healthHook.Clear();
+		asteroidsDestroyedHook.Clear();
+		distanceTravelledHook.Clear();
 	}
 
-	public void StartCapture ()
+	public void StartCapture()
 	{
-		InvokeRepeating ("Capture", 0.0f, 2.00f);
+		InvokeRepeating("Capture", 0.0f, 2.00f);
 	}
 
-	public void EndCapture ()
+	public void EndCapture()
 	{
-		Recapture ();
-		CancelInvoke ("Capture");
+		Recapture();
+		CancelInvoke("Capture");
 	}
 
-	private void Capture ()
+	private void Capture()
 	{
-		scoreHook.Capture ();
-		healthHook.Capture ();
-		asteroidsDestroyedHook.Capture ();
-		distanceTravelledHook.Capture ();
+		scoreHook.Capture();
+		healthHook.Capture();
+		asteroidsDestroyedHook.Capture();
+		distanceTravelledHook.Capture();
 	}
 
-	public void Recapture ()
+	public void Recapture()
 	{
-		scoreHook.Recapture ();
-		healthHook.Recapture ();
-		asteroidsDestroyedHook.Recapture ();
-		distanceTravelledHook.Recapture ();
+		scoreHook.Recapture();
+		healthHook.Recapture();
+		asteroidsDestroyedHook.Recapture();
+		distanceTravelledHook.Recapture();
 	}
 }

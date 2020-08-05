@@ -7,29 +7,29 @@ public class SplashscreenInformation : MonoBehaviour
 	public Text Header;
 	public Text Info;
 
-	private void Start ()
+	private void Start()
 	{
-		UpdateInformation ();
+		UpdateInformation();
 	}
 
 #if UNITY_EDITOR
-	private void Update ()
+	private void Update()
 	{
-		UpdateInformation ();
+		UpdateInformation();
 	}
 #endif
 
-	private void UpdateInformation ()
+	private void UpdateInformation()
 	{
 		Header.text = Application.productName;
 
 		if (Debug.isDebugBuild)
 		{
-			Info.text = string.Format ("Version {0}\nby {1}\nDevelopment Build", Application.version, Application.companyName);
+			Info.text = string.Format("Version {0}\nby {1}\nDevelopment Build", Application.version, Application.companyName);
 		}
 		else
 		{
-			Info.text = string.Format ("Version {0}\nby {1}", Application.version, Application.companyName);
+			Info.text = string.Format("Version {0}\nby {1}", Application.version, Application.companyName);
 		}
 	}
 }

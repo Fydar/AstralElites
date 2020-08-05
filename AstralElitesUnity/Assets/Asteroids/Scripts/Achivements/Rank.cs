@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "Rank")]
+[CreateAssetMenu(menuName = "Rank")]
 public class Rank : ScriptableObject
 {
 	public string DisplayName = "Asset";
@@ -14,14 +14,14 @@ public class Rank : ScriptableObject
 
 	private static Rank[] Ranks;
 
-	public static Rank GetRank (int score)
-	{	
+	public static Rank GetRank(int score)
+	{
 		if (Ranks == null)
 		{
-			var ranks = new List<Rank> (Resources.LoadAll<Rank> ("Achievements"));
-			ranks.Sort (SortRanks);
+			var ranks = new List<Rank>(Resources.LoadAll<Rank>("Achievements"));
+			ranks.Sort(SortRanks);
 
-			Ranks = ranks.ToArray ();
+			Ranks = ranks.ToArray();
 		}
 
 		var lastRank = Ranks[0];
@@ -39,8 +39,8 @@ public class Rank : ScriptableObject
 		return lastRank;
 	}
 
-	private static int SortRanks (Rank a, Rank b)
+	private static int SortRanks(Rank a, Rank b)
 	{
-		return a.RequiredScore.CompareTo (b.RequiredScore);
+		return a.RequiredScore.CompareTo(b.RequiredScore);
 	}
 }

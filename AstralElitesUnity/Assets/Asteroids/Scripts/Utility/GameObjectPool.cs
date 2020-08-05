@@ -11,21 +11,21 @@ public class GameObjectPool<T>
 	private List<T> pool = new List<T> ();
 	private int currentGrabIndex = 0;
 
-	public void Initialise (Transform parent)
+	public void Initialise(Transform parent)
 	{
 		for (int i = 0; i < PrewarmAmount; i++)
 		{
-			ExpandPool (parent);
+			ExpandPool(parent);
 		}
-		Flush ();
+		Flush();
 	}
 
-	public T Grab ()
+	public T Grab()
 	{
-		return Grab (null);
+		return Grab(null);
 	}
 
-	public T Grab (Transform parent)
+	public T Grab(Transform parent)
 	{
 		if (pool.Count == 0)
 		{
@@ -33,15 +33,15 @@ public class GameObjectPool<T>
 			{
 				if (Reuse)
 				{
-					Template.gameObject.SetActive (false);
+					Template.gameObject.SetActive(false);
 #if UNITY_EDITOR
 					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
-					pool.Add (Template);
+					pool.Add(Template);
 				}
 				else
 				{
-					Template.gameObject.SetActive (false);
+					Template.gameObject.SetActive(false);
 #if UNITY_EDITOR
 					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
@@ -51,11 +51,11 @@ public class GameObjectPool<T>
 
 		if (pool.Count == currentGrabIndex)
 		{
-			ExpandPool (parent);
+			ExpandPool(parent);
 		}
 
 		var item = pool[currentGrabIndex];
-		item.gameObject.SetActive (true);
+		item.gameObject.SetActive(true);
 
 #if UNITY_EDITOR
 		item.gameObject.hideFlags = HideFlags.None;
@@ -63,18 +63,18 @@ public class GameObjectPool<T>
 
 		if (item.transform.parent != parent)
 		{
-			item.transform.SetParent (parent);
+			item.transform.SetParent(parent);
 		}
 		else
 		{
-			item.transform.SetAsLastSibling ();
+			item.transform.SetAsLastSibling();
 		}
 		currentGrabIndex++;
 
 		return item;
 	}
 
-	public void Flush ()
+	public void Flush()
 	{
 		if (pool.Count == 0)
 		{
@@ -82,11 +82,11 @@ public class GameObjectPool<T>
 			{
 				if (Reuse)
 				{
-					pool.Add (Template);
+					pool.Add(Template);
 				}
 				else
 				{
-					Template.gameObject.SetActive (false);
+					Template.gameObject.SetActive(false);
 #if UNITY_EDITOR
 					Template.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
@@ -96,7 +96,7 @@ public class GameObjectPool<T>
 
 		foreach (var item in pool)
 		{
-			item.gameObject.SetActive (false);
+			item.gameObject.SetActive(false);
 #if UNITY_EDITOR
 			item.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
@@ -105,35 +105,35 @@ public class GameObjectPool<T>
 		currentGrabIndex = 0;
 	}
 
-	public void Return (T item)
+	public void Return(T item)
 	{
-		int itemIndex = pool.IndexOf (item);
+		int itemIndex = pool.IndexOf(item);
 
 		if (itemIndex == -1)
 		{
-			Debug.LogError ($"Item \"{item}\" being returned to the pool doesn't belong in it.");
+			Debug.LogError($"Item \"{item}\" being returned to the pool doesn't belong in it.");
 		}
 
 		if (item.gameObject.activeInHierarchy == false)
 		{
-			Debug.LogError ($"Item \"{item}\" already cached in the pool");
+			Debug.LogError($"Item \"{item}\" already cached in the pool");
 		}
 
-		pool.RemoveAt (itemIndex);
-		pool.Add (item);
-		item.gameObject.SetActive (false);
+		pool.RemoveAt(itemIndex);
+		pool.Add(item);
+		item.gameObject.SetActive(false);
 #if UNITY_EDITOR
 		item.gameObject.hideFlags = HideFlags.HideInHierarchy;
 #endif
 		currentGrabIndex--;
 	}
 
-	private T ExpandPool (Transform parent)
+	private T ExpandPool(Transform parent)
 	{
-		var clone = Object.Instantiate (Template.gameObject, parent) as GameObject;
+		var clone = Object.Instantiate(Template.gameObject, parent);
 
-		var cloneComponent = clone.GetComponent<T> ();
-		pool.Add (cloneComponent);
+		var cloneComponent = clone.GetComponent<T>();
+		pool.Add(cloneComponent);
 
 		return cloneComponent;
 	}

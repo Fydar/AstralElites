@@ -4,27 +4,27 @@ public class OneTimePopup : MonoBehaviour
 {
 	public string ID = "Popup ID";
 
-	private void Awake ()
+	private void Awake()
 	{
-		if (PlayerPrefs.GetInt (ID, 0) == 1)
+		if (PlayerPrefs.GetInt(ID, 0) == 1)
 		{
-			Close ();
+			Close();
 		}
 	}
 
-	public void DontShowAgain ()
+	public void DontShowAgain()
 	{
-		PlayerPrefs.SetInt (ID, 1);
-		Close ();
+		PlayerPrefs.SetInt(ID, 1);
+		Close();
 	}
 
-	public void RemindMeLater ()
+	public void RemindMeLater()
 	{
-		Close ();
+		Close();
 	}
 
-	private void Close ()
+	private void Close()
 	{
-		Destroy (gameObject);
+		Destroy(gameObject);
 	}
 }

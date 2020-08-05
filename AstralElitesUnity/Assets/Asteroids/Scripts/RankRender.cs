@@ -19,21 +19,21 @@ public class RankRender : MonoBehaviour
 	public Graphic Bottom;
 	public Graphic Star;
 
-	public void RenderRank (Rank info)
+	public void RenderRank(Rank info)
 	{
-		RenderRank (info.Render);
+		RenderRank(info.Render);
 	}
 
-	public void RenderRank (RankRenderInformation info)
+	public void RenderRank(RankRenderInformation info)
 	{
 		Top.color = info.Colour;
 		Middle.color = info.Colour;
 		Bottom.color = info.Colour;
 		Star.color = info.Colour;
 
-		Top.gameObject.SetActive (info.Top);
-		Middle.gameObject.SetActive (info.Middle);
-		Bottom.gameObject.SetActive (info.Bottom);
-		Star.gameObject.SetActive (info.Star);
+		Top.gameObject.SetActive(info.Top);
+		Middle.gameObject.SetActive(info.Middle);
+		Bottom.gameObject.SetActive(info.Bottom);
+		Star.gameObject.SetActive(info.Star);
 	}
 }

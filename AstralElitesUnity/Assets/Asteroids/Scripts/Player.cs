@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
 	public Action<Collision2D> OnCollide;
@@ -17,13 +17,13 @@ public class Player : MonoBehaviour
 	public LoopGroup AlarmSound;
 	public LoopGroup ScrapingSound;
 
-	[Header ("Health")]
+	[Header("Health")]
 	public IntEventField Health;
 	public AnimationCurve DamageFromVelocity;
 
 	public GlobalFloat DistanceTravelled;
 
-	[Header ("Combat")]
+	[Header("Combat")]
 	public float FireCooldown = 0.1f;
 	public ProjectilePool WeaponProjectile;
 	public SfxGroup ShootSound;
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 	public ProjectilePool RocketProjectile;
 	public SfxGroup RocketSound;
 
-	[Header ("Movement")]
+	[Header("Movement")]
 	public float MovementSpeed = 10.0f;
 	public float RotationSpeed = 10.0f;
 
@@ -61,39 +61,45 @@ public class Player : MonoBehaviour
 
 	private List<Asteroid> Contacting = new List<Asteroid> ();
 
-	private void Awake ()
+	private void Awake()
 	{
-		WeaponProjectile.Initialise (null);
+		WeaponProjectile.Initialise(null);
 
-		rb = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody2D>();
 		cam = Camera.main;
 
-		EngineFade = new EffectFader (new DampenInterpolator () { Speed = 5 });
-		EngineFade.TargetValue = 0.0f;
+		EngineFade = new EffectFader(new DampenInterpolator() { Speed = 5 })
+		{
+			TargetValue = 0.0f
+		};
 
-		AlarmFade = new EffectFader (new DampenInterpolator () { Speed = 20 });
-		AlarmFade.TargetValue = 0.0f;
+		AlarmFade = new EffectFader(new DampenInterpolator() { Speed = 20 })
+		{
+			TargetValue = 0.0f
+		};
 
-		ScrapingFade = new EffectFader (new DampenInterpolator () { Speed = 20 });
-		ScrapingFade.TargetValue = 0.0f;
+		ScrapingFade = new EffectFader(new DampenInterpolator() { Speed = 20 })
+		{
+			TargetValue = 0.0f
+		};
 	}
 
-	private void Start ()
+	private void Start()
 	{
-		InvokeRepeating ("Fire", FireCooldown, FireCooldown);
+		InvokeRepeating("Fire", FireCooldown, FireCooldown);
 
-		AudioManager.Play (EngineSound, EngineFade);
-		AudioManager.Play (AlarmSound, AlarmFade);
-		AudioManager.Play (ScrapingSound, ScrapingFade);
+		AudioManager.Play(EngineSound, EngineFade);
+		AudioManager.Play(AlarmSound, AlarmFade);
+		AudioManager.Play(ScrapingSound, ScrapingFade);
 
 		lastDrag = rb.drag;
 
-		Revive ();
+		Revive();
 	}
 
 	private Vector3 lastPosition;
 
-	private void Update ()
+	private void Update()
 	{
 		if (Health.Value < 45 && Health.Value > 0)
 		{
@@ -113,7 +119,7 @@ public class Player : MonoBehaviour
 			EngineFade.TargetValue = 0.0f;
 			return;
 		}
-		
+
 		if (RocketProjectile.Template != null)
 		{
 			if (RocketCooldownCurrent >= 0.0f)
@@ -136,26 +142,26 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		var ray = cam.ScreenPointToRay (Input.mousePosition);
+		var ray = cam.ScreenPointToRay(Input.mousePosition);
 
 		var scenePoint = ray.origin + (ray.direction * 10);
 
-		float AngleRad = Mathf.Atan2 (scenePoint.y - transform.position.y,
+		float AngleRad = Mathf.Atan2(scenePoint.y - transform.position.y,
 			scenePoint.x - transform.position.x);
 
 		float AngleDeg = 180 / Mathf.PI * AngleRad;
 
-		rb.rotation = Mathf.Lerp (rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
-		transform.rotation = Quaternion.Euler (0.0f, 0.0f, rb.rotation);
+		rb.rotation = Mathf.Lerp(rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
+		transform.rotation = Quaternion.Euler(0.0f, 0.0f, rb.rotation);
 
-		if (Input.GetMouseButtonDown (0))
+		if (Input.GetMouseButtonDown(0))
 		{
-			engineParticles.Play ();
+			engineParticles.Play();
 			EngineFade.TargetValue = 1.0f;
 		}
-		if (Input.GetMouseButtonUp (0))
+		if (Input.GetMouseButtonUp(0))
 		{
-			engineParticles.Stop ();
+			engineParticles.Stop();
 			EngineFade.TargetValue = 0.0f;
 		}
 
@@ -167,7 +173,7 @@ public class Player : MonoBehaviour
 		lastPosition = transform.position;
 	}
 
-	private void FixedUpdate ()
+	private void FixedUpdate()
 	{
 		if (!isAlive)
 		{
@@ -176,17 +182,17 @@ public class Player : MonoBehaviour
 
 		if (canFire)
 		{
-			ScreenManager.Clamp (transform, border);
+			ScreenManager.Clamp(transform, border);
 		}
 
-		if (Input.GetMouseButton (0))
+		if (Input.GetMouseButton(0))
 		{
-			rb.AddForce (transform.right * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+			rb.AddForce(transform.right * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
 		}
 		else
 		{
-			var movementDirection = new Vector3 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"), 0);
-			rb.AddForce (movementDirection * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+			var movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+			rb.AddForce(movementDirection * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
 		}
 
 		if (Contacting.Count != 0)
@@ -195,16 +201,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter2D (Collision2D collision)
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		Health.Value -= Mathf.RoundToInt (DamageFromVelocity.Evaluate (collision.relativeVelocity.magnitude));
+		Health.Value -= Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
 
-		var collidingAsteroid = collision.gameObject.GetComponent<Asteroid> ();
+		var collidingAsteroid = collision.gameObject.GetComponent<Asteroid>();
 		if (collidingAsteroid != null)
 		{
 			if (OnCollide != null)
 			{
-				OnCollide (collision);
+				OnCollide(collision);
 			}
 
 			if (Health.Value > 0)
@@ -212,22 +218,22 @@ public class Player : MonoBehaviour
 				AudioManager.Play(HitSound);
 			}
 
-			Contacting.Add (collidingAsteroid);
+			Contacting.Add(collidingAsteroid);
 
 			collidingAsteroid.OnDestroy += () =>
 			{
-				Contacting.Remove (collidingAsteroid);
+				Contacting.Remove(collidingAsteroid);
 				collidingAsteroid.OnDestroy = null;
 			};
 		}
 	}
 
-	private void OnCollisionExit2D (Collision2D collision)
+	private void OnCollisionExit2D(Collision2D collision)
 	{
-		Contacting.Remove (collision.gameObject.GetComponent<Asteroid> ());
+		Contacting.Remove(collision.gameObject.GetComponent<Asteroid>());
 	}
 
-	private void Fire ()
+	private void Fire()
 	{
 		if (!isAlive)
 		{
@@ -239,26 +245,26 @@ public class Player : MonoBehaviour
 			return;
 		}
 
-		AudioManager.Play (ShootSound);
+		AudioManager.Play(ShootSound);
 
-		var clone = WeaponProjectile.Grab ();
-		clone.transform.SetPositionAndRotation (transform.position, transform.rotation);
+		var clone = WeaponProjectile.Grab();
+		clone.transform.SetPositionAndRotation(transform.position, transform.rotation);
 		clone.LifetimeRemaining = clone.Lifetime;
 
 		clone.Owner = gameObject;
 	}
 
-	public void Kill ()
+	public void Kill()
 	{
-		engineParticles.Stop ();
+		engineParticles.Stop();
 		isAlive = false;
 
 		lastDrag = rb.drag;
 		rb.drag = 0;
-		Contacting.Clear ();
+		Contacting.Clear();
 	}
 
-	public void Revive ()
+	public void Revive()
 	{
 		isAlive = true;
 		Health.Value = 100;
@@ -269,12 +275,12 @@ public class Player : MonoBehaviour
 		}
 
 		rb.drag = lastDrag;
-		rb.position = ScreenManager.RandomBorderPoint (-30);
+		rb.position = ScreenManager.RandomBorderPoint(-30);
 		transform.position = rb.position;
 		canFire = false;
-		Invoke ("WarpIntoScene", 0.25f);
-		Invoke ("StartShooting", 1.25f);
-		Contacting.Clear ();
+		Invoke("WarpIntoScene", 0.25f);
+		Invoke("StartShooting", 1.25f);
+		Contacting.Clear();
 
 		foreach (var trail in engineTrails)
 		{
@@ -282,16 +288,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void WarpIntoScene ()
+	private void WarpIntoScene()
 	{
-		AudioManager.Play (WarpSound);
+		AudioManager.Play(WarpSound);
 
 		Vector3 direction = -(rb.position);
 
-		rb.AddForce (direction * WarpForce, ForceMode2D.Impulse);
+		rb.AddForce(direction * WarpForce, ForceMode2D.Impulse);
 	}
 
-	private void StartShooting ()
+	private void StartShooting()
 	{
 		canFire = true;
 		lastPosition = transform.position;

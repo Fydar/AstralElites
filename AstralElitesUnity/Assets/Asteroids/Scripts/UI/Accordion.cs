@@ -6,15 +6,15 @@ public class Accordion : MonoBehaviour
 	public float Speed = 2.0f;
 	public AnimationCurve Curve;
 
-	[Header ("Content")]
+	[Header("Content")]
 	public LayoutElement Layout;
 
-	[Header ("Fade")]
+	[Header("Fade")]
 	public Image Fade;
 	public Color startColor;
 	public Color endColor;
 
-	[Header ("Arrow")]
+	[Header("Arrow")]
 	public RectTransform Arrow;
 	public Vector3 startScale;
 	public Vector3 endScale;
@@ -28,40 +28,40 @@ public class Accordion : MonoBehaviour
 
 	private Button thisButton;
 
-	private void Awake ()
+	private void Awake()
 	{
-		Interpolator = new CurveInterpolator (Speed, Curve);
+		Interpolator = new CurveInterpolator(Speed, Curve);
 		StartingHeight = Layout.preferredHeight;
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		Interpolator.Update (Time.unscaledDeltaTime);
+		Interpolator.Update(Time.unscaledDeltaTime);
 
-		Layout.preferredHeight = Mathf.Lerp (0, StartingHeight, Interpolator.Value);
+		Layout.preferredHeight = Mathf.Lerp(0, StartingHeight, Interpolator.Value);
 
 		if (Fade != null)
 		{
-			Fade.color = Color.Lerp (startColor, endColor, Interpolator.Value);
+			Fade.color = Color.Lerp(startColor, endColor, Interpolator.Value);
 		}
 
 		if (Arrow != null)
 		{
-			Arrow.transform.localScale = Vector3.Lerp (startScale, endScale, Interpolator.Value);
+			Arrow.transform.localScale = Vector3.Lerp(startScale, endScale, Interpolator.Value);
 		}
 	}
 
-	public void UiToggle ()
+	public void UiToggle()
 	{
 		if (Toggled)
 		{
-			AudioManager.Play (ContractSound);
+			AudioManager.Play(ContractSound);
 			Interpolator.TargetValue = 0.0f;
 			Toggled = false;
 		}
 		else
 		{
-			AudioManager.Play (ExpandSound);
+			AudioManager.Play(ExpandSound);
 			Interpolator.TargetValue = 1.0f;
 			Toggled = true;
 		}

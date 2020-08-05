@@ -12,18 +12,18 @@ public class AnalyticsHook<T>
 		}
 	}
 
-	public AnalyticsHook ()
+	public AnalyticsHook()
 	{
-		data = new List<T> ();
+		data = new List<T>();
 	}
 
-	public void Clear ()
+	public void Clear()
 	{
-		data.Clear ();
+		data.Clear();
 	}
 
-	public void Callback (T param)
+	public void Callback(T param)
 	{
-		data.Add (param);
+		data.Add(param);
 	}
 }

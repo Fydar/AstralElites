@@ -10,20 +10,20 @@ public class ScreenEffect : MonoBehaviour
 
 	private PostProcessVolume volume;
 
-	private void Awake ()
+	private void Awake()
 	{
-		volume = GetComponent<PostProcessVolume> ();
+		volume = GetComponent<PostProcessVolume>();
 		instance = this;
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		Spring.Update (Time.deltaTime);
+		Spring.Update(Time.deltaTime);
 
 		volume.weight = Spring.Value;
 	}
 
-	public void Pulse (float strength)
+	public void Pulse(float strength)
 	{
 		Spring.Velocity += strength * PulseVelocity;
 	}

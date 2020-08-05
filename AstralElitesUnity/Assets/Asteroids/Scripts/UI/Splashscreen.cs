@@ -11,11 +11,11 @@ public class Splashscreen : MonoBehaviour
 		Loaded
 	}
 
-	[Header ("Animation")]
+	[Header("Animation")]
 	public Animator ScreenAnimation;
 	public AudioListener audioListener;
 
-	[Header ("Parameters")]
+	[Header("Parameters")]
 	public PrefsBool DiscordTOS;
 	public string SceneName = "Game";
 	public string TosScene = "EULA";
@@ -26,24 +26,24 @@ public class Splashscreen : MonoBehaviour
 	private IInterpolator ProgressInterpolator;
 	private int awaitAnimationID;
 
-	private void Awake ()
+	private void Awake()
 	{
-		ProgressInterpolator = new LinearInterpolator () { Speed = 1.25f };
+		ProgressInterpolator = new LinearInterpolator() { Speed = 1.25f };
 
-		awaitAnimationID = Animator.StringToHash ("Continue");
+		awaitAnimationID = Animator.StringToHash("Continue");
 	}
 
-	private void Start ()
+	private void Start()
 	{
-		StartCoroutine (ScreenFlow ());
+		StartCoroutine(ScreenFlow());
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		ProgressInterpolator.Update (Time.deltaTime);
+		ProgressInterpolator.Update(Time.deltaTime);
 	}
 
-	private IEnumerator ScreenFlow ()
+	private IEnumerator ScreenFlow()
 	{
 		string sceneToLoad = SceneName;
 		if (!DiscordTOS.Value)
@@ -52,7 +52,7 @@ public class Splashscreen : MonoBehaviour
 		}
 
 		state = State.Loading;
-		var async = SceneManager.LoadSceneAsync (sceneToLoad, LoadSceneMode.Additive);
+		var async = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
 		async.allowSceneActivation = false;
 
 		while (async.progress != 0.9f)
@@ -65,7 +65,7 @@ public class Splashscreen : MonoBehaviour
 
 		while (true)
 		{
-			var animStateInfo = ScreenAnimation.GetCurrentAnimatorStateInfo (0);
+			var animStateInfo = ScreenAnimation.GetCurrentAnimatorStateInfo(0);
 
 			if (animStateInfo.shortNameHash == awaitAnimationID)
 			{
@@ -76,13 +76,13 @@ public class Splashscreen : MonoBehaviour
 		}
 
 		audioListener.enabled = false;
-		Destroy (audioListener);
+		Destroy(audioListener);
 
 		async.allowSceneActivation = true;
 		state = State.Loaded;
 
-		SceneManager.UnloadSceneAsync (gameObject.scene);
+		SceneManager.UnloadSceneAsync(gameObject.scene);
 
-		gameObject.SetActive (false);
+		gameObject.SetActive(false);
 	}
 }

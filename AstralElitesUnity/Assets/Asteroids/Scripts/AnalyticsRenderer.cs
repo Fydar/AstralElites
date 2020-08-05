@@ -5,7 +5,7 @@ public class AnalyticsRenderer : MonoBehaviour
 {
 	public AnalyticsManager manager;
 
-	[Header ("Rendering")]
+	[Header("Rendering")]
 	public Text LastCollisionDetails;
 
 	[Space]
@@ -33,7 +33,7 @@ public class AnalyticsRenderer : MonoBehaviour
 
 	private GameManager gameManager;
 
-	public void OnEnable ()
+	public void OnEnable()
 	{
 		gameManager = GameManager.instance;
 		if (gameManager == null)
@@ -41,36 +41,36 @@ public class AnalyticsRenderer : MonoBehaviour
 			return;
 		}
 
-		ScoreChartA.SetData (manager.scoreHook.data.ToArray ());
-		ScoreChartB.SetData (manager.scoreHook.data.ToArray ());
+		ScoreChartA.SetData(manager.scoreHook.data.ToArray());
+		ScoreChartB.SetData(manager.scoreHook.data.ToArray());
 
-		HealthChartA.SetData (manager.healthHook.data.ToArray ());
-		HealthChartB.SetData (manager.healthHook.data.ToArray ());
+		HealthChartA.SetData(manager.healthHook.data.ToArray());
+		HealthChartB.SetData(manager.healthHook.data.ToArray());
 
 		int seconds = ((int)gameManager.GameDuration) % 60;
 		int minutes = (int)(gameManager.GameDuration / 60);
 
-		DurationText.text = minutes.ToString () + "m " + seconds.ToString () + "s";
-		ScoreText.text = gameManager.Score.Value.ToString ("###,##0");
+		DurationText.text = minutes.ToString() + "m " + seconds.ToString() + "s";
+		ScoreText.text = gameManager.Score.Value.ToString("###,##0");
 
-		var rank = Rank.GetRank (gameManager.Score.Value);
+		var rank = Rank.GetRank(gameManager.Score.Value);
 		RankText.text = rank.DisplayName;
 
 		if (RankDisplay != null)
 		{
-			RankDisplay.RenderRank (rank);
+			RankDisplay.RenderRank(rank);
 		}
 
-		TotalAsteroidsText.text = gameManager.AsteroidsDestroyed.Value.ToString ();
+		TotalAsteroidsText.text = gameManager.AsteroidsDestroyed.Value.ToString();
 		PerformanceText.text = (gameManager.AsteroidsDestroyed.Value / gameManager.GameDuration)
-			.ToString ("0.00") + " Asteroids per Second";
-		DistanceTravelledText.text = gameManager.DistanceTravelled.Value.ToString ("###,##0.00") + " m";
-		AverageSpeedText.text = (gameManager.DistanceTravelled.Value / gameManager.GameDuration).ToString ("###,##0.00") + " m/s";
+			.ToString("0.00") + " Asteroids per Second";
+		DistanceTravelledText.text = gameManager.DistanceTravelled.Value.ToString("###,##0.00") + " m";
+		AverageSpeedText.text = (gameManager.DistanceTravelled.Value / gameManager.GameDuration).ToString("###,##0.00") + " m/s";
 
 		if (LastCollisionDetails != null)
 		{
 			LastCollisionDetails.text = "Your where crused by an asteroid moving " +
-				manager.Collisions.Last.relativeVelocity.magnitude.ToString ("###,##0.00") + " m/s.";
+				manager.Collisions.Last.relativeVelocity.magnitude.ToString("###,##0.00") + " m/s.";
 		}
 	}
 }

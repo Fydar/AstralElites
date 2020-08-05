@@ -10,7 +10,7 @@ public struct CurveInterpolator : IInterpolator
 	private float targetValue;
 	private float currentValue;
 
-	public CurveInterpolator (float speed, AnimationCurve curve)
+	public CurveInterpolator(float speed, AnimationCurve curve)
 	{
 		Speed = speed;
 		Curve = curve;
@@ -23,7 +23,7 @@ public struct CurveInterpolator : IInterpolator
 	{
 		get
 		{
-			return Curve.Evaluate (currentValue);
+			return Curve.Evaluate(currentValue);
 		}
 		set
 		{
@@ -47,7 +47,7 @@ public struct CurveInterpolator : IInterpolator
 		}
 	}
 
-	public void Update (float deltaTime)
+	public void Update(float deltaTime)
 	{
 		if (Sleeping)
 		{
@@ -58,11 +58,11 @@ public struct CurveInterpolator : IInterpolator
 
 		if (currentValue < targetValue)
 		{
-			currentValue = Mathf.Min (currentValue + movementAmount, targetValue);
+			currentValue = Mathf.Min(currentValue + movementAmount, targetValue);
 		}
 		else
 		{
-			currentValue = Mathf.Max (currentValue - movementAmount, targetValue);
+			currentValue = Mathf.Max(currentValue - movementAmount, targetValue);
 		}
 	}
 }

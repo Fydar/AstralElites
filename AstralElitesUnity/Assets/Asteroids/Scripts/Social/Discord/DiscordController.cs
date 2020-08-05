@@ -13,149 +13,149 @@ public class DiscordController : MonoBehaviour
 
 	public InspectorLog Log;
 
-	[Header ("Game")]
+	[Header("Game")]
 	public GlobalInt Highscore;
 	public int LastHighscore;
 
-	[Header ("Services")]
+	[Header("Services")]
 	public string applicationId;
 	public string optionalSteamId;
 
-	public DiscordRpc.RichPresence presence = new DiscordRpc.RichPresence ();
+	public DiscordRpc.RichPresence presence = new DiscordRpc.RichPresence();
 	public event Action<DiscordRpc.DiscordUser> OnConnect;
 	public event Action OnDisconnect;
 	private DiscordRpc.EventHandlers handlers;
 #endif
 
-	public void SetHighscore (int highscore)
+	public void SetHighscore(int highscore)
 	{
 #if UNITY_STANDALONE || UNITY_EDITOR
-		var rank = Rank.GetRank (highscore);
+		var rank = Rank.GetRank(highscore);
 		LastHighscore = highscore;
 
-		presence.details = string.Format ("Highscore: {0}", highscore.ToString ("###,###"));
+		presence.details = string.Format("Highscore: {0}", highscore.ToString("###,###"));
 		presence.largeImageKey = rank.DiscordAsset;
 		presence.largeImageText = "Rank: " + rank.DisplayName;
 
-		Log.Log ("Setting Highscore: " + highscore.ToString ("###,###") + ", rank of " + rank.DisplayName);
+		Log.Log("Setting Highscore: " + highscore.ToString("###,###") + ", rank of " + rank.DisplayName);
 
-		DiscordRpc.UpdatePresence (presence);
+		DiscordRpc.UpdatePresence(presence);
 #endif
 	}
 
-	public void EndGame (int score)
+	public void EndGame(int score)
 	{
 #if UNITY_STANDALONE || UNITY_EDITOR
 		if (score > LastHighscore)
 		{
-			SetHighscore (score);
+			SetHighscore(score);
 		}
 #endif
 	}
 
-	public void StartNewGame ()
+	public void StartNewGame()
 	{
 #if UNITY_STANDALONE || UNITY_EDITOR
-		Log.Log ("Starting New Game");
+		Log.Log("Starting New Game");
 
-		presence.startTimestamp = (int)(DateTime.UtcNow.Subtract (new DateTime (1970, 1, 1))).TotalSeconds;
+		presence.startTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
-		DiscordRpc.UpdatePresence (presence);
+		DiscordRpc.UpdatePresence(presence);
 #endif
 	}
 
-	private void Awake ()
+	private void Awake()
 	{
 		Instance = this;
 	}
 
 #if UNITY_STANDALONE || UNITY_EDITOR
-	private IEnumerator DownloadAvatar (DiscordRpc.DiscordUser connectedUser)
+	private IEnumerator DownloadAvatar(DiscordRpc.DiscordUser connectedUser)
 	{
-		var www = UnityWebRequestTexture.GetTexture (string.Format (GetProfileAddress, connectedUser.userId, connectedUser.avatar));
-		yield return www.SendWebRequest ();
+		var www = UnityWebRequestTexture.GetTexture(string.Format(GetProfileAddress, connectedUser.userId, connectedUser.avatar));
+		yield return www.SendWebRequest();
 
 		if (www.isNetworkError || www.isHttpError)
 		{
-			Debug.Log (www.error);
+			Debug.Log(www.error);
 
-			PopupManager.instance.GetPopup<DiscordLoginPopup> ().DisplayPopup (
-				string.Format ("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), null);
+			PopupManager.instance.GetPopup<DiscordLoginPopup>().DisplayPopup(
+				string.Format("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), null);
 		}
 		else
 		{
 			var avatarIcon = ((DownloadHandlerTexture)www.downloadHandler).texture;
 
-			PopupManager.instance.GetPopup<DiscordLoginPopup> ().DisplayPopup (
-				string.Format ("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), avatarIcon);
+			PopupManager.instance.GetPopup<DiscordLoginPopup>().DisplayPopup(
+				string.Format("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), avatarIcon);
 		}
 	}
 
-	private void ReadyCallback (ref DiscordRpc.DiscordUser connectedUser)
+	private void ReadyCallback(ref DiscordRpc.DiscordUser connectedUser)
 	{
-		Log.Log (string.Format ("Connected to {0}", connectedUser.username));
+		Log.Log(string.Format("Connected to {0}", connectedUser.username));
 
-		SetHighscore (Highscore.Value);
+		SetHighscore(Highscore.Value);
 
-		StartCoroutine (DownloadAvatar (connectedUser));
+		StartCoroutine(DownloadAvatar(connectedUser));
 
 		if (OnConnect != null)
 		{
-			OnConnect (connectedUser);
+			OnConnect(connectedUser);
 		}
 	}
 
-	private void DisconnectedCallback (int errorCode, string message)
+	private void DisconnectedCallback(int errorCode, string message)
 	{
-		Log.Log (string.Format ("Disconnected {0}: {1}", errorCode, message));
+		Log.Log(string.Format("Disconnected {0}: {1}", errorCode, message));
 
 		if (OnDisconnect != null)
 		{
-			OnDisconnect ();
+			OnDisconnect();
 		}
 	}
 
-	private void ErrorCallback (int errorCode, string message)
+	private void ErrorCallback(int errorCode, string message)
 	{
-		Log.Log (string.Format ("Discord: error {0}: {1}", errorCode, message));
+		Log.Log(string.Format("Discord: error {0}: {1}", errorCode, message));
 	}
 
-	private void JoinCallback (string secret)
+	private void JoinCallback(string secret)
 	{
-		Log.Log (string.Format ("Discord: join ({0})", secret));
+		Log.Log(string.Format("Discord: join ({0})", secret));
 	}
 
-	private void SpectateCallback (string secret)
+	private void SpectateCallback(string secret)
 	{
-		Log.Log (string.Format ("Discord: spectate ({0})", secret));
+		Log.Log(string.Format("Discord: spectate ({0})", secret));
 	}
 
-	private void RequestCallback (ref DiscordRpc.DiscordUser request)
+	private void RequestCallback(ref DiscordRpc.DiscordUser request)
 	{
-		Log.Log (string.Format ("Discord: join request {0}#{1}: {2}", request.username, request.discriminator, request.userId));
+		Log.Log(string.Format("Discord: join request {0}#{1}: {2}", request.username, request.discriminator, request.userId));
 		//joinRequest = request;
 	}
 
-	private void RequestRespondYes ()
+	private void RequestRespondYes()
 	{
-		Log.Log ("Discord: responding yes to Ask to Join request");
+		Log.Log("Discord: responding yes to Ask to Join request");
 		//DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.Yes);
 	}
 
-	private void RequestRespondNo ()
+	private void RequestRespondNo()
 	{
-		Log.Log ("Discord: responding no to Ask to Join request");
+		Log.Log("Discord: responding no to Ask to Join request");
 		//DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.No);
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		DiscordRpc.RunCallbacks ();
+		DiscordRpc.RunCallbacks();
 	}
 
-	private void OnEnable ()
+	private void OnEnable()
 	{
-		Log.Log ("Initializing Discord");
+		Log.Log("Initializing Discord");
 
 		DiscordRpc.Events.readyCallback = ReadyCallback;
 		DiscordRpc.Events.disconnectedCallback += DisconnectedCallback;
@@ -164,16 +164,16 @@ public class DiscordController : MonoBehaviour
 		DiscordRpc.Events.spectateCallback += SpectateCallback;
 		DiscordRpc.Events.requestCallback += RequestCallback;
 
-		DiscordRpc.Initialize (applicationId, true, optionalSteamId);
+		DiscordRpc.Initialize(applicationId, true, optionalSteamId);
 	}
 
-	private void OnDisable ()
+	private void OnDisable()
 	{
-		Log.Log ("Shutdown");
-		DiscordRpc.Shutdown ();
+		Log.Log("Shutdown");
+		DiscordRpc.Shutdown();
 	}
 
-	private void OnDestroy ()
+	private void OnDestroy()
 	{
 
 	}

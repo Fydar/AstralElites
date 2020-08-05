@@ -9,9 +9,9 @@ public class Popup : MonoBehaviour
 	public float WaitTime = 1.0f;
 	public float FadeOutTime = 0.5f;
 
-	protected IEnumerator PlayRoutine ()
+	protected IEnumerator PlayRoutine()
 	{
-		var loop = new TimedLoop (FadeInTime, true);
+		var loop = new TimedLoop(FadeInTime, true);
 
 		foreach (float time in loop)
 		{
@@ -19,10 +19,10 @@ public class Popup : MonoBehaviour
 			yield return null;
 		}
 
-		yield return new WaitForSecondsRealtime (WaitTime);
+		yield return new WaitForSecondsRealtime(WaitTime);
 
 		loop.Duration = FadeOutTime;
-		loop.Reset ();
+		loop.Reset();
 
 		foreach (float time in loop)
 		{
@@ -30,6 +30,6 @@ public class Popup : MonoBehaviour
 			yield return null;
 		}
 
-		GetComponentInParent<PopupManager> ().GetPopupPool (GetType ()).Return (this);
+		GetComponentInParent<PopupManager>().GetPopupPool(GetType()).Return(this);
 	}
 }

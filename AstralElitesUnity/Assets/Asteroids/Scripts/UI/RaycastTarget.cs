@@ -18,34 +18,34 @@ public class RaycastTarget : Graphic
 		}
 	}
 
-	public override void SetMaterialDirty ()
+	public override void SetMaterialDirty()
 	{
 		return;
 	}
 
-	public override void SetVerticesDirty ()
+	public override void SetVerticesDirty()
 	{
 		return;
 	}
 
-	protected override void OnPopulateMesh (VertexHelper vh)
+	protected override void OnPopulateMesh(VertexHelper vh)
 	{
-		vh.Clear ();
+		vh.Clear();
 		return;
 	}
 }
 
 #if UNITY_EDITOR
-[CanEditMultipleObjects, CustomEditor (typeof (RaycastTarget), false)]
+[CanEditMultipleObjects, CustomEditor(typeof(RaycastTarget), false)]
 public class RaycastTargetEditor : Editor
 {
-	public override void OnInspectorGUI ()
+	public override void OnInspectorGUI()
 	{
-		base.serializedObject.Update ();
+		base.serializedObject.Update();
 
 		//EditorGUILayout.PropertyField (base.m_Script);
 
-		base.serializedObject.ApplyModifiedProperties ();
+		base.serializedObject.ApplyModifiedProperties();
 	}
 }
 #endif

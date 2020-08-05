@@ -60,17 +60,17 @@ namespace Utility
 			}
 		}
 
-		private TimedLoop GetEnumerator ()
+		private TimedLoop GetEnumerator()
 		{
 			return this;
 		}
 
-		IEnumerator<float> IEnumerable<float>.GetEnumerator ()
+		IEnumerator<float> IEnumerable<float>.GetEnumerator()
 		{
 			return this;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator ()
+		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this;
 		}
@@ -83,7 +83,7 @@ namespace Utility
 			}
 		}
 
-		public TimedLoop (float _duration, bool _unscaled = false)
+		public TimedLoop(float _duration, bool _unscaled = false)
 		{
 			time = 0.0f;
 			duration = _duration;
@@ -91,18 +91,18 @@ namespace Utility
 			unscaled = _unscaled;
 		}
 
-		public void End ()
+		public void End()
 		{
 			time = duration;
 		}
 
-		public void Break ()
+		public void Break()
 		{
 			time = duration;
 			endNext = true;
 		}
 
-		public bool MoveNext ()
+		public bool MoveNext()
 		{
 			if (unscaled)
 			{
@@ -128,13 +128,13 @@ namespace Utility
 			return false;
 		}
 
-		public void Reset ()
+		public void Reset()
 		{
 			time = 0.0f;
 			endNext = false;
 		}
 
-		public void Dispose ()
+		public void Dispose()
 		{
 
 		}

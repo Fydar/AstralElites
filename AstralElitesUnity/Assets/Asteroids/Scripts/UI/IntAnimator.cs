@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent (typeof (Text))]
+[RequireComponent(typeof(Text))]
 public class IntAnimator : MonoBehaviour
 {
 	public GlobalInt Value;
@@ -10,18 +10,18 @@ public class IntAnimator : MonoBehaviour
 	private float currentValue = 0.0f;
 	private Text text = null;
 
-	private void Awake ()
+	private void Awake()
 	{
-		text = GetComponent<Text> ();
+		text = GetComponent<Text>();
 	}
 
-	private void Start ()
+	private void Start()
 	{
 		currentValue = Value.Value;
-		text.text = Mathf.RoundToInt (currentValue).ToString ();
+		text.text = Mathf.RoundToInt(currentValue).ToString();
 	}
 
-	private void Update ()
+	private void Update()
 	{
 		if (currentValue > Value.Value)
 		{
@@ -30,9 +30,9 @@ public class IntAnimator : MonoBehaviour
 
 		if (currentValue != Value.Value)
 		{
-			currentValue = Mathf.Lerp (currentValue, Value.Value, Time.deltaTime * InterpolationSpeed);
+			currentValue = Mathf.Lerp(currentValue, Value.Value, Time.deltaTime * InterpolationSpeed);
 		}
 
-		text.text = Mathf.RoundToInt (currentValue).ToString ();
+		text.text = Mathf.RoundToInt(currentValue).ToString();
 	}
 }

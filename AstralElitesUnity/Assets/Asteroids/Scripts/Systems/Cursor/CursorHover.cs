@@ -9,37 +9,37 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	private Button button;
 
-	private void Awake ()
+	private void Awake()
 	{
-		button = GetComponent<Button> ();
+		button = GetComponent<Button>();
 	}
 
-	public void OnPointerEnter (PointerEventData eventData)
+	public void OnPointerEnter(PointerEventData eventData)
 	{
 		if (button != null && !button.interactable)
 		{
 			return;
 		}
 
-		CursorManager.SetCursor ("Hand");
+		CursorManager.SetCursor("Hand");
 
 		if (HoverSound)
 		{
-			AudioManager.Play (HoverSound);
+			AudioManager.Play(HoverSound);
 		}
 	}
 
-	public void OnPointerExit (PointerEventData eventData)
+	public void OnPointerExit(PointerEventData eventData)
 	{
 		if (button != null && !button.interactable)
 		{
 			return;
 		}
 
-		CursorManager.SetCursor ("Default");
+		CursorManager.SetCursor("Default");
 	}
 
-	public void OnPointerClick (PointerEventData eventData)
+	public void OnPointerClick(PointerEventData eventData)
 	{
 		if (button != null && !button.interactable)
 		{
@@ -48,7 +48,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 		if (ClickSound)
 		{
-			AudioManager.Play (ClickSound);
+			AudioManager.Play(ClickSound);
 		}
 	}
 }

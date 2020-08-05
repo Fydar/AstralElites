@@ -8,47 +8,47 @@ public class EventFieldChainHandler<T, B> : IEventFieldHandler
 
 	private EventField<B> ChainedField;
 
-	public EventFieldChainHandler (EventField<T> source, EventField<B> target, Func<T, EventField<B>> chain)
+	public EventFieldChainHandler(EventField<T> source, EventField<B> target, Func<T, EventField<B>> chain)
 	{
 		SourceField = source;
 		TargetField = target;
 		Chain = chain;
 
-		ChainedField = Chain (SourceField.Value);
+		ChainedField = Chain(SourceField.Value);
 	}
 
-	public void OnBeforeChanged ()
+	public void OnBeforeChanged()
 	{
 		if (ChainedField == null)
 		{
 			return;
 		}
 
-		ChainedField.Handlers[this].Clear ();
+		ChainedField.Handlers[this].Clear();
 	}
 
-	public void OnAfterChanged ()
+	public void OnAfterChanged()
 	{
-		ChainedField = Chain (SourceField.Value);
+		ChainedField = Chain(SourceField.Value);
 		if (ChainedField == null)
 		{
-			TargetField.Value = default (B);
+			TargetField.Value = default(B);
 			return;
 		}
 
-		ChainedField.Handlers[this] += new EventFieldMirrorHandler<B> (ChainedField, TargetField);
+		ChainedField.Handlers[this] += new EventFieldMirrorHandler<B>(ChainedField, TargetField);
 		TargetField.Value = ChainedField.Value;
 	}
 
-	public void Dispose ()
+	public void Dispose()
 	{
-		SourceField.Handlers[TargetField].Clear ();
+		SourceField.Handlers[TargetField].Clear();
 
 		if (ChainedField == null)
 		{
 			return;
 		}
 
-		ChainedField.Handlers[this].Clear ();
+		ChainedField.Handlers[this].Clear();
 	}
 }

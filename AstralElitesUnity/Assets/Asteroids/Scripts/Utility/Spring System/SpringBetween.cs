@@ -12,7 +12,7 @@ public class Spring
 	public float Value;
 	public float Velocity;
 
-	public void Update (float deltaTime)
+	public void Update(float deltaTime)
 	{
 		float direction = Target - Value;
 
@@ -32,20 +32,20 @@ public class SpringBetween : MonoBehaviour
 	public Transform A;
 	public Transform B;
 
-	private void Start ()
+	private void Start()
 	{
 
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		if (Input.GetKeyDown (KeyCode.X))
+		if (Input.GetKeyDown(KeyCode.X))
 		{
 			spring.Velocity += bounceForce;
 		}
 
-		spring.Update (Time.deltaTime);
+		spring.Update(Time.deltaTime);
 
-		transform.position = Vector3.LerpUnclamped (A.position, B.position, spring.Value);
+		transform.position = Vector3.LerpUnclamped(A.position, B.position, spring.Value);
 	}
 }

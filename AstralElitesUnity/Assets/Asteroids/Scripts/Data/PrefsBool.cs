@@ -4,7 +4,7 @@
 using UnityEditor;
 #endif
 
-[CreateAssetMenu (menuName = "Values/Prefs Bool")]
+[CreateAssetMenu(menuName = "Values/Prefs Bool")]
 public class PrefsBool : GlobalBool
 {
 	public string PlayerPrefsKey = "Key";
@@ -18,7 +18,7 @@ public class PrefsBool : GlobalBool
 		{
 			if (!HasLoaded)
 			{
-				currentValue = GetBool (PlayerPrefsKey, DefaultValue);
+				currentValue = GetBool(PlayerPrefsKey, DefaultValue);
 				HasLoaded = true;
 			}
 			return currentValue;
@@ -26,41 +26,41 @@ public class PrefsBool : GlobalBool
 		set
 		{
 			currentValue = value;
-			SetBool (PlayerPrefsKey, currentValue);
+			SetBool(PlayerPrefsKey, currentValue);
 
 			if (OnChanged != null)
 			{
-				OnChanged ();
+				OnChanged();
 			}
 		}
 	}
 
-	public static void SetBool (string key, bool state)
+	public static void SetBool(string key, bool state)
 	{
-		PlayerPrefs.SetInt (key, state ? 1 : 0);
+		PlayerPrefs.SetInt(key, state ? 1 : 0);
 	}
 
-	public static bool GetBool (string key, bool defaultValue = false)
+	public static bool GetBool(string key, bool defaultValue = false)
 	{
-		int value = PlayerPrefs.GetInt (key, defaultValue ? 1 : 0);
+		int value = PlayerPrefs.GetInt(key, defaultValue ? 1 : 0);
 		return value == 1;
 	}
 
 #if UNITY_EDITOR
-	[CustomEditor (typeof (PrefsBool))]
+	[CustomEditor(typeof(PrefsBool))]
 	public class PrefsBoolEditor : Editor
 	{
-		public override void OnInspectorGUI ()
+		public override void OnInspectorGUI()
 		{
-			DrawDefaultInspector ();
+			DrawDefaultInspector();
 
 			var prefsBool = (PrefsBool)target;
 
-			EditorGUILayout.LabelField ("Current Value", PrefsBool.GetBool (prefsBool.PlayerPrefsKey, false).ToString ());
+			EditorGUILayout.LabelField("Current Value", PrefsBool.GetBool(prefsBool.PlayerPrefsKey, false).ToString());
 
-			if (GUILayout.Button ("Clear"))
+			if (GUILayout.Button("Clear"))
 			{
-				PlayerPrefs.DeleteKey (prefsBool.PlayerPrefsKey);
+				PlayerPrefs.DeleteKey(prefsBool.PlayerPrefsKey);
 				prefsBool.HasLoaded = false;
 				prefsBool.currentValue = false;
 			}
