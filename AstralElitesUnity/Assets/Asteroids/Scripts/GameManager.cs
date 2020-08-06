@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 	public CanvasGroup Fader;
 	public float fadeSpeed = 2.5f;
 
-	private IInterpolator Interpolator;
+	private IInterpolator interpolator;
 
 	private bool hasStarted = false;
 
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 		instance = this;
 		analytic = GetComponent<AnalyticsManager>();
 
-		Interpolator = new LinearInterpolator() { Speed = fadeSpeed };
+		interpolator = new LinearInterpolator() { Speed = fadeSpeed };
 		instance = this;
 	}
 
@@ -118,9 +118,9 @@ public class GameManager : MonoBehaviour
 			GameDuration += Time.deltaTime;
 		}
 
-		Interpolator.Update(Time.unscaledDeltaTime);
-		Fader.alpha = Interpolator.Value;
-		Fader.gameObject.SetActive(Interpolator.Value > 0.05f);
+		interpolator.Update(Time.unscaledDeltaTime);
+		Fader.alpha = interpolator.Value;
+		Fader.gameObject.SetActive(interpolator.Value > 0.05f);
 
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.X))
@@ -144,8 +144,12 @@ public class GameManager : MonoBehaviour
 
 	public void UI_Pause()
 	{
+		if (playState != PlayState.Paused
+			&& playState != PlayState.Ended)
+		{
+			AudioManager.Play(OpenPauseMenu);
+		}
 		Pause();
-		AudioManager.Play(OpenPauseMenu);
 	}
 
 	public void UI_Unpause()
@@ -162,7 +166,7 @@ public class GameManager : MonoBehaviour
 			Community.SetActive(false);
 		}
 
-		Interpolator.TargetValue = 0.0f;
+		interpolator.TargetValue = 0.0f;
 
 		AudioManager.Play(ClosePauseMenu);
 	}
@@ -192,7 +196,7 @@ public class GameManager : MonoBehaviour
 			Community.SetActive(true);
 		}
 
-		Interpolator.TargetValue = 1.0f;
+		interpolator.TargetValue = 1.0f;
 	}
 
 

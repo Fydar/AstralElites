@@ -6,7 +6,8 @@ public class OneTimePopup : MonoBehaviour
 
 	private void Awake()
 	{
-		if (PlayerPrefs.GetInt(ID, 0) == 1)
+		if (PlayerPrefs.GetInt(ID, 0) == 1
+			|| Application.platform == RuntimePlatform.WebGLPlayer)
 		{
 			Close();
 		}
