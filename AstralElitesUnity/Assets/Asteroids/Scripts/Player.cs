@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 	public GlobalFloat DistanceTravelled;
 
 	[Header("Combat")]
+	public Transform Firepoint;
 	public float FireCooldown = 0.1f;
 	public ProjectilePool WeaponProjectile;
 	public SfxGroup ShootSound;
@@ -187,12 +188,12 @@ public class Player : MonoBehaviour
 
 		if (Input.GetMouseButton(0))
 		{
-			rb.AddForce(transform.right * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+			rb.AddForce(transform.right * MovementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
 		}
 		else
 		{
 			var movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-			rb.AddForce(movementDirection * MovementSpeed * Time.deltaTime, ForceMode2D.Force);
+			rb.AddForce(movementDirection * MovementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
 		}
 
 		if (Contacting.Count != 0)
@@ -248,7 +249,7 @@ public class Player : MonoBehaviour
 		AudioManager.Play(ShootSound);
 
 		var clone = WeaponProjectile.Grab();
-		clone.transform.SetPositionAndRotation(transform.position, transform.rotation);
+		clone.transform.SetPositionAndRotation(Firepoint.position, Firepoint.rotation);
 		clone.LifetimeRemaining = clone.Lifetime;
 
 		clone.Owner = gameObject;
