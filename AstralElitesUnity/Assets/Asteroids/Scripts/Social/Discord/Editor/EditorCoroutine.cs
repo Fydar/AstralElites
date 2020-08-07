@@ -3,35 +3,35 @@ using UnityEditor;
 
 public class EditorCoroutine
 {
-	public static EditorCoroutine Start (IEnumerator _routine)
+	public static EditorCoroutine Start(IEnumerator _routine)
 	{
-		var coroutine = new EditorCoroutine (_routine);
-		coroutine.StartInternal ();
+		var coroutine = new EditorCoroutine(_routine);
+		coroutine.StartInternal();
 		return coroutine;
 	}
 
 	private readonly IEnumerator routine;
 
-	private EditorCoroutine (IEnumerator _routine)
+	private EditorCoroutine(IEnumerator _routine)
 	{
 		routine = _routine;
 	}
 
-	private void StartInternal ()
+	private void StartInternal()
 	{
 		EditorApplication.update += Update;
 	}
 
-	private void StopInternal ()
+	private void StopInternal()
 	{
 		EditorApplication.update -= Update;
 	}
 
-	private void Update ()
+	private void Update()
 	{
-		if (!routine.MoveNext ())
+		if (!routine.MoveNext())
 		{
-			StopInternal ();
+			StopInternal();
 		}
 	}
 }
