@@ -29,10 +29,11 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
-AstralElitesUnity/*.sln
-AstralElitesUnity/*.csproj
-AstralElitesUnity/[Ll]ibrary/
-AstralElitesUnity/Assets/AssetStoreTools*
+src/AstralElitesUnity/*.sln
+src/AstralElitesUnity/*.csproj
+src/AstralElitesUnity/[Ll]ibrary/
+src/AstralElitesUnity/Assets/AssetStoreTools*
+src/AstralElitesUnity/Assets/Asteroids/Audio/Source
 
 # Builds
 *.apk
@@ -53,4 +54,3 @@ Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 Project/Library/EditorInstance.json
 *.stamp
-AstralElitesUnity/Assets/Asteroids/Audio/Source
