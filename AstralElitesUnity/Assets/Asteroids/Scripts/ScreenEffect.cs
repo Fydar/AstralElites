@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 
 public class ScreenEffect : MonoBehaviour
 {
@@ -8,11 +8,11 @@ public class ScreenEffect : MonoBehaviour
 	public Spring Spring;
 	public float PulseVelocity = 10;
 
-	private PostProcessVolume volume;
+	private Volume volume;
 
 	private void Awake()
 	{
-		volume = GetComponent<PostProcessVolume>();
+		volume = GetComponent<Volume>();
 		instance = this;
 	}
 
@@ -20,7 +20,7 @@ public class ScreenEffect : MonoBehaviour
 	{
 		Spring.Update(Time.deltaTime);
 
-		volume.weight = Spring.Value;
+		volume.weight = Mathf.Abs(Spring.Value);
 	}
 
 	public void Pulse(float strength)
