@@ -2,41 +2,41 @@
 
 public class AsteroidGenerator : MonoBehaviour
 {
-	public static AsteroidGenerator instance;
+    public static AsteroidGenerator instance;
 
-	[Header("Gameplay")]
-	public float SpawnCooldown = 0.25f;
+    [Header("Gameplay")]
+    public float SpawnCooldown = 0.25f;
 
-	[Header("Asteroids")]
-	public AsteroidTemplate[] AsteroidTypes;
-	public AsteroidsPool AsteroidPool;
+    [Header("Asteroids")]
+    public AsteroidTemplate[] AsteroidTypes;
+    public AsteroidsPool AsteroidPool;
 
-	private void Awake()
-	{
-		instance = this;
+    private void Awake()
+    {
+        instance = this;
 
-		AsteroidPool.Initialise(null);
-	}
+        AsteroidPool.Initialise(null);
+    }
 
-	private void Regenerate()
-	{
-		if (!isActiveAndEnabled)
-		{
-			return;
-		}
+    private void Regenerate()
+    {
+        if (!isActiveAndEnabled)
+        {
+            return;
+        }
 
-		var template = AsteroidTypes[UnityEngine.Random.Range(0, AsteroidTypes.Length)];
+        var template = AsteroidTypes[UnityEngine.Random.Range(0, AsteroidTypes.Length)];
 
-		template.Generate(AsteroidPool.Grab(null));
-	}
+        template.Generate(AsteroidPool.Grab(null));
+    }
 
-	public void Disable()
-	{
-		CancelInvoke();
-	}
+    public void Disable()
+    {
+        CancelInvoke();
+    }
 
-	public void Enable()
-	{
-		InvokeRepeating("Regenerate", 1.75f, SpawnCooldown);
-	}
+    public void Enable()
+    {
+        InvokeRepeating("Regenerate", 1.75f, SpawnCooldown);
+    }
 }

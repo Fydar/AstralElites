@@ -2,5 +2,5 @@
 
 public abstract class AudioAsset : ScriptableObject
 {
-	public string VolumeGroup = "Sfx";
+    public string VolumeGroup = "Sfx";
 }

@@ -2,26 +2,26 @@
 
 public class RankPopupManager : MonoBehaviour
 {
-	public GlobalInt Highscore;
+    public GlobalInt Highscore;
 
-	private Rank lastRank = null;
+    private Rank lastRank = null;
 
-	private void Start()
-	{
-		Highscore.OnChanged += OnHighscoreChanged;
+    private void Start()
+    {
+        Highscore.OnChanged += OnHighscoreChanged;
 
-		lastRank = Rank.GetRank(Highscore.Value);
-	}
+        lastRank = Rank.GetRank(Highscore.Value);
+    }
 
-	private void OnHighscoreChanged()
-	{
-		var rank = Rank.GetRank(Highscore.Value);
+    private void OnHighscoreChanged()
+    {
+        var rank = Rank.GetRank(Highscore.Value);
 
-		if (lastRank != rank)
-		{
-			PopupManager.instance.GetPopup<RankPopup>().DisplayPopup(rank);
+        if (lastRank != rank)
+        {
+            PopupManager.instance.GetPopup<RankPopup>().DisplayPopup(rank);
 
-			lastRank = rank;
-		}
-	}
+            lastRank = rank;
+        }
+    }
 }

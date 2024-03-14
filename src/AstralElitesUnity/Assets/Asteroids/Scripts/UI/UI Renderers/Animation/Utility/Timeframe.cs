@@ -3,6 +3,6 @@
 [Serializable]
 public struct Timeframe
 {
-	public float Min;
-	public float Max;
+    public float Min;
+    public float Max;
 }

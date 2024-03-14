@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.IO;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,40 +10,40 @@ using UnityEditor;
 [DataContract]
 public struct DiscordArtAssetData
 {
-	// [{"type": 1, "id": "488014843228585984", "name": "admiral"},
+    // [{"type": 1, "id": "488014843228585984", "name": "admiral"},
 
-	[DataMember]
-	public int type;
-	[DataMember]
-	public string id;
-	[DataMember]
-	public string name;
+    [DataMember]
+    public int type;
+    [DataMember]
+    public string id;
+    [DataMember]
+    public string name;
 
-	public override string ToString()
-	{
-		return string.Format("{0} (ID: {1})", name, id);
-	}
+    public override string ToString()
+    {
+        return string.Format("{0} (ID: {1})", name, id);
+    }
 }
 
 [Serializable]
 public class DiscordArtAsset
 {
-	public string Name;
-	public string Id;
-	public Texture2D Image;
+    public string Name;
+    public string Id;
+    public Texture2D Image;
 
-	public DiscordArtAsset(string key, string id, Texture2D image)
-	{
-		Name = key;
-		Id = id;
-		Image = image;
-	}
+    public DiscordArtAsset(string key, string id, Texture2D image)
+    {
+        Name = key;
+        Id = id;
+        Image = image;
+    }
 }
 
 [CreateAssetMenu]
 public class DiscordArtManifest : ScriptableObject
 {
-	public List<DiscordArtAsset> Assets;
+    public List<DiscordArtAsset> Assets;
 }
 
 /*

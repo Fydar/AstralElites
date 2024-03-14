@@ -1,8 +1,8 @@
 ﻿public interface IInterpolator
 {
-	float Value { get; set; }
-	float TargetValue { set; }
-	bool Sleeping { get; }
+    float Value { get; set; }
+    float TargetValue { set; }
+    bool Sleeping { get; }
 
-	void Update(float deltaTime);
+    void Update(float deltaTime);
 }

@@ -2,20 +2,20 @@
 
 public class ScreenshotRenderer : MonoBehaviour
 {
-	public KeyCode Capture;
+    public KeyCode Capture;
 
-	[Space]
+    [Space]
 
-	public int resWidth = 2048;
-	public int resHeight = 2048;
+    public int resWidth = 2048;
+    public int resHeight = 2048;
 
-	[Space]
+    [Space]
 
-	public Camera camera;
+    public new Camera camera;
 
-	private void Update()
-	{
-		/*
+    private void Update()
+    {
+        /*
 		if (Input.GetKeyDown(Capture))
 		{
 			var rt = new RenderTexture(resWidth, resHeight, 24)
@@ -39,13 +39,13 @@ public class ScreenshotRenderer : MonoBehaviour
 
 			Debug.Log(string.Format("Took screenshot to: {0}", filename));
 		}*/
-	}
+    }
 
-	public static string ScreenShotName(int width, int height)
-	{
-		return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png",
-							 Application.dataPath,
-							 width, height,
-							 System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
-	}
+    public static string ScreenShotName(int width, int height)
+    {
+        return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png",
+                             Application.dataPath,
+                             width, height,
+                             System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+    }
 }
