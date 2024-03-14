@@ -28,7 +28,7 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("CleanupCheck", 3.0f, 1.0f);
+        InvokeRepeating(nameof(CleanupCheck), 3.0f, 1.0f);
     }
 
     public void Generate(AsteroidTemplate template)

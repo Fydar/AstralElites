@@ -5,7 +5,7 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(Spring))]
 public class SpringDrawer : PropertyDrawer
 {
-	private int samples = 32;
+	private readonly int samples = 32;
 
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
@@ -73,10 +73,5 @@ public class SpringDrawer : PropertyDrawer
 			Handles.EndGUI();
 
 		}
-	}
-
-	private void DrawLine(Vector3 start, Vector3 end)
-	{
-
 	}
 }

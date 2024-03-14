@@ -35,13 +35,12 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
         Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D>().velocity;
         int emitCount = Mathf.RoundToInt(emissionCount * target.mesh.bounds.extents.magnitude);
 
-        var sh = particles.shape;
-        sh.enabled = true;
-        sh.shapeType = ParticleSystemShapeType.Mesh;
-        sh.mesh = target.mesh;
+        var shape = particles.shape;
+        shape.enabled = true;
+        shape.shapeType = ParticleSystemShapeType.Mesh;
+        shape.mesh = target.mesh;
 
-        particles.transform.position = target.transform.position + Offset;
-        particles.transform.rotation = target.transform.rotation;
+        particles.transform.SetPositionAndRotation(target.transform.position + Offset, target.transform.rotation);
 
         particles.Emit(emitCount);
         int countBefore = particles.GetParticles(cache);
@@ -59,9 +58,7 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 
     private void OnParticleCollision(GameObject other)
     {
-        var player = other.GetComponent<Player>();
-
-        if (player != null)
+        if (other.TryGetComponent<Player>(out var player))
         {
             AudioManager.Play(player.GravelHitSound);
         }

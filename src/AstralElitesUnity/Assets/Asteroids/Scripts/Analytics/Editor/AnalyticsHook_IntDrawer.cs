@@ -5,11 +5,6 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(AnalyticsHook_Int))]
 public class AnalyticsHook_IntDrawer : PropertyDrawer
 {
-	public override bool CanCacheInspectorGUI(SerializedProperty property)
-	{
-		return false;
-	}
-
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
 		return 120;
@@ -65,8 +60,8 @@ public class AnalyticsHook_IntDrawer : PropertyDrawer
 		{
 			if (element.Contains("["))
 			{
-				string elementName = element.Substring(0, element.IndexOf("["));
-				int index = System.Convert.ToInt32(element.Substring(element.IndexOf("[")).Replace("[", "").Replace("]", ""));
+				string elementName = element[..element.IndexOf("[")];
+				int index = System.Convert.ToInt32(element[element.IndexOf("[")..].Replace("[", "").Replace("]", ""));
 				obj = GetValue_Imp(obj, elementName, index);
 			}
 			else
@@ -107,14 +102,12 @@ public class AnalyticsHook_IntDrawer : PropertyDrawer
 
 	private static object GetValue_Imp(object source, string name, int index)
 	{
-		var enumerable = GetValue_Imp(source, name) as System.Collections.IEnumerable;
+        if (GetValue_Imp(source, name) is not System.Collections.IEnumerable enumerable)
+        {
+            return null;
+        }
 
-		if (enumerable == null)
-		{
-			return null;
-		}
-
-		var enm = enumerable.GetEnumerator();
+        var enm = enumerable.GetEnumerator();
 
 		for (int i = 0; i <= index; i++)
 		{

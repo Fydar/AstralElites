@@ -60,10 +60,6 @@ public class AudioManager : MonoBehaviour
         interpolator.TargetValue = hasFocus ? 1.0f : 0.0f;
     }
 
-    private void OnApplicationPause(bool pauseStatus)
-    {
-    }
-
     public void PlayClip(SfxGroup group)
     {
         var source = Pool.Grab();

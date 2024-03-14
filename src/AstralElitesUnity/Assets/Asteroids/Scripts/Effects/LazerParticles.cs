@@ -15,8 +15,7 @@ public class LazerParticles : MonoBehaviour
 
     public void FireOnTarget(Vector3 position, Quaternion rotation)
     {
-        particles.transform.position = position;
-        particles.transform.rotation = rotation;
+        particles.transform.SetPositionAndRotation(position, rotation);
 
         particles.Emit(3);
     }

@@ -1,14 +1,14 @@
 using System;
 
-public class EventFieldChainHandler<T, B> : IEventFieldHandler
+public class EventFieldChainHandler<T, TChild> : IEventFieldHandler
 {
     public EventField<T> SourceField;
-    public EventField<B> TargetField;
-    public Func<T, EventField<B>> Chain;
+    public EventField<TChild> TargetField;
+    public Func<T, EventField<TChild>> Chain;
 
-    private EventField<B> ChainedField;
+    private EventField<TChild> ChainedField;
 
-    public EventFieldChainHandler(EventField<T> source, EventField<B> target, Func<T, EventField<B>> chain)
+    public EventFieldChainHandler(EventField<T> source, EventField<TChild> target, Func<T, EventField<TChild>> chain)
     {
         SourceField = source;
         TargetField = target;
@@ -36,7 +36,7 @@ public class EventFieldChainHandler<T, B> : IEventFieldHandler
             return;
         }
 
-        ChainedField.Handlers[this] += new EventFieldMirrorHandler<B>(ChainedField, TargetField);
+        ChainedField.Handlers[this] += new EventFieldMirrorHandler<TChild>(ChainedField, TargetField);
         TargetField.Value = ChainedField.Value;
     }
 

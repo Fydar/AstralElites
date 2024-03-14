@@ -51,7 +51,7 @@ public class EventField<T> : IDisposable
 
         public ContextWrapped this[object context]
         {
-            get => new(field, context);
+            readonly get => new(field, context);
             set
             {
                 handlers ??= new List<KeyValuePair<object, IEventFieldHandler>>();
@@ -144,10 +144,10 @@ public class EventField<T> : IDisposable
         Handlers = new HandlerCollection(this);
     }
 
-    public EventField<B> Watch<B>(Func<T, EventField<B>> chain)
+    public EventField<TChild> Watch<TChild>(Func<T, EventField<TChild>> chain)
     {
-        var watcher = new EventField<B>();
-        Handlers[watcher] += new EventFieldChainHandler<T, B>(this, watcher, chain);
+        var watcher = new EventField<TChild>();
+        Handlers[watcher] += new EventFieldChainHandler<T, TChild>(this, watcher, chain);
         return watcher;
     }
 

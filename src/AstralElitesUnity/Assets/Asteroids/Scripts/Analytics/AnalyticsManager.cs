@@ -43,13 +43,13 @@ public class AnalyticsManager : MonoBehaviour
 
     public void StartCapture()
     {
-        InvokeRepeating("Capture", 0.0f, 2.00f);
+        InvokeRepeating(nameof(Capture), 0.0f, 2.00f);
     }
 
     public void EndCapture()
     {
         Recapture();
-        CancelInvoke("Capture");
+        CancelInvoke(nameof(Capture));
     }
 
     private void Capture()

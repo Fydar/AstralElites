@@ -77,9 +77,6 @@ public abstract class Chart_Basic : Graphic
         }
         if (Points.Length == 1)
         {
-            float time = 1.0f;
-            float height = Points[0].Value;
-
             vh.AddTriangle(vertIndex - 2, vertIndex, vertIndex + 1);
             vh.AddTriangle(vertIndex - 2, vertIndex + 1, vertIndex - 1);
         }
