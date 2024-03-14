@@ -90,17 +90,6 @@ public static class DiscordRpc
             return buffer;
         }
 
-        private static string StrToUtf8NullTerm(string toconv)
-        {
-            string str = toconv.Trim();
-            byte[] bytes = Encoding.Default.GetBytes(str);
-            if (bytes.Length > 0 && bytes[^1] != 0)
-            {
-                str += "\0\0";
-            }
-            return Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(str));
-        }
-
         internal void FreeMem()
         {
             for (int i = _buffers.Count - 1; i >= 0; i--)

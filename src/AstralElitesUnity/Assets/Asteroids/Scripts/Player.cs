@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("Fire", FireCooldown, FireCooldown);
+        InvokeRepeating(nameof(Fire), FireCooldown, FireCooldown);
 
         AudioManager.Play(EngineSound, EngineFade);
         AudioManager.Play(AlarmSound, AlarmFade);
@@ -181,12 +181,12 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            rb.AddForce(transform.right * MovementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+            rb.AddForce(MovementSpeed * Time.fixedDeltaTime * transform.right, ForceMode2D.Force);
         }
         else
         {
             var movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-            rb.AddForce(movementDirection * MovementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+            rb.AddForce(MovementSpeed * Time.fixedDeltaTime * movementDirection, ForceMode2D.Force);
         }
 
         if (Contacting.Count != 0)
@@ -200,8 +200,7 @@ public class Player : MonoBehaviour
         var damageToTake = Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
         Health.Value = Mathf.Max(0, Health.Value - damageToTake);
 
-        var collidingAsteroid = collision.gameObject.GetComponent<Asteroid>();
-        if (collidingAsteroid != null)
+        if (collision.gameObject.TryGetComponent<Asteroid>(out var collidingAsteroid))
         {
             OnCollide?.Invoke(collision);
 
@@ -270,8 +269,8 @@ public class Player : MonoBehaviour
         rb.position = ScreenManager.RandomBorderPoint(-30);
         transform.position = rb.position;
         canFire = false;
-        Invoke("WarpIntoScene", 0.25f);
-        Invoke("StartShooting", 1.25f);
+        Invoke(nameof(WarpIntoScene), 0.25f);
+        Invoke(nameof(StartShooting), 1.25f);
         Contacting.Clear();
 
         foreach (var trail in engineTrails)

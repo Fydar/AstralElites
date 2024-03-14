@@ -47,7 +47,7 @@ public class AsteroidTemplate : ScriptableObject
 
             var rand = Random.insideUnitCircle;
 
-            clone.transform.position = point + (new Vector3(rand.x, rand.y, 0) * range * 0.5f);
+            clone.transform.position = point + (0.5f * range * (Vector3)rand);
 
             clone.GetComponent<Rigidbody2D>().velocity = velocity;
         }

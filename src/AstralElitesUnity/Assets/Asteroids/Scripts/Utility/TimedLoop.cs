@@ -34,11 +34,6 @@ namespace Utility
             set => Time = duration * value;
         }
 
-        private TimedLoop GetEnumerator()
-        {
-            return this;
-        }
-
         IEnumerator<float> IEnumerable<float>.GetEnumerator()
         {
             return this;

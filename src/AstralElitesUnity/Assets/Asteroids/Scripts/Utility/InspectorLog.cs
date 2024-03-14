@@ -58,8 +58,6 @@ public class InspectorLogDrawer : PropertyDrawer
     {
         var logItems = property.FindPropertyRelative("FullLog");
 
-		int logItemsCount = logItems.arraySize;
-
         int logSize = 12;
 
         float height = EditorGUIUtility.singleLineHeight;

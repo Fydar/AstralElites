@@ -19,7 +19,6 @@ public class DiscordController : MonoBehaviour
     public DiscordRpc.RichPresence presence = new();
     public event Action<DiscordRpc.DiscordUser> OnConnect;
     public event Action OnDisconnect;
-    private DiscordRpc.EventHandlers handlers;
 #endif
 
     public void SetHighscore(int highscore)
@@ -102,18 +101,6 @@ public class DiscordController : MonoBehaviour
         //joinRequest = request;
     }
 
-    private void RequestRespondYes()
-    {
-        Log.Log("Discord: responding yes to Ask to Join request");
-        //DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.Yes);
-    }
-
-    private void RequestRespondNo()
-    {
-        Log.Log("Discord: responding no to Ask to Join request");
-        //DiscordRpc.Respond (joinRequest.userId, DiscordRpc.Reply.No);
-    }
-
     private void Update()
     {
         DiscordRpc.RunCallbacks();
@@ -137,11 +124,6 @@ public class DiscordController : MonoBehaviour
     {
         Log.Log("Shutdown");
         DiscordRpc.Shutdown();
-    }
-
-    private void OnDestroy()
-    {
-
     }
 #endif
 }

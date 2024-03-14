@@ -37,6 +37,6 @@ public class AsteroidGenerator : MonoBehaviour
 
     public void Enable()
     {
-        InvokeRepeating("Regenerate", 1.75f, SpawnCooldown);
+        InvokeRepeating(nameof(Regenerate), 1.75f, SpawnCooldown);
     }
 }

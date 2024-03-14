@@ -20,14 +20,15 @@ public class EditorCoroutine
 
     private void Start()
     {
-        EditorApplication.update += update;
-    }
-    public void Stop()
-    {
-        EditorApplication.update -= update;
+        EditorApplication.update += EditorApplicationUpdate;
     }
 
-    private void update()
+    public void Stop()
+    {
+        EditorApplication.update -= EditorApplicationUpdate;
+    }
+
+    private void EditorApplicationUpdate()
     {
         if (!routine.MoveNext())
         {

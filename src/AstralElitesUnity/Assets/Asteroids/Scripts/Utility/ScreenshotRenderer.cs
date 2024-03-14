@@ -13,9 +13,10 @@ public class ScreenshotRenderer : MonoBehaviour
 
     public new Camera camera;
 
+    /*
     private void Update()
     {
-        /*
+        
 		if (Input.GetKeyDown(Capture))
 		{
 			var rt = new RenderTexture(resWidth, resHeight, 24)
@@ -38,8 +39,9 @@ public class ScreenshotRenderer : MonoBehaviour
 			System.IO.File.WriteAllBytes(filename, bytes);
 
 			Debug.Log(string.Format("Took screenshot to: {0}", filename));
-		}*/
+		}
     }
+	*/
 
     public static string ScreenShotName(int width, int height)
     {
