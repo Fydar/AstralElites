@@ -50,6 +50,7 @@ public class DiscordArtManifest : ScriptableObject
 	public List<DiscordArtAsset> Assets;
 }
 
+/*
 #if UNITY_EDITOR
 [CustomEditor(typeof(DiscordArtManifest))]
 public class DiscordArtManifestEditor : Editor
@@ -170,3 +171,4 @@ public class DiscordArtManifestEditor : Editor
 	}
 }
 #endif
+*/
