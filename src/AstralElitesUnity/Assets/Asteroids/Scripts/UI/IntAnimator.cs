@@ -4,35 +4,41 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class IntAnimator : MonoBehaviour
 {
-	public GlobalInt Value;
-	public float InterpolationSpeed = 10;
+    public GlobalInt Value;
+    public float InterpolationSpeed = 10;
 
-	private float currentValue = 0.0f;
-	private Text text = null;
+    private float currentValue = 0.0f;
+    private int lastRenderedValue;
+    private Text text = null;
 
-	private void Awake()
-	{
-		text = GetComponent<Text>();
-	}
+    private void Awake()
+    {
+        text = GetComponent<Text>();
+    }
 
-	private void Start()
-	{
-		currentValue = Value.Value;
-		text.text = Mathf.RoundToInt(currentValue).ToString();
-	}
+    private void Start()
+    {
+        currentValue = Value.Value;
+        text.text = Mathf.RoundToInt(currentValue).ToString();
+    }
 
-	private void Update()
-	{
-		if (currentValue > Value.Value)
-		{
-			currentValue = Value.Value;
-		}
+    private void Update()
+    {
+        if (currentValue > Value.Value)
+        {
+            currentValue = Value.Value;
+        }
 
-		if (currentValue != Value.Value)
-		{
-			currentValue = Mathf.Lerp(currentValue, Value.Value, Time.deltaTime * InterpolationSpeed);
-		}
+        if (currentValue != Value.Value)
+        {
+            currentValue = Mathf.Lerp(currentValue, Value.Value, Time.deltaTime * InterpolationSpeed);
+        }
 
-		text.text = Mathf.RoundToInt(currentValue).ToString();
-	}
+        int renderedValue = Mathf.RoundToInt(currentValue);
+        if (lastRenderedValue != renderedValue)
+        {
+            text.text = renderedValue.ToString();
+            lastRenderedValue = renderedValue;
+        }
+    }
 }
