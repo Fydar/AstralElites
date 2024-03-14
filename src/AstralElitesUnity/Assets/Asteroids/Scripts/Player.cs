@@ -197,7 +197,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Health.Value -= Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
+        var damageToTake = Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
+        Health.Value = Mathf.Max(0, Health.Value - damageToTake);
 
         var collidingAsteroid = collision.gameObject.GetComponent<Asteroid>();
         if (collidingAsteroid != null)
