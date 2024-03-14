@@ -8,9 +8,6 @@ public class DiscordController : MonoBehaviour
 	public static DiscordController Instance;
 
 #if UNITY_STANDALONE || UNITY_EDITOR
-	private const string GetProfileAddress = "https://cdn.discordapp.com/avatars/{0}/{1}.jpg";
-
-
 	public InspectorLog Log;
 
 	[Header("Game")]
@@ -70,34 +67,11 @@ public class DiscordController : MonoBehaviour
 	}
 
 #if UNITY_STANDALONE || UNITY_EDITOR
-	private IEnumerator DownloadAvatar(DiscordRpc.DiscordUser connectedUser)
-	{
-		var www = UnityWebRequestTexture.GetTexture(string.Format(GetProfileAddress, connectedUser.userId, connectedUser.avatar));
-		yield return www.SendWebRequest();
-
-		if (www.isNetworkError || www.isHttpError)
-		{
-			Debug.Log(www.error);
-
-			PopupManager.instance.GetPopup<DiscordLoginPopup>().DisplayPopup(
-				string.Format("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), null);
-		}
-		else
-		{
-			var avatarIcon = ((DownloadHandlerTexture)www.downloadHandler).texture;
-
-			PopupManager.instance.GetPopup<DiscordLoginPopup>().DisplayPopup(
-				string.Format("{0} <color=#666>#{1}</color>", connectedUser.username, connectedUser.discriminator), avatarIcon);
-		}
-	}
-
 	private void ReadyCallback(ref DiscordRpc.DiscordUser connectedUser)
 	{
 		Log.Log(string.Format("Connected to {0}", connectedUser.username));
 
 		SetHighscore(Highscore.Value);
-
-		StartCoroutine(DownloadAvatar(connectedUser));
 
 		if (OnConnect != null)
 		{
