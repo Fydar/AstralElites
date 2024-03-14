@@ -10,8 +10,6 @@ public class Rank : ScriptableObject
 
 	public RankRenderInformation Render;
 
-	public Sprite Icon;
-
 	private static Rank[] Ranks;
 
 	public static Rank GetRank(int score)

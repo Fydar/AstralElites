@@ -3,17 +3,15 @@ using UnityEngine.UI;
 
 public class RankPopup : Popup
 {
-	[Header("Rank")]
-	public Text Name;
-	public Image RankIcon;
-	public RankRender RankDisplay;
+    [Header("Rank")]
+    public Text Name;
+    public RankRender RankDisplay;
 
-	public void DisplayPopup(Rank rank)
-	{
-		Name.text = rank.DisplayName;
-		RankIcon.sprite = rank.Icon;
-		RankDisplay.RenderRank(rank);
+    public void DisplayPopup(Rank rank)
+    {
+        Name.text = rank.DisplayName;
+        RankDisplay.RenderRank(rank);
 
-		StartCoroutine(PlayRoutine());
-	}
+        StartCoroutine(PlayRoutine());
+    }
 }
