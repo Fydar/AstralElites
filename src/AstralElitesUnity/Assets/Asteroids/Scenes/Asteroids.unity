@@ -49353,15 +49353,15 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 4.95
-      outSlope: 4.95
+      value: 10
+      inSlope: 18
+      outSlope: 18
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 20
+      time: 5
       value: 100
       inSlope: 0.037661083
       outSlope: 0.037661083
