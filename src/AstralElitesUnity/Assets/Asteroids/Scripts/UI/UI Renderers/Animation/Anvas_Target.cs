@@ -5,6 +5,6 @@ using UnityEngine;
 [Serializable]
 public struct Anvas_Target
 {
-	public RectTransform Target;
-	public List<Anvas_Clip> Clips;
+    public RectTransform Target;
+    public List<Anvas_Clip> Clips;
 }

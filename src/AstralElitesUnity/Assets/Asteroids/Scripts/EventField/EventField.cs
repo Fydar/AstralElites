@@ -13,155 +13,146 @@ public class FloatEventField : EventField<float>
 
 public class EventField<T> : IDisposable
 {
-	public struct HandlerCollection : IDisposable
-	{
-		public struct ContextWrapped
-		{
-			public IEventFieldHandler Result;
+    public struct HandlerCollection : IDisposable
+    {
+        public struct ContextWrapped
+        {
+            public IEventFieldHandler Result;
 
-			private readonly EventField<T> Field;
-			private readonly object Context;
+            private readonly EventField<T> Field;
+            private readonly object Context;
 
-			public ContextWrapped(EventField<T> field, object context)
-			{
-				Field = field;
-				Context = context;
-				Result = null;
-			}
+            public ContextWrapped(EventField<T> field, object context)
+            {
+                Field = field;
+                Context = context;
+                Result = null;
+            }
 
-			public void Clear()
-			{
-				Field.Handlers.Clear(Context);
-			}
+            public void Clear()
+            {
+                Field.Handlers.Clear(Context);
+            }
 
-			public static ContextWrapped operator +(ContextWrapped left, IEventFieldHandler right)
-			{
-				left.Result = right;
-				return left;
-			}
-		}
-		private readonly EventField<T> field;
-		private List<KeyValuePair<object, IEventFieldHandler>> handlers;
+            public static ContextWrapped operator +(ContextWrapped left, IEventFieldHandler right)
+            {
+                left.Result = right;
+                return left;
+            }
+        }
+        private readonly EventField<T> field;
+        private List<KeyValuePair<object, IEventFieldHandler>> handlers;
 
-		public HandlerCollection(EventField<T> field)
-		{
-			this.field = field;
-			handlers = null;
-		}
+        public HandlerCollection(EventField<T> field)
+        {
+            this.field = field;
+            handlers = null;
+        }
 
-		public ContextWrapped this[object context]
-		{
-			get
-			{
-				return new ContextWrapped(field, context);
-			}
-			set
-			{
-				if (handlers == null)
-				{
-					handlers = new List<KeyValuePair<object, IEventFieldHandler>>();
-				}
+        public ContextWrapped this[object context]
+        {
+            get => new(field, context);
+            set
+            {
+                handlers ??= new List<KeyValuePair<object, IEventFieldHandler>>();
 
-				handlers.Add(new KeyValuePair<object, IEventFieldHandler>(context, value.Result));
-			}
-		}
+                handlers.Add(new KeyValuePair<object, IEventFieldHandler>(context, value.Result));
+            }
+        }
 
-		public void Clear(object context)
-		{
-			for (int i = handlers.Count - 1; i >= 0; i--)
-			{
-				if (handlers[i].Key == context)
-				{
-					handlers.RemoveAt(i);
-				}
-			}
-		}
+        public void Clear(object context)
+        {
+            for (int i = handlers.Count - 1; i >= 0; i--)
+            {
+                if (handlers[i].Key == context)
+                {
+                    handlers.RemoveAt(i);
+                }
+            }
+        }
 
-		public void Clear()
-		{
-			handlers.Clear();
-		}
+        public void Clear()
+        {
+            handlers.Clear();
+        }
 
-		public void InvokeBeforeChanged()
-		{
-			if (handlers == null)
-			{
-				return;
-			}
+        public void InvokeBeforeChanged()
+        {
+            if (handlers == null)
+            {
+                return;
+            }
 
-			for (int i = 0; i < handlers.Count; i++)
-			{
-				handlers[i].Value.OnBeforeChanged();
-			}
-		}
+            for (int i = 0; i < handlers.Count; i++)
+            {
+                handlers[i].Value.OnBeforeChanged();
+            }
+        }
 
-		public void InvokeAfterChanged()
-		{
-			if (handlers == null)
-			{
-				return;
-			}
+        public void InvokeAfterChanged()
+        {
+            if (handlers == null)
+            {
+                return;
+            }
 
-			for (int i = 0; i < handlers.Count; i++)
-			{
-				handlers[i].Value.OnAfterChanged();
-			}
-		}
+            for (int i = 0; i < handlers.Count; i++)
+            {
+                handlers[i].Value.OnAfterChanged();
+            }
+        }
 
-		public void Dispose()
-		{
-			if (handlers == null)
-			{
-				return;
-			}
+        public void Dispose()
+        {
+            if (handlers == null)
+            {
+                return;
+            }
 
-			for (int i = 0; i < handlers.Count; i++)
-			{
-				handlers[i].Value.Dispose();
-			}
-		}
-	}
+            for (int i = 0; i < handlers.Count; i++)
+            {
+                handlers[i].Value.Dispose();
+            }
+        }
+    }
 
 
 
-	public HandlerCollection Handlers;
-	public Action OnBeforeChanged;
-	public Action OnAfterChanged;
+    public HandlerCollection Handlers;
+    public Action OnBeforeChanged;
+    public Action OnAfterChanged;
 
-	private T internalValue;
+    private T internalValue;
 
-	public T Value
-	{
-		get
-		{
-			return internalValue;
-		}
-		set
-		{
-			Handlers.InvokeBeforeChanged();
-			OnBeforeChanged?.Invoke();
+    public T Value
+    {
+        get => internalValue;
+        set
+        {
+            Handlers.InvokeBeforeChanged();
+            OnBeforeChanged?.Invoke();
 
-			internalValue = value;
+            internalValue = value;
 
-			Handlers.InvokeAfterChanged();
-			OnAfterChanged?.Invoke();
-		}
-	}
+            Handlers.InvokeAfterChanged();
+            OnAfterChanged?.Invoke();
+        }
+    }
 
-	public EventField()
-	{
-		Handlers = new HandlerCollection(this);
-	}
+    public EventField()
+    {
+        Handlers = new HandlerCollection(this);
+    }
 
-	public EventField<B> Watch<B>(Func<T, EventField<B>> chain)
-	{
-		var watcher = new EventField<B>();
-		Handlers[watcher] += new EventFieldChainHandler<T, B>(this, watcher, chain);
-		return watcher;
-	}
+    public EventField<B> Watch<B>(Func<T, EventField<B>> chain)
+    {
+        var watcher = new EventField<B>();
+        Handlers[watcher] += new EventFieldChainHandler<T, B>(this, watcher, chain);
+        return watcher;
+    }
 
-	public void Dispose()
-	{
-		Handlers.Dispose();
-	}
+    public void Dispose()
+    {
+        Handlers.Dispose();
+    }
 }

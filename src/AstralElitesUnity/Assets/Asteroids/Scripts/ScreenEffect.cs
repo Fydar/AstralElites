@@ -3,28 +3,28 @@ using UnityEngine.Rendering;
 
 public class ScreenEffect : MonoBehaviour
 {
-	public static ScreenEffect instance;
+    public static ScreenEffect instance;
 
-	public Spring Spring;
-	public float PulseVelocity = 10;
+    public Spring Spring;
+    public float PulseVelocity = 10;
 
-	private Volume volume;
+    private Volume volume;
 
-	private void Awake()
-	{
-		volume = GetComponent<Volume>();
-		instance = this;
-	}
+    private void Awake()
+    {
+        volume = GetComponent<Volume>();
+        instance = this;
+    }
 
-	private void Update()
-	{
-		Spring.Update(Time.deltaTime);
+    private void Update()
+    {
+        Spring.Update(Time.deltaTime);
 
-		volume.weight = Mathf.Abs(Spring.Value);
-	}
+        volume.weight = Mathf.Abs(Spring.Value);
+    }
 
-	public void Pulse(float strength)
-	{
-		Spring.Velocity += strength * PulseVelocity;
-	}
+    public void Pulse(float strength)
+    {
+        Spring.Velocity += strength * PulseVelocity;
+    }
 }

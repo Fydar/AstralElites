@@ -4,63 +4,43 @@ using UnityEngine;
 [Serializable]
 public struct LinearInterpolator : IInterpolator
 {
-	public float Speed;
+    public float Speed;
 
-	private float targetValue;
-	private float currentValue;
+    private float targetValue;
+    private float currentValue;
 
-	public LinearInterpolator(float speed)
-	{
-		Speed = speed;
+    public LinearInterpolator(float speed)
+    {
+        Speed = speed;
 
-		targetValue = 0.0f;
-		currentValue = 0.0f;
-	}
+        targetValue = 0.0f;
+        currentValue = 0.0f;
+    }
 
-	public float Value
-	{
-		get
-		{
-			return currentValue;
-		}
-		set
-		{
-			currentValue = value;
-		}
-	}
+    public float Value
+    {
+        get => currentValue;
+        set => currentValue = value;
+    }
 
-	public float TargetValue
-	{
-		set
-		{
-			targetValue = value;
-		}
-	}
+    public float TargetValue
+    {
+        set => targetValue = value;
+    }
 
-	public bool Sleeping
-	{
-		get
-		{
-			return currentValue == targetValue;
-		}
-	}
+    public bool Sleeping => currentValue == targetValue;
 
-	public void Update(float deltaTime)
-	{
-		if (Sleeping)
-		{
-			return;
-		}
+    public void Update(float deltaTime)
+    {
+        if (Sleeping)
+        {
+            return;
+        }
 
-		float movementAmount = Speed * deltaTime;
+        float movementAmount = Speed * deltaTime;
 
-		if (currentValue < targetValue)
-		{
-			currentValue = Mathf.Min(currentValue + movementAmount, targetValue);
-		}
-		else
-		{
-			currentValue = Mathf.Max(currentValue - movementAmount, targetValue);
-		}
-	}
+        currentValue = currentValue < targetValue
+            ? Mathf.Min(currentValue + movementAmount, targetValue)
+            : Mathf.Max(currentValue - movementAmount, targetValue);
+    }
 }

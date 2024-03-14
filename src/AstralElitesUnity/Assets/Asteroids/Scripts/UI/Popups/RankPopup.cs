@@ -12,6 +12,6 @@ public class RankPopup : Popup
         Name.text = rank.DisplayName;
         RankDisplay.RenderRank(rank);
 
-        StartCoroutine(PlayRoutine());
+        _ = StartCoroutine(PlayRoutine());
     }
 }

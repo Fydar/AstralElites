@@ -3,33 +3,24 @@
 [Serializable]
 public class EffectFader
 {
-	public LoopGroup Audio;
+    public LoopGroup Audio;
 
-	private IInterpolator Interpolator;
+    private readonly IInterpolator Interpolator;
 
-	public float Value
-	{
-		get
-		{
-			return Interpolator.Value;
-		}
-	}
+    public float Value => Interpolator.Value;
 
-	public float TargetValue
-	{
-		set
-		{
-			Interpolator.TargetValue = value;
-		}
-	}
+    public float TargetValue
+    {
+        set => Interpolator.TargetValue = value;
+    }
 
-	public EffectFader(IInterpolator interpolator)
-	{
-		Interpolator = interpolator;
-	}
+    public EffectFader(IInterpolator interpolator)
+    {
+        Interpolator = interpolator;
+    }
 
-	public void Update(float deltaTime)
-	{
-		Interpolator.Update(deltaTime);
-	}
+    public void Update(float deltaTime)
+    {
+        Interpolator.Update(deltaTime);
+    }
 }

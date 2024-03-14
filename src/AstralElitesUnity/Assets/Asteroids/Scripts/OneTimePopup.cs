@@ -2,30 +2,30 @@
 
 public class OneTimePopup : MonoBehaviour
 {
-	public string ID = "Popup ID";
+    public string ID = "Popup ID";
 
-	private void Awake()
-	{
-		if (PlayerPrefs.GetInt(ID, 0) == 1
-			|| Application.platform == RuntimePlatform.WebGLPlayer)
-		{
-			Close();
-		}
-	}
+    private void Awake()
+    {
+        if (PlayerPrefs.GetInt(ID, 0) == 1
+            || Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            Close();
+        }
+    }
 
-	public void DontShowAgain()
-	{
-		PlayerPrefs.SetInt(ID, 1);
-		Close();
-	}
+    public void DontShowAgain()
+    {
+        PlayerPrefs.SetInt(ID, 1);
+        Close();
+    }
 
-	public void RemindMeLater()
-	{
-		Close();
-	}
+    public void RemindMeLater()
+    {
+        Close();
+    }
 
-	private void Close()
-	{
-		Destroy(gameObject);
-	}
+    private void Close()
+    {
+        Destroy(gameObject);
+    }
 }
