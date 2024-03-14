@@ -16,9 +16,7 @@ public class Splashscreen : MonoBehaviour
 	public AudioListener audioListener;
 
 	[Header("Parameters")]
-	public PrefsBool DiscordTOS;
 	public string SceneName = "Game";
-	public string TosScene = "EULA";
 
 	[Space]
 	public State state;
@@ -46,10 +44,6 @@ public class Splashscreen : MonoBehaviour
 	private IEnumerator ScreenFlow()
 	{
 		string sceneToLoad = SceneName;
-		if (!DiscordTOS.Value)
-		{
-			sceneToLoad = TosScene;
-		}
 
 		state = State.Loading;
 		var async = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
