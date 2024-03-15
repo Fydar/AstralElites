@@ -26,7 +26,7 @@ public class ClockManager : MonoBehaviour
         {
             int hours = now.Hour;
             int minutes = now.Minute;
-            TimeText.text = hours.ToString("00") + ":" + minutes.ToString("00");
+            TimeText.text = $"{hours:00}:{minutes:00}";
         }
 
         if (HourHand != null)

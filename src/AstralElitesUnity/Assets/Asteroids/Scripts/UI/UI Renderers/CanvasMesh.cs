@@ -19,15 +19,18 @@ public class CanvasMesh : Graphic
         var multiplier = new Vector3(Mathf.Abs(rectTransform.rect.width) / boundsSize.x * -0.5f,
             Mathf.Abs(rectTransform.rect.height) / boundsSize.y * 0.5f, 0);
 
-        for (int i = 0; i < mesh.vertices.Length; i++)
+        var vertices = mesh.vertices;
+        for (int i = 0; i < vertices.Length; i++)
         {
-            var vertPos = mesh.vertices[i];
+            var vertPos = vertices[i];
             vertPos.Scale(multiplier);
             vh.AddVert(vertPos, color, Vector2.zero);
         }
-        for (int i = 0; i < mesh.triangles.Length; i += 3)
+
+        var triangles = mesh.GetTriangles(0);
+        for (int i = 0; i < triangles.Length; i += 3)
         {
-            vh.AddTriangle(mesh.triangles[i], mesh.triangles[i + 1], mesh.triangles[i + 2]);
+            vh.AddTriangle(triangles[i], triangles[i + 1], triangles[i + 2]);
         }
     }
 }
