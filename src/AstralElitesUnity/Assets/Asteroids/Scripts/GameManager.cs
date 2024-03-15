@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Analytics;
+// using UnityEngine.Analytics;
 
 public class Game
 {
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        PerformanceReporting.enabled = false;
+        // PerformanceReporting.enabled = false;
         // Analytics.initializeOnStartup = false;
         // Analytics.enabled = false;
         // Analytics.limitUserTracking = true;

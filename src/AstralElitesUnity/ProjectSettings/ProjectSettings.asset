@@ -90,7 +90,7 @@ PlayerSettings:
   submitAnalytics: 1
   usePlayerLog: 1
   dedicatedServerOptimizations: 0
-  bakeCollisionMeshes: 1
+  bakeCollisionMeshes: 0
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
   resizableWindow: 1
@@ -926,7 +926,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -948,10 +954,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: e59620b6-e7bb-41b8-87bb-dd99f2fd74c7
+  cloudProjectId: 3798a0d7-c7d2-47ff-ba7f-59346cb0adc7
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: TT Games Test
+  projectName: Astral Elites
   organizationId: oxbruceox
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
