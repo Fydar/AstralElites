@@ -50,7 +50,7 @@ public class AnalyticsRenderer : MonoBehaviour
         int seconds = ((int)gameManager.GameDuration) % 60;
         int minutes = (int)(gameManager.GameDuration / 60);
 
-        DurationText.text = minutes.ToString() + "m " + seconds.ToString() + "s";
+        DurationText.text = $"{minutes}m {seconds}s";
         ScoreText.text = gameManager.Score.Value.ToString("###,##0");
 
         var rank = Rank.GetRank(gameManager.Score.Value);
@@ -62,15 +62,13 @@ public class AnalyticsRenderer : MonoBehaviour
         }
 
         TotalAsteroidsText.text = gameManager.AsteroidsDestroyed.Value.ToString();
-        PerformanceText.text = (gameManager.AsteroidsDestroyed.Value / gameManager.GameDuration)
-            .ToString("0.00") + " Asteroids per Second";
-        DistanceTravelledText.text = gameManager.DistanceTravelled.Value.ToString("###,##0.00") + " m";
-        AverageSpeedText.text = (gameManager.DistanceTravelled.Value / gameManager.GameDuration).ToString("###,##0.00") + " m/s";
+        PerformanceText.text = $"{gameManager.AsteroidsDestroyed.Value / gameManager.GameDuration:0.00} Asteroids per Second";
+        DistanceTravelledText.text = $"{gameManager.DistanceTravelled.Value:###,##0.00} m";
+        AverageSpeedText.text = $"{gameManager.DistanceTravelled.Value / gameManager.GameDuration:###,##0.00} m/s";
 
         if (LastCollisionDetails != null)
         {
-            LastCollisionDetails.text = "Your where crused by an asteroid moving " +
-                manager.Collisions.Last.relativeVelocity.magnitude.ToString("###,##0.00") + " m/s.";
+            LastCollisionDetails.text = $"Your where crused by an asteroid moving {manager.Collisions.Last.relativeVelocity.magnitude:###,##0.00} m/s.";
         }
     }
 }
