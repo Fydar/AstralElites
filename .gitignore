@@ -33,7 +33,7 @@ src/AstralElitesUnity/*.sln
 src/AstralElitesUnity/*.csproj
 src/AstralElitesUnity/[Ll]ibrary/
 src/AstralElitesUnity/Assets/AssetStoreTools*
-src/AstralElitesUnity/Assets/Asteroids/Audio/Source
+src/AstralElitesUnity/Assets/AstralElites/Audio/Source
 src/AstralElitesUnity/UserSettings
 
 # Builds
