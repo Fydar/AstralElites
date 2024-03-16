@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class Chart_Area : Chart_Basic
 {
-
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
