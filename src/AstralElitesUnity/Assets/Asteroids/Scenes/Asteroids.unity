@@ -47013,8 +47013,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22220774abc0ed44787b5cb2760c465f, type: 2}
   - {fileID: 11400000, guid: 0c4cd0902297a264d8ea49693e7d1f40, type: 2}
   AsteroidPool:
-    Template: {fileID: 2173903892801576758, guid: dceef9342b90cff41a3122ad60d41067,
-      type: 3}
+    Template: {fileID: 2173903892801576758, guid: dceef9342b90cff41a3122ad60d41067, type: 3}
     Reuse: 1
     PrewarmAmount: 15
 --- !u!4 &1693768366
@@ -49376,8 +49375,7 @@ MonoBehaviour:
   Firepoint: {fileID: 1335257750}
   FireCooldown: 0.1375
   WeaponProjectile:
-    Template: {fileID: 114404358654912924, guid: 409b4e9b7f4c0c749bdb4ef57f5e05b4,
-      type: 3}
+    Template: {fileID: 114404358654912924, guid: 409b4e9b7f4c0c749bdb4ef57f5e05b4, type: 3}
     Reuse: 1
     PrewarmAmount: 4
   ShootSound: {fileID: 11400000, guid: 21ed7a3448ae7fc458db89e03b4a9465, type: 2}
