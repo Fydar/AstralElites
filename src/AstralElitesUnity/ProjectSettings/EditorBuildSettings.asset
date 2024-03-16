@@ -12,4 +12,4 @@ EditorBuildSettings:
     path: Assets/Asteroids/Scenes/Asteroids.unity
     guid: bff415b22a630fc45a59cfe79efc39e7
   m_configObjects: {}
-  m_UseUCBPForAssetBundles: 0
+  m_UseUCBPForAssetBundles: 1
