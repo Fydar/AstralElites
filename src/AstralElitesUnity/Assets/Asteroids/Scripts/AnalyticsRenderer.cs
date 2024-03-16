@@ -68,7 +68,7 @@ public class AnalyticsRenderer : MonoBehaviour
 
         if (LastCollisionDetails != null)
         {
-            LastCollisionDetails.text = $"Your where crused by an asteroid moving {manager.Collisions.Last.relativeVelocity.magnitude:###,##0.00} m/s.";
+            LastCollisionDetails.text = $"Your where crused by an asteroid moving {manager.Collisions.Last?.relativeVelocity.magnitude ?? 0:###,##0.00} m/s.";
         }
     }
 }
