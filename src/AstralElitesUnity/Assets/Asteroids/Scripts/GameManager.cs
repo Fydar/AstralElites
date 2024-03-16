@@ -219,7 +219,10 @@ public class GameManager : MonoBehaviour
         AsteroidGenerator.instance.AsteroidPool.Flush();
         generator.Enable();
 
-        DiscordController.Instance.StartNewGame();
+        if (DiscordController.Instance != null)
+        {
+            DiscordController.Instance.StartNewGame();
+        }
 
         analytic.Clear();
         analytic.StartCapture();
@@ -239,7 +242,10 @@ public class GameManager : MonoBehaviour
             Community.SetActive(true);
         }
 
-        DiscordController.Instance.EndGame(Score.Value);
+        if (DiscordController.Instance != null)
+        {
+            DiscordController.Instance.EndGame(Score.Value);
+        }
         analytic.EndCapture();
 
         playState = PlayState.Ended;
