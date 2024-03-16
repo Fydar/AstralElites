@@ -197,13 +197,13 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        OnCollide?.Invoke(collision);
+
         var damageToTake = Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
         Health.Value = Mathf.Max(0, Health.Value - damageToTake);
 
         if (collision.gameObject.TryGetComponent<Asteroid>(out var collidingAsteroid))
         {
-            OnCollide?.Invoke(collision);
-
             if (Health.Value > 0)
             {
                 AudioManager.Play(HitSound);
