@@ -33,7 +33,7 @@ public class Splashscreen : MonoBehaviour
 
     private void Start()
     {
-		StartCoroutine(ScreenFlow());
+        _ = StartCoroutine(ScreenFlow());
     }
 
     private void Update()
@@ -75,7 +75,7 @@ public class Splashscreen : MonoBehaviour
         async.allowSceneActivation = true;
         state = State.Loaded;
 
-		SceneManager.UnloadSceneAsync(gameObject.scene);
+        _ = SceneManager.UnloadSceneAsync(gameObject.scene);
 
         gameObject.SetActive(false);
     }

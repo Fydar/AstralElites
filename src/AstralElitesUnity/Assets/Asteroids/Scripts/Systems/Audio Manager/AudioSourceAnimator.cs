@@ -12,7 +12,9 @@ public class AudioSourceAnimator
     private readonly float initialVolume;
     private float currentVolume;
 
-    public AudioSourceAnimator(AudioSource source, params VolumeControl[] audioGroup)
+    public AudioSourceAnimator(
+        AudioSource source,
+        params VolumeControl[] audioGroup)
     {
         Source = source;
         initialVolume = source.volume;
@@ -43,7 +45,8 @@ public class AudioSourceAnimator
         }
     }
 
-    public void AddControl(VolumeControl control)
+    public void AddControl(
+        VolumeControl control)
     {
         controls.Add(control);
         control.animators.Add(this);

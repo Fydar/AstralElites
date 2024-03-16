@@ -55,18 +55,20 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void OnApplicationFocus(bool hasFocus)
+    private void OnApplicationFocus(
+        bool hasFocus)
     {
         interpolator.TargetValue = hasFocus ? 1.0f : 0.0f;
     }
 
-    public void PlayClip(SfxGroup group)
+    public void PlayClip(
+        SfxGroup group)
     {
         var source = Pool.Grab();
 
         source.clip = group.GetClip();
-        source.volume = UnityEngine.Random.Range(group.VolumeRange.x, group.VolumeRange.y);
-        source.pitch = UnityEngine.Random.Range(group.PitchRange.x, group.PitchRange.y);
+        source.volume = Random.Range(group.VolumeRange.x, group.VolumeRange.y);
+        source.pitch = Random.Range(group.PitchRange.x, group.PitchRange.y);
         source.loop = false;
 
         var animator = new AudioSourceAnimator(source, TabFade, MasterVolume, SfxVolume);
@@ -76,7 +78,9 @@ public class AudioManager : MonoBehaviour
         _ = StartCoroutine(ReturnToPool(animator));
     }
 
-    public void PlayClip(LoopGroup group, EffectFader fader)
+    public void PlayClip(
+        LoopGroup group,
+        EffectFader fader)
     {
         var source = Pool.Grab();
 
@@ -92,12 +96,14 @@ public class AudioManager : MonoBehaviour
         _ = StartCoroutine(ManageLoop(animator, group, fader));
     }
 
-    public static void PlayMusic(string name)
+    public static void PlayMusic(
+        string name)
     {
         _ = instance.StartCoroutine(instance.LoadAndPlayMusic(name));
     }
 
-    public void PlayMusic(MusicGroup group)
+    public void PlayMusic(
+        MusicGroup group)
     {
         var source = Pool.Grab();
 
@@ -112,7 +118,8 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
-    private IEnumerator LoadAndPlayMusic(string resourcePath)
+    private IEnumerator LoadAndPlayMusic(
+        string resourcePath)
     {
         var request = Resources.LoadAsync<MusicGroup>(resourcePath);
 
@@ -127,7 +134,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ReturnToPool(AudioSourceAnimator animator)
+    private IEnumerator ReturnToPool(
+        AudioSourceAnimator animator)
     {
         yield return new WaitForSeconds(animator.Source.clip.length / animator.Source.pitch);
         animator.Source.Stop();
@@ -135,7 +143,10 @@ public class AudioManager : MonoBehaviour
         _ = Animators.Remove(animator);
     }
 
-    private IEnumerator ManageLoop(AudioSourceAnimator animator, LoopGroup group, EffectFader fader)
+    private IEnumerator ManageLoop(
+        AudioSourceAnimator animator,
+        LoopGroup group,
+        EffectFader fader)
     {
         var FadeControl = new VolumeControl(0.0f);
         animator.AddControl(FadeControl);
@@ -147,12 +158,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void Play(SfxGroup group)
+    public static void Play(
+        SfxGroup group)
     {
         instance.PlayClip(group);
     }
 
-    public static void Play(LoopGroup group, EffectFader fader)
+    public static void Play(
+        LoopGroup group,
+        EffectFader fader)
     {
         instance.PlayClip(group, fader);
     }
