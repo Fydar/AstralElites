@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
 
         float AngleDeg = 180 / Mathf.PI * AngleRad;
 
-        rb.rotation = Mathf.Lerp(rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
+        rb.rotation = Mathf.LerpAngle(rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, rb.rotation);
 
         if (Input.GetMouseButtonDown(0))
