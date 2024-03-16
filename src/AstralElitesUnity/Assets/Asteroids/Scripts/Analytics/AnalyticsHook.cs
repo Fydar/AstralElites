@@ -4,7 +4,7 @@ public class AnalyticsHook<T>
 {
     public List<T> data;
 
-    public T Last => data[^1];
+    public T Last => data.Count == 0 ? default : data[^1];
 
     public AnalyticsHook()
     {
