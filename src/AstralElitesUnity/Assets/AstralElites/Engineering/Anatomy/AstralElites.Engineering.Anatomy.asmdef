@@ -1,0 +1,19 @@
+{
+    "name": "AstralElites.Engineering.Anatomy",
+    "rootNamespace": "AstralElites.Engineering.Anatomy",
+    "references": [
+        "GUID:b49ef02652f38cb45ba8eaebacc4c493",
+        "GUID:91af0f43cf21dde4cac70df17e746c8b",
+        "GUID:c3b20fd9cc3960e4db8d7682b0799e5c",
+        "GUID:114da22d151338c4ea0ed609aeda3748"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

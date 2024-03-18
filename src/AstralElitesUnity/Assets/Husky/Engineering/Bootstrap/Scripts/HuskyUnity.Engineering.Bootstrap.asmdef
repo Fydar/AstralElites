@@ -1,0 +1,14 @@
+{
+    "name": "HuskyUnity.Engineering.Bootstrap",
+    "rootNamespace": "HuskyUnity.Engineering.Bootstrap",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

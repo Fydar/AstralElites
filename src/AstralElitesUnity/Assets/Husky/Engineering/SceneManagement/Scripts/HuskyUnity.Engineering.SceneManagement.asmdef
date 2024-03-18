@@ -1,0 +1,17 @@
+{
+    "name": "HuskyUnity.Engineering.SceneManagement",
+    "rootNamespace": "HuskyUnity.Engineering.SceneManagement",
+    "references": [
+        "GUID:018f07066babf7e4e95d70b1a5ca982f",
+        "GUID:114da22d151338c4ea0ed609aeda3748"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
