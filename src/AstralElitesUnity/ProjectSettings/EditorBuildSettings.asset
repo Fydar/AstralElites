@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/AstralElites/Scenes/Splashscreen.unity
+    path: Assets/AstralElites/Gameplay/Scenes/Splashscreen.unity
     guid: e79a03e11a3eef8489d4fab58e599bd8
   - enabled: 1
-    path: Assets/AstralElites/Scenes/Asteroids.unity
+    path: Assets/AstralElites/Gameplay/Scenes/DefaultEnvironment.unity
     guid: bff415b22a630fc45a59cfe79efc39e7
+  - enabled: 1
+    path: Assets/AstralElites/Gameplay/Scenes/Interface.unity
+    guid: 5d818f0f9d059344bbe89aeb1267a62d
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 1
