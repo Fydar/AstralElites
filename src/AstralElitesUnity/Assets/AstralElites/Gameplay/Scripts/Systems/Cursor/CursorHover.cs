@@ -9,9 +9,20 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private Button button;
 
+    private bool isHovering;
+
     private void Awake()
     {
         button = GetComponent<Button>();
+    }
+
+    private void OnDisable()
+    {
+        if (isHovering)
+        {
+            CursorManager.SetCursor("Default");
+            isHovering = false;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -27,6 +38,8 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             AudioManager.Play(HoverSound);
         }
+
+        isHovering = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -37,6 +50,8 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         CursorManager.SetCursor("Default");
+
+        isHovering = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)

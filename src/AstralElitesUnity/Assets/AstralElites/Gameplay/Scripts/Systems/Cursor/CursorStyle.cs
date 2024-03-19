@@ -33,10 +33,7 @@ public class CursorStyleEditor : Editor
 
         if (rect.Contains(Event.current.mousePosition))
         {
-            if (CursorManager.CurrentStyle != style)
-            {
-                CursorManager.SetCursor(style);
-            }
+            CursorManager.SetCursor(style);
         }
         else
         {
