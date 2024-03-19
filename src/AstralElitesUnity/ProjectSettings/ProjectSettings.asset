@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Fydar
   productName: Astral Elites
-  defaultCursor: {fileID: 2800000, guid: f4f0822fdb0e8b14ca2080ef94236330, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 4, y: 4}
   m_SplashScreenBackgroundColor: {r: 0.07058824, g: 0.09019608, b: 0.101960786, a: 1}
   m_ShowUnitySplashScreen: 1
