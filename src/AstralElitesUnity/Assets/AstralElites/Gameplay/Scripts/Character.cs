@@ -94,7 +94,10 @@ public class Character : MonoBehaviour
     {
         InvokeRepeating(nameof(Fire), FireCooldown, FireCooldown);
 
-        AudioManager.Play(EngineSound, EngineFade);
+        if (EngineSound != null)
+        {
+            AudioManager.Play(EngineSound, EngineFade);
+        }
         AudioManager.Play(AlarmSound, AlarmFade);
         AudioManager.Play(ScrapingSound, ScrapingFade);
     }

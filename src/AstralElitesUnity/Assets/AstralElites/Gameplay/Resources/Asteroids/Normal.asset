@@ -22,7 +22,7 @@ MonoBehaviour:
   Variation: 0.4
   Reward: 50
   Spawn: {fileID: 11400000, guid: 2f6393cb5ae554241958262958056bd8, type: 2}
-  DestroySound: {fileID: 11400000, guid: b979080141b003c47bcaa2d455a09709, type: 2}
-  ImpactSound: {fileID: 11400000, guid: b979080141b003c47bcaa2d455a09709, type: 2}
+  DestroySound: {fileID: 11400000, guid: 23a1847c83c4918459a0472b8f1cf1fd, type: 2}
+  ImpactSound: {fileID: 11400000, guid: 23a1847c83c4918459a0472b8f1cf1fd, type: 2}
   MinSpawn: 2
   MaxSpawn: 2
