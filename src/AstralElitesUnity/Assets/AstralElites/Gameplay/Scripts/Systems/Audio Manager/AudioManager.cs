@@ -125,7 +125,7 @@ public class AudioManager : MonoBehaviour
         string resourcePath)
     {
 #if UNITY_EDITOR
-        var clip = AssetDatabase.LoadAssetAtPath<MusicGroup>("Assets/AstralElites/Gameplay/Audio/Source/Main.asset");
+        var clip = AssetDatabase.LoadAssetAtPath<MusicGroup>("Assets/AstralElites/Gameplay/Audio/Ambient/Main.asset");
 
         yield return null;
         if (clip != null)
