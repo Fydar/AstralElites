@@ -234,11 +234,6 @@ public class Character : MonoBehaviour
         isAlive = true;
         Health.Value = 100;
 
-        foreach (var trail in engineTrails)
-        {
-            trail.enabled = false;
-        }
-
         rb.drag = lastDrag;
         rb.position = ScreenManager.RandomBorderPoint(-30);
         transform.position = rb.position;
@@ -249,8 +244,8 @@ public class Character : MonoBehaviour
 
         foreach (var trail in engineTrails)
         {
+            trail.Clear();
             trail.emitting = true;
-            trail.enabled = true;
         }
     }
 
