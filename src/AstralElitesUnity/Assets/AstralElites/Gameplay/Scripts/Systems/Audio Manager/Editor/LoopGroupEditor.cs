@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -76,3 +77,4 @@ public class LoopGroupEditor : Editor
 		DestroyImmediate(source.gameObject);
 	}
 }
+#endif

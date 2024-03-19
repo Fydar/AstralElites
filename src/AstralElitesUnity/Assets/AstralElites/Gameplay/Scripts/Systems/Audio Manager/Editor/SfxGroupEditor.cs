@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
@@ -52,3 +53,4 @@ public class SfxGroupEditor : Editor
 		source.Play();
 	}
 }
+#endif
