@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿#if UNITY_EDITOR
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -119,3 +120,4 @@ public class AnalyticsHook_IntDrawer : PropertyDrawer
 		return enm.Current;
 	}
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿#if UNITY_EDITOR
+using System.Reflection;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -82,3 +83,4 @@ public class BunnyGroupEditor : Editor
         }
     }
 }
+#endif

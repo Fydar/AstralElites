@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(Timeframe))]
@@ -26,3 +27,4 @@ public class TimeframeDrawer : PropertyDrawer
 		}
 	}
 }
+#endif
