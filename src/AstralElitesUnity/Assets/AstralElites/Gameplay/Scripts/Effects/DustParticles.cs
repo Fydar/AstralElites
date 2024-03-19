@@ -69,7 +69,7 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.TryGetComponent<Player>(out var player))
+        if (other.TryGetComponent<Character>(out var player))
         {
             AudioManager.Play(player.GravelHitSound);
         }

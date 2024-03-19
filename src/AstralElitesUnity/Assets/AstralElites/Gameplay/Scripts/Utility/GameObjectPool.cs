@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GameObjectPool<T>
     where T : Component
 {
@@ -8,7 +10,7 @@ public class GameObjectPool<T>
     public bool Reuse = true;
     public int PrewarmAmount = 20;
 
-    private readonly List<T> pool = new();
+    public readonly List<T> pool = new();
     private int currentGrabIndex = 0;
 
     public void Initialise(Transform parent)
@@ -113,13 +115,16 @@ public class GameObjectPool<T>
         {
             Debug.LogError($"Item \"{item}\" being returned to the pool doesn't belong in it.");
         }
+        else
+        {
+            pool.RemoveAt(itemIndex);
+        }
 
         if (item.gameObject.activeInHierarchy == false)
         {
             Debug.LogError($"Item \"{item}\" already cached in the pool");
         }
 
-        pool.RemoveAt(itemIndex);
         pool.Add(item);
         item.gameObject.SetActive(false);
 #if UNITY_EDITOR
@@ -130,7 +135,7 @@ public class GameObjectPool<T>
 
     private T ExpandPool(Transform parent)
     {
-        var clone = Object.Instantiate(Template.gameObject, parent);
+        var clone = UnityEngine.Object.Instantiate(Template.gameObject, parent);
 
         var cloneComponent = clone.GetComponent<T>();
         pool.Add(cloneComponent);

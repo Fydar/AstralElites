@@ -50,16 +50,9 @@ namespace HuskyUnity.Gameplay.Anatomy
 
         public void Execute(Scene bootScene)
         {
-			if (!host.ExecutionContext.CommandLineArguments.Contains("background"))
-			{
-				foreach (var rootObject in bootScene.GetRootGameObjects())
-				{
-					if (rootObject.name == "Managers")
-					{
-						var asteroidGenerator = rootObject.GetComponentInChildren<AsteroidGenerator>();
-                        asteroidGenerator.Enable();
-                    }
-				}
+			if (host.ExecutionContext.CommandLineArguments.Contains("background"))
+            {
+                SceneManager.LoadSceneAsync("Background");
 			}
 			else
             {

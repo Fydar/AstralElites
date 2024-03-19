@@ -74,10 +74,10 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    public void Kill()
+    public void Kill(bool scatterRemains = true)
     {
         DustParticles.Fire(body);
-        if (template.Spawn != null)
+        if (template.Spawn != null && scatterRemains)
         {
             template.Spawn.Scatter(transform.position, scale, rb.velocity * 0.5f, UnityEngine.Random.Range(template.MinSpawn, template.MaxSpawn + 1));
         }

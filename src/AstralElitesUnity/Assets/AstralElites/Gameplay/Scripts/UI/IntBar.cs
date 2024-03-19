@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class IntBar : MonoBehaviour
 {
-    public Player Target;
+    public Character Target;
 
     [Header("Primary Bar")]
 
@@ -43,17 +43,6 @@ public class IntBar : MonoBehaviour
 
     private void UpdateBars()
     {
-        float delta = lastValue - Target.Health.Value;
-        if (delta > 7)
-        {
-            Camera.main.GetComponent<PerlinShake>().PlayShake(Mathf.InverseLerp(-30, 50, delta));
-        }
-
-        if (delta > 0)
-        {
-            ScreenEffect.instance.Pulse(delta / 60.0f);
-        }
-
         float value = Target.Health.Value;
         float max = 100.0f;
 

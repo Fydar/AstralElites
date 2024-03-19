@@ -6,11 +6,16 @@ public class RankPopupManager : MonoBehaviour
 
     private Rank lastRank = null;
 
-    private void Start()
+    private void OnEnable()
     {
         Highscore.OnChanged += OnHighscoreChanged;
 
         lastRank = Rank.GetRank(Highscore.Value);
+    }
+
+    private void OnDisable()
+    {
+        Highscore.OnChanged -= OnHighscoreChanged;
     }
 
     private void OnHighscoreChanged()

@@ -82,11 +82,11 @@ public class Projectile : MonoBehaviour
         }
         if (EffectId == "Explosion2")
         {
-            Owner.GetComponent<Player>().RocketProjectile.Return(this);
+            Owner.GetComponent<Character>().RocketProjectile.Return(this);
         }
         else
         {
-            Owner.GetComponent<Player>().WeaponProjectile.Return(this);
+            Owner.GetComponent<Character>().WeaponProjectile.Return(this);
         }
 
         if (HasAreaOfEffect)

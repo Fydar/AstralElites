@@ -1,10 +1,4 @@
 ﻿using UnityEngine;
-// using UnityEngine.Analytics;
-
-public class Game
-{
-
-}
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +14,6 @@ public class GameManager : MonoBehaviour
 
     public bool paused = false;
     public PlayState playState;
-    public Game game;
 
     [Header("Values")]
     public GlobalInt Score;
@@ -33,7 +26,7 @@ public class GameManager : MonoBehaviour
     public float GameDuration = 0.0f;
 
     [Header("Scene")]
-    public Player player;
+    public Character player;
 
     [Space]
 
@@ -55,26 +48,23 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // PerformanceReporting.enabled = false;
-        // Analytics.initializeOnStartup = false;
-        // Analytics.enabled = false;
-        // Analytics.limitUserTracking = true;
-        // Analytics.deviceStatsEnabled = false;
-
         instance = this;
         analytic = GetComponent<AnalyticsManager>();
 
         interpolator = new LinearInterpolator() { Speed = fadeSpeed };
-        instance = this;
     }
+
+    float lastValue;
 
     private void Start()
     {
         AudioManager.PlayMusic("Main");
-        Score.Value = 0;
+
+        player.gameObject.AddComponent<CharacterPlayerController>();
 
         StartGame();
 
+        lastValue = player.Health.Value;
         player.Health.OnAfterChanged += () =>
         {
             if (player.Health.Value <= 0.0f)
@@ -92,17 +82,22 @@ public class GameManager : MonoBehaviour
             else if (!player.isAlive)
             {
                 player.Revive();
-
-                HUD.SetActive(true);
-                if (Community != null)
+            }
+            else
+            {
+                float delta = lastValue - player.Health.Value;
+                lastValue = player.Health.Value;
+                if (delta > 7)
                 {
-                    Community.SetActive(false);
+                    Camera.main.GetComponent<PerlinShake>().PlayShake(Mathf.InverseLerp(-30, 50, delta));
                 }
 
-                End.SetActive(false);
+                if (delta > 0)
+                {
+                    ScreenEffect.instance.Pulse(delta / 60.0f);
+                }
             }
         };
-        hasStarted = true;
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -117,7 +112,7 @@ public class GameManager : MonoBehaviour
     {
         if (playState == PlayState.Playing)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Menu))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Menu) || Input.GetKeyDown(KeyCode.Tab))
             {
                 UI_TogglePause();
             }
@@ -128,13 +123,73 @@ public class GameManager : MonoBehaviour
         interpolator.Update(Time.unscaledDeltaTime);
         Fader.alpha = interpolator.Value;
         Fader.gameObject.SetActive(interpolator.Value > 0.05f);
+    }
 
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.X))
+    public void StartGame()
+    {
+        End.SetActive(false);
+        HUD.SetActive(true);
+        if (Community != null)
         {
-            Score.Value += 1000;
+            Community.SetActive(false);
         }
-#endif
+
+        player.Revive();
+
+        Score.Value = 0;
+        AsteroidsDestroyed.Value = 0;
+        DistanceTravelled.Value = 0;
+
+        AsteroidGenerator.instance.AsteroidPool.Flush();
+        AsteroidGenerator.instance.Enable();
+
+        if (DiscordController.Instance != null)
+        {
+            DiscordController.Instance.StartNewGame();
+        }
+
+        analytic.Clear();
+        analytic.StartCapture();
+
+        GameDuration = 0.0f;
+        playState = PlayState.Playing;
+        hasStarted = true;
+    }
+
+    public void EndGame()
+    {
+        HUD.SetActive(false);
+        End.SetActive(true);
+        if (Community != null)
+        {
+            Community.SetActive(true);
+        }
+
+        AsteroidGenerator.instance.Disable();
+
+        if (DiscordController.Instance != null)
+        {
+            DiscordController.Instance.EndGame(Score.Value);
+        }
+        analytic.EndCapture();
+
+        playState = PlayState.Ended;
+    }
+
+    public static void ScorePoints(int score)
+    {
+        if (instance == null)
+        {
+            return;
+        }
+
+        instance.AsteroidsDestroyed.Value += 1;
+        instance.Score.Value += score;
+
+        if (instance.Highscore.Value < instance.Score.Value)
+        {
+            instance.Highscore.Value = instance.Score.Value;
+        }
     }
 
     public void UI_TogglePause()
@@ -204,61 +259,5 @@ public class GameManager : MonoBehaviour
         }
 
         interpolator.TargetValue = 1.0f;
-    }
-
-
-    public void StartGame()
-    {
-        player.Health.Value = 100;
-        Score.Value = 0;
-        AsteroidsDestroyed.Value = 0;
-        DistanceTravelled.Value = 0;
-
-        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-        AsteroidGenerator.instance.AsteroidPool.Flush();
-        AsteroidGenerator.instance.Enable();
-
-        if (DiscordController.Instance != null)
-        {
-            DiscordController.Instance.StartNewGame();
-        }
-
-        analytic.Clear();
-        analytic.StartCapture();
-        GameDuration = 0.0f;
-
-        playState = PlayState.Playing;
-    }
-
-    public void EndGame()
-    {
-        AsteroidGenerator.instance.Disable();
-
-        HUD.SetActive(false);
-        End.SetActive(true);
-        if (Community != null)
-        {
-            Community.SetActive(true);
-        }
-
-        if (DiscordController.Instance != null)
-        {
-            DiscordController.Instance.EndGame(Score.Value);
-        }
-        analytic.EndCapture();
-
-        playState = PlayState.Ended;
-    }
-
-    public static void ScorePoints(int score)
-    {
-        instance.AsteroidsDestroyed.Value += 1;
-        instance.Score.Value += score;
-
-        if (instance.Highscore.Value < instance.Score.Value)
-        {
-            instance.Highscore.Value = instance.Score.Value;
-        }
     }
 }

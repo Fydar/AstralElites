@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Character : MonoBehaviour
 {
+    public Vector3 inputThrust;
+    public float inputRotation;
+
     public Action<Collision2D> OnCollide;
 
     public SfxGroup HitSound;
@@ -26,13 +29,13 @@ public class Player : MonoBehaviour
     [Header("Combat")]
     public Transform Firepoint;
     public float FireCooldown = 0.1f;
-    public ProjectilePool WeaponProjectile;
+    public GameObjectPool<Projectile> WeaponProjectile;
     public SfxGroup ShootSound;
 
     [Space]
     public float RocketCooldown = 2.0f;
     public float RocketCooldownCurrent = 2.0f;
-    public ProjectilePool RocketProjectile;
+    public GameObjectPool<Projectile> RocketProjectile;
     public SfxGroup RocketSound;
 
     [Header("Movement")]
@@ -83,6 +86,8 @@ public class Player : MonoBehaviour
         {
             TargetValue = 0.0f
         };
+
+        lastDrag = rb.drag;
     }
 
     private void Start()
@@ -92,10 +97,6 @@ public class Player : MonoBehaviour
         AudioManager.Play(EngineSound, EngineFade);
         AudioManager.Play(AlarmSound, AlarmFade);
         AudioManager.Play(ScrapingSound, ScrapingFade);
-
-        lastDrag = rb.drag;
-
-        Revive();
     }
 
     private Vector3 lastPosition;
@@ -114,48 +115,23 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (RocketProjectile.Template != null)
-        {
-            if (RocketCooldownCurrent >= 0.0f)
-            {
-                RocketCooldownCurrent -= Time.deltaTime;
-            }
-            if (RocketCooldownCurrent < 0.0f)
-            {
-                if (Input.GetMouseButton(1))
-                {
-                    AudioManager.Play(RocketSound);
-
-                    var clone = RocketProjectile.Grab();
-                    clone.transform.SetPositionAndRotation(transform.position, transform.rotation);
-                    clone.LifetimeRemaining = clone.Lifetime;
-                    clone.Owner = gameObject;
-
-                    RocketCooldownCurrent = RocketCooldown;
-                }
-            }
-        }
-
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-
-        var scenePoint = ray.origin + (ray.direction * 10);
-
-        float AngleRad = Mathf.Atan2(scenePoint.y - transform.position.y,
-            scenePoint.x - transform.position.x);
-
-        float AngleDeg = 180 / Mathf.PI * AngleRad;
-
-        rb.rotation = Mathf.LerpAngle(rb.rotation, AngleDeg, Time.deltaTime * RotationSpeed);
+        rb.rotation = Mathf.LerpAngle(rb.rotation, inputRotation, Time.deltaTime * RotationSpeed);
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, rb.rotation);
 
-        if (Input.GetMouseButtonDown(0))
+        if (inputThrust.magnitude > 0.02f)
         {
-            engineParticles.Play();
+            if (!engineParticles.isPlaying)
+            {
+                engineParticles.Play();
+            }
             EngineFade.TargetValue = 1.0f;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (inputThrust.magnitude < 0.02f)
         {
-            engineParticles.Stop();
+            if (engineParticles.isPlaying)
+            {
+                engineParticles.Stop();
+            }
             EngineFade.TargetValue = 0.0f;
         }
 
@@ -179,15 +155,7 @@ public class Player : MonoBehaviour
             ScreenManager.Clamp(transform, border);
         }
 
-        if (Input.GetMouseButton(0))
-        {
-            rb.AddForce(MovementSpeed * Time.fixedDeltaTime * transform.right, ForceMode2D.Force);
-        }
-        else
-        {
-            var movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-            rb.AddForce(MovementSpeed * Time.fixedDeltaTime * movementDirection, ForceMode2D.Force);
-        }
+        rb.AddForce(MovementSpeed * Time.fixedDeltaTime * inputThrust, ForceMode2D.Force);
 
         if (Contacting.Count != 0)
         {
@@ -199,7 +167,7 @@ public class Player : MonoBehaviour
     {
         OnCollide?.Invoke(collision);
 
-        var damageToTake = Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
+        int damageToTake = Mathf.RoundToInt(DamageFromVelocity.Evaluate(collision.relativeVelocity.magnitude));
         Health.Value = Mathf.Max(0, Health.Value - damageToTake);
 
         if (collision.gameObject.TryGetComponent<Asteroid>(out var collidingAsteroid))
@@ -213,7 +181,7 @@ public class Player : MonoBehaviour
 
             collidingAsteroid.OnDestroy += () =>
             {
-				Contacting.Remove(collidingAsteroid);
+                _ = Contacting.Remove(collidingAsteroid);
                 collidingAsteroid.OnDestroy = null;
             };
         }
@@ -221,7 +189,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-		Contacting.Remove(collision.gameObject.GetComponent<Asteroid>());
+        _ = Contacting.Remove(collision.gameObject.GetComponent<Asteroid>());
     }
 
     private void Fire()
@@ -262,6 +230,7 @@ public class Player : MonoBehaviour
 
     public void Revive()
     {
+        rb.velocity = Vector2.zero;
         isAlive = true;
         Health.Value = 100;
 
