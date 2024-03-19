@@ -9,7 +9,7 @@ public class AsteroidGenerator : MonoBehaviour
 
     [Header("Asteroids")]
     public AsteroidTemplate[] AsteroidTypes;
-    public AsteroidsPool AsteroidPool;
+    public GameObjectPool<Asteroid> AsteroidPool;
 
     private void Awake()
     {
@@ -37,6 +37,10 @@ public class AsteroidGenerator : MonoBehaviour
 
     public void Disable()
     {
+        if (this == null)
+        {
+            return;
+        }
         CancelInvoke();
     }
 }

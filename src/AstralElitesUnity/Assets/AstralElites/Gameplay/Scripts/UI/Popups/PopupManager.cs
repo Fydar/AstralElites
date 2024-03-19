@@ -1,14 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class PopupPool : GameObjectPool<Popup> { }
-
 public class PopupManager : MonoBehaviour
 {
     public static PopupManager instance;
 
-    public PopupPool[] Popups;
+    public GameObjectPool<Popup>[] Popups;
 
     private void Awake()
     {
@@ -35,7 +32,7 @@ public class PopupManager : MonoBehaviour
         return null;
     }
 
-    public PopupPool GetPopupPool(Type type)
+    public GameObjectPool<Popup> GetPopupPool(Type type)
     {
         for (int i = 0; i < Popups.Length; i++)
         {

@@ -4,7 +4,7 @@ public class AnalyticsManager : MonoBehaviour
 {
     public static AnalyticsManager instance;
 
-    public Player target;
+    public Character target;
 
     public AnalyticsHook<Collision2D> Collisions;
 
