@@ -2,15 +2,6 @@
 using System.Collections.Generic;
 
 [Serializable]
-public class IntEventField : EventField<int>
-{
-}
-
-[Serializable]
-public class FloatEventField : EventField<float>
-{
-}
-
 public class EventField<T> : IDisposable
 {
     public struct HandlerCollection : IDisposable
@@ -115,8 +106,6 @@ public class EventField<T> : IDisposable
             }
         }
     }
-
-
 
     public HandlerCollection Handlers;
     public Action OnBeforeChanged;

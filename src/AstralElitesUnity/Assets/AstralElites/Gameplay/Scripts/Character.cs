@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     public LoopGroup ScrapingSound;
 
     [Header("Health")]
-    public IntEventField Health;
+    public EventField<int> Health;
     public AnimationCurve DamageFromVelocity;
 
     public GlobalFloat DistanceTravelled;
