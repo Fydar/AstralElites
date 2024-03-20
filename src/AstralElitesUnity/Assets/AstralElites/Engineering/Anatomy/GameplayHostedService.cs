@@ -52,6 +52,7 @@ namespace HuskyUnity.Gameplay.Anatomy
         {
 			if (host.ExecutionContext.CommandLineArguments.Contains("background"))
             {
+				AudioManager.DisableAudio = true;
 				CursorManager.DisableCustomCursor = true;
                 SceneManager.LoadSceneAsync("Background");
 			}
