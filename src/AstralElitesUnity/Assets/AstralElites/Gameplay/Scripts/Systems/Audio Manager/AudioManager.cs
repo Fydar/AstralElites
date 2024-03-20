@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
+
+#if !UNITY_EDITOR
 using UnityEngine.Networking;
+#endif
 
 public class AudioManager : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class AudioManager : MonoBehaviour
 
         instance = audioManager.AddComponent<AudioManager>();
     }
+
+    public static bool DisableAudio { get; set; } = false;
 
     public MusicGroup Music;
 
@@ -45,6 +49,11 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
+        if (DisableAudio)
+        {
+            return;
+        }
+
         SfxVolume.Volume = SfxVolume.Volume;
         MusicVolume.Volume = MusicVolume.Volume;
         interpolator.Update(Time.unscaledDeltaTime);
@@ -67,6 +76,11 @@ public class AudioManager : MonoBehaviour
     public void PlayClip(
         SfxGroup group)
     {
+        if (DisableAudio)
+        {
+            return;
+        }
+
         var source = Pool.Grab();
 
         source.clip = group.GetClip();
@@ -85,6 +99,11 @@ public class AudioManager : MonoBehaviour
         LoopGroup group,
         EffectFader fader)
     {
+        if (DisableAudio)
+        {
+            return;
+        }
+
         var source = Pool.Grab();
 
         source.clip = group.LoopedAudio;
@@ -102,12 +121,22 @@ public class AudioManager : MonoBehaviour
     public static void PlayMusic(
         string name)
     {
+        if (DisableAudio)
+        {
+            return;
+        }
+
         _ = instance.StartCoroutine(instance.LoadAndPlayMusic(name));
     }
 
     public void PlayMusic(
         MusicGroup group)
     {
+        if (DisableAudio)
+        {
+            return;
+        }
+
         var source = Pool.Grab();
 
         source.clip = group.Music[0];
