@@ -38329,7 +38329,6 @@ MonoBehaviour:
   AsteroidsDestroyed: {fileID: 11400000, guid: 252462cc89f33c7429aac7748838226f, type: 2}
   DistanceTravelled: {fileID: 11400000, guid: f7d4712ace20601469783014d2ab800f, type: 2}
   GameDuration: 0
-  generator: {fileID: 1693768365}
   player: {fileID: 2056539543}
   HUD: {fileID: 1971662234}
   End: {fileID: 87630170}
@@ -41860,6 +41859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc94b8929680f449ab4f0729fab105f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputThrust: {x: 0, y: 0, z: 0}
+  inputRotation: 0
   HitSound: {fileID: 11400000, guid: 48444fb48272cd8408cd96d26cf6b3e4, type: 2}
   DestroySound: {fileID: 11400000, guid: 66b603d758db01440a27cc92bbcc7966, type: 2}
   WarpSound: {fileID: 11400000, guid: 6f6a825274248c04ea1e3391787a4409, type: 2}

@@ -3,6 +3,8 @@
 AstralElites
 </h1>
 
+[![Play now button](https://img.shields.io/badge/▶%20Play%20Now-b342f5.svg?logo=play)](https://fydar.dev/play/astralelites) [![Unity Version: 2023.2.20f1](https://img.shields.io/badge/Made%20with%20Unity-2023.2.20f1-333333.svg?logo=unity)](https://unity.com/releases/editor/archive)
+
 Modern take on the game _'Asteroids'_ made in **Unity**.
 
 <p align="center">
@@ -11,8 +13,6 @@ Modern take on the game _'Asteroids'_ made in **Unity**.
 </p>
 
 ## 🔍 Overview
-
-[![Unity Version: 2021.1.7f1](https://img.shields.io/badge/Unity-2021.1.7f1-333333.svg?logo=unity)](https://unity3d.com/get-unity/download/archive)
 
 Astral Elites began as an _'Asteroids'_ clone for an interview code test.
 
