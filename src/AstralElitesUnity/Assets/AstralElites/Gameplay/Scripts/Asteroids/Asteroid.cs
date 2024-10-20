@@ -79,7 +79,7 @@ public class Asteroid : MonoBehaviour
         DustParticles.Fire(body);
         if (template.Spawn != null && scatterRemains)
         {
-            template.Spawn.Scatter(transform.position, scale, rb.velocity * 0.5f, UnityEngine.Random.Range(template.MinSpawn, template.MaxSpawn + 1));
+            template.Spawn.Scatter(transform.position, scale, rb.linearVelocity * 0.5f, UnityEngine.Random.Range(template.MinSpawn, template.MaxSpawn + 1));
         }
 
         GameManager.ScorePoints(template.Reward);

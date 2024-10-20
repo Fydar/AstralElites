@@ -43,7 +43,7 @@ public class DustParticles : MonoBehaviour, ISerializationCallbackReceiver
             cache = new ParticleSystem.Particle[particles.main.maxParticles];
         }
 
-        Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D>().velocity;
+        Vector3 Velocity = target.transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
         int emitCount = Mathf.RoundToInt(emissionCount * target.mesh.bounds.extents.magnitude);
 
         var shape = particles.shape;

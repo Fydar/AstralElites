@@ -87,7 +87,7 @@ public class Character : MonoBehaviour
             TargetValue = 0.0f
         };
 
-        lastDrag = rb.drag;
+        lastDrag = rb.linearDamping;
     }
 
     private void Start()
@@ -221,8 +221,8 @@ public class Character : MonoBehaviour
         engineParticles.Stop();
         isAlive = false;
 
-        lastDrag = rb.drag;
-        rb.drag = 0;
+        lastDrag = rb.linearDamping;
+        rb.linearDamping = 0;
         Contacting.Clear();
 
         foreach (var trail in engineTrails)
@@ -233,11 +233,11 @@ public class Character : MonoBehaviour
 
     public void Revive()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         isAlive = true;
         Health.Value = 100;
 
-        rb.drag = lastDrag;
+        rb.linearDamping = lastDrag;
         rb.position = ScreenManager.RandomBorderPoint(-30);
         transform.position = rb.position;
         canFire = false;

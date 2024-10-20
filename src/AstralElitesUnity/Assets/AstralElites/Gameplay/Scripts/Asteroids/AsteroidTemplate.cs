@@ -49,7 +49,7 @@ public class AsteroidTemplate : ScriptableObject
 
             clone.transform.position = point + (0.5f * range * (Vector3)rand);
 
-            clone.GetComponent<Rigidbody2D>().velocity = velocity;
+            clone.GetComponent<Rigidbody2D>().linearVelocity = velocity;
         }
     }
 }
