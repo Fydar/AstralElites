@@ -97,7 +97,7 @@ public class InspectorLogDrawer : PropertyDrawer
         else
         {
             EditorGUI.BeginDisabledGroup(true);
-			GUI.VerticalScrollbar(rect_scrollbar, scroll, 1.0f, 0.0f, 1.0f);
+            GUI.VerticalScrollbar(rect_scrollbar, scroll, 1.0f, 0.0f, 1.0f);
             EditorGUI.EndDisabledGroup();
 
             scroll = 1.0f;

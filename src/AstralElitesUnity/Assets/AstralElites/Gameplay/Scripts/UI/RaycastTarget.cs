@@ -42,7 +42,7 @@ public class RaycastTargetEditor : Editor
 
         //EditorGUILayout.PropertyField (base.m_Script);
 
-		base.serializedObject.ApplyModifiedProperties();
+        base.serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

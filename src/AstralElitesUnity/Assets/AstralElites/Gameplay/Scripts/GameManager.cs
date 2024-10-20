@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         interpolator = new LinearInterpolator() { Speed = fadeSpeed };
     }
 
-    float lastValue;
+    private float lastValue;
 
     private void Start()
     {

@@ -28,13 +28,13 @@ public class FirstTimeScreen : MonoBehaviour
         if (ToggleValue.isOn)
         {
             DiscordTOS.Value = true;
-			StartCoroutine(CloseRoutine());
+            StartCoroutine(CloseRoutine());
         }
     }
 
     private void Start()
     {
-		StartCoroutine(FadeIn());
+        StartCoroutine(FadeIn());
 
         Time.timeScale = 1.0f;
     }
@@ -73,6 +73,6 @@ public class FirstTimeScreen : MonoBehaviour
             yield return null;
         }
 
-		var asyncUnload = SceneManager.UnloadSceneAsync(gameObject.scene);
+        var asyncUnload = SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 }

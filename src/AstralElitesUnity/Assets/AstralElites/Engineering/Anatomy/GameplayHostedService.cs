@@ -7,40 +7,40 @@ using UnityEngine.SceneManagement;
 
 namespace HuskyUnity.Gameplay.Anatomy
 {
-	/// <summary>
-	/// <para>The <see cref="IHostedService"/> implementation used for the Husky project.</para>
-	/// </summary>
-	public class GameplayHostedService : IHostedService, ISceneOwner
-	{
-		private readonly GameplayProgram gameplayProgram;
+    /// <summary>
+    /// <para>The <see cref="IHostedService"/> implementation used for the Husky project.</para>
+    /// </summary>
+    public class GameplayHostedService : IHostedService, ISceneOwner
+    {
+        private readonly GameplayProgram gameplayProgram;
 
-		internal GameplayHostedService(
-			GameplayProgram gameplayProgram)
-		{
-			this.gameplayProgram = gameplayProgram;
-		}
-
-		/// <inheritdoc/>
-		public void OnStartHost(IHost host)
-		{
-			var bootFlow = new BootFlow(host);
-            var sceneManager = new StashingSceneManager(this, bootFlow);
-			bootFlow.SceneManager = sceneManager;
-
-			sceneManager.StartBootFlow();
+        internal GameplayHostedService(
+            GameplayProgram gameplayProgram)
+        {
+            this.gameplayProgram = gameplayProgram;
         }
 
-		/// <inheritdoc/>
-		public void OnStopHost(IHost host)
-		{
-		}
-	}
+        /// <inheritdoc/>
+        public void OnStartHost(IHost host)
+        {
+            var bootFlow = new BootFlow(host);
+            var sceneManager = new StashingSceneManager(this, bootFlow);
+            bootFlow.SceneManager = sceneManager;
+
+            sceneManager.StartBootFlow();
+        }
+
+        /// <inheritdoc/>
+        public void OnStopHost(IHost host)
+        {
+        }
+    }
 
     public class BootFlow : IBootFlow
     {
-		public StashingSceneManager SceneManager { get; internal set; }
+        public StashingSceneManager SceneManager { get; internal set; }
 
-		private IHost host;
+        private readonly IHost host;
 
         internal BootFlow(
             IHost host)
@@ -50,13 +50,13 @@ namespace HuskyUnity.Gameplay.Anatomy
 
         public void Execute(Scene bootScene)
         {
-			if (host.ExecutionContext.CommandLineArguments.Contains("background"))
+            if (host.ExecutionContext.CommandLineArguments.Contains("background"))
             {
-				AudioManager.DisableAudio = true;
-				CursorManager.DisableCustomCursor = true;
+                AudioManager.DisableAudio = true;
+                CursorManager.DisableCustomCursor = true;
                 SceneManager.LoadSceneAsync("Background");
-			}
-			else
+            }
+            else
             {
                 SceneManager.LoadSceneAsync("Interface");
             }

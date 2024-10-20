@@ -49,7 +49,7 @@ public class PrefsBool : GlobalBool
     {
         public override void OnInspectorGUI()
         {
-			DrawDefaultInspector();
+            DrawDefaultInspector();
 
             var prefsBool = (PrefsBool)target;
 

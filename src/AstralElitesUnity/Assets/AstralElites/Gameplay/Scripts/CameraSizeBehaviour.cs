@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -8,7 +6,7 @@ public class CameraSizeBehaviour : MonoBehaviour
     [SerializeField]
     private float defaultSize = 5.0f;
 
-    void Update()
+    private void Update()
     {
         var camera = GetComponent<Camera>();
 

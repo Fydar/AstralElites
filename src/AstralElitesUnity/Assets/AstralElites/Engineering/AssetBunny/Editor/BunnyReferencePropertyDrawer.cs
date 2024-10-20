@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-using System;
+﻿using System;
+using System.Collections;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
-using System.Linq;
 
 public static class AdvancedGUI
 {
@@ -204,7 +203,7 @@ public class BunnyReferencePropertyDrawer : PropertyDrawer
     {
         var guidProperty = property.FindPropertyRelative("guid");
 
-        var assetPath = AssetDatabase.GUIDToAssetPath(guidProperty.stringValue);
+        string assetPath = AssetDatabase.GUIDToAssetPath(guidProperty.stringValue);
 
         var fieldType = fieldInfo.FieldType;
         if (fieldType.IsArray)

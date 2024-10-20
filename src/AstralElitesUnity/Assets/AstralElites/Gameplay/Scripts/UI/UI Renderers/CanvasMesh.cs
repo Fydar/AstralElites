@@ -27,7 +27,7 @@ public class CanvasMesh : Graphic
             vh.AddVert(vertPos, color, Vector2.zero);
         }
 
-        var triangles = mesh.GetTriangles(0);
+        int[] triangles = mesh.GetTriangles(0);
         for (int i = 0; i < triangles.Length; i += 3)
         {
             vh.AddTriangle(triangles[i], triangles[i + 1], triangles[i + 2]);

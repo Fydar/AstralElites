@@ -23,7 +23,7 @@ public class CursorStyleEditor : Editor
 
     public override void OnInspectorGUI()
     {
-		DrawDefaultInspector();
+        DrawDefaultInspector();
 
         var rect = GUILayoutUtility.GetRect(0, 64);
         GUI.Box(rect, GUIContent.none, EditorStyles.helpBox);

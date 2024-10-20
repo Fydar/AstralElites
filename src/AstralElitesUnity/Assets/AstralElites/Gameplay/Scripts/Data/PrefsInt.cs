@@ -37,7 +37,7 @@ public class PrefsInt : GlobalInt
     {
         public override void OnInspectorGUI()
         {
-			DrawDefaultInspector();
+            DrawDefaultInspector();
 
             var prefsBool = (PrefsInt)target;
 

@@ -1,18 +1,14 @@
 ﻿#if UNITY_EDITOR
-using System.Reflection;
-using System;
-using UnityEditor;
-using UnityEngine;
-using System.Collections;
-using System.Linq;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 public class CreateAssetBundles
 {
     [MenuItem("Assets/Build AssetBundles")]
-    static void BuildAllAssetBundles()
+    private static void BuildAllAssetBundles()
     {
         string assetBundleDirectory = "Assets/StreamingAssets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
@@ -38,13 +34,13 @@ public class BunnyGroupEditor : Editor
 
         var foldersToSearch = new HashSet<string>();
 
-        foreach (var inclusion in bunnyGroup.InclusionLabels)
+        foreach (string inclusion in bunnyGroup.InclusionLabels)
         {
-            var foundAssetGuids = AssetDatabase.FindAssets($"l:{bunnyGroup.InclusionLabels}");
+            string[] foundAssetGuids = AssetDatabase.FindAssets($"l:{bunnyGroup.InclusionLabels}");
 
-            foreach (var foundAssetGuid in foundAssetGuids)
+            foreach (string foundAssetGuid in foundAssetGuids)
             {
-                var foundAssetPath = AssetDatabase.GUIDToAssetPath(foundAssetGuid);
+                string foundAssetPath = AssetDatabase.GUIDToAssetPath(foundAssetGuid);
 
                 Debug.Log(foundAssetPath);
                 if (AssetDatabase.IsValidFolder(foundAssetPath))
@@ -61,11 +57,11 @@ public class BunnyGroupEditor : Editor
 
         if (foldersToSearch.Count > 0)
         {
-            var allFolderContents = AssetDatabase.FindAssets("t:Object", foldersToSearch.ToArray());
+            string[] allFolderContents = AssetDatabase.FindAssets("t:Object", foldersToSearch.ToArray());
 
-            foreach (var allFolderContent in allFolderContents)
+            foreach (string allFolderContent in allFolderContents)
             {
-                var foundAssetPath = AssetDatabase.GUIDToAssetPath(allFolderContent);
+                string foundAssetPath = AssetDatabase.GUIDToAssetPath(allFolderContent);
 
                 var mainAsset = AssetDatabase.LoadMainAssetAtPath(foundAssetPath);
                 assets.Add(mainAsset);
